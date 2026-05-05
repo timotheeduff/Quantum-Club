@@ -5,916 +5,647 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quantum Club — Paris</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --ivory: #F5F1E9;
-  --green: #1A3A2A;
-  --green-light: #2D5A3D;
-  --green-muted: #4A7A5A;
-  --gold: #C8A96E;
-  --text-dark: #1A1A1A;
-  --text-mid: #4A4A4A;
-  --text-light: #8A8A8A;
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Inter', system-ui, sans-serif;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ivory:#F5F1E9;--green:#1A3A2A;--green2:#2D5A3D;--green3:#0D2218;
+  --gold:#C8A96E;--serif:'Cormorant Garamond',serif;--sans:'Inter',sans-serif;
 }
-html { scroll-behavior: smooth; font-size: 16px; }
-body { background: var(--ivory); color: var(--text-dark); font-family: var(--font-sans); font-weight: 300; line-height: 1.6; overflow-x: hidden; }
-
+html{font-size:16px}
+body{background:#0D2218;overflow-x:hidden;font-family:var(--sans);font-weight:300}
+#canvas-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#scroll-container{position:relative;z-index:1}
+.scroll-page{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.scroll-page.interactive{pointer-events:auto}
 /* NAV */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 28px 60px;
-  background: transparent;
-  transition: background 0.4s ease, padding 0.4s ease;
-}
-nav.scrolled {
-  background: rgba(245,241,233,0.95);
-  backdrop-filter: blur(12px);
-  padding: 18px 60px;
-  border-bottom: 1px solid rgba(26,58,42,0.08);
-}
-.nav-logo {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  color: var(--green);
-  text-transform: uppercase;
-  text-decoration: none;
-}
-.nav-links {
-  display: flex; gap: 40px; list-style: none;
-}
-.nav-links a {
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-mid);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-.nav-links a:hover { color: var(--green); }
-.lang-switch {
-  display: flex; gap: 8px; align-items: center;
-}
-.lang-btn {
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: none; border: none; cursor: pointer;
-  color: var(--text-light);
-  padding: 4px 2px;
-  transition: color 0.3s;
-}
-.lang-btn.active { color: var(--green); border-bottom: 1px solid var(--green); }
-.lang-sep { color: var(--text-light); font-size: 0.7rem; }
-.nav-mobile-toggle { display: none; cursor: pointer; flex-direction: column; gap: 5px; background: none; border: none; }
-.nav-mobile-toggle span { display: block; width: 22px; height: 1px; background: var(--green); transition: all 0.3s; }
-
-/* HERO */
-#hero {
-  height: 100vh; min-height: 700px;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center;
-  padding: 0 40px;
-  position: relative;
-  overflow: hidden;
-}
-.hero-bg {
-  position: absolute; inset: 0; z-index: 0;
-  background: linear-gradient(160deg, #EDE9E1 0%, #F5F1E9 40%, #E8F0EC 100%);
-}
-.hero-accent {
-  position: absolute; width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(26,58,42,0.06) 0%, transparent 70%);
-  top: 50%; left: 50%; transform: translate(-50%, -50%);
-  z-index: 0;
-}
-.hero-content { position: relative; z-index: 1; }
-.hero-eyebrow {
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--green-muted);
-  margin-bottom: 28px;
-  opacity: 0;
-  animation: fadeUp 1s 0.3s forwards;
-}
-.hero-title {
-  font-family: var(--font-serif);
-  font-size: clamp(4rem, 9vw, 9rem);
-  font-weight: 300;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: var(--green);
-  margin-bottom: 32px;
-  opacity: 0;
-  animation: fadeUp 1s 0.5s forwards;
-}
-.hero-tagline {
-  font-family: var(--font-serif);
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--text-mid);
-  margin-bottom: 16px;
-  opacity: 0;
-  animation: fadeUp 1s 0.7s forwards;
-}
-.hero-sub {
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 300;
-  letter-spacing: 0.08em;
-  color: var(--text-light);
-  margin-bottom: 56px;
-  opacity: 0;
-  animation: fadeUp 1s 0.9s forwards;
-}
-.btn-primary {
-  display: inline-block;
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--ivory);
-  background: var(--green);
-  padding: 18px 48px;
-  border: 1px solid var(--green);
-  transition: background 0.4s, color 0.4s, transform 0.3s;
-  opacity: 0;
-  animation: fadeUp 1s 1.1s forwards;
-}
-.btn-primary:hover { background: transparent; color: var(--green); transform: translateY(-2px); }
-.btn-outline {
-  display: inline-block;
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--green);
-  background: transparent;
-  padding: 18px 48px;
-  border: 1px solid var(--green);
-  transition: background 0.4s, color 0.4s, transform 0.3s;
-}
-.btn-outline:hover { background: var(--green); color: var(--ivory); transform: translateY(-2px); }
-.hero-scroll {
-  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  opacity: 0; animation: fadeUp 1s 1.4s forwards;
-}
-.hero-scroll span {
-  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--text-light);
-}
-.scroll-line {
-  width: 1px; height: 40px;
-  background: linear-gradient(to bottom, var(--green-muted), transparent);
-  animation: scrollPulse 2s infinite;
-}
-
-/* SECTIONS */
-section { padding: 140px 60px; }
-.section-inner { max-width: 1200px; margin: 0 auto; }
-.section-label {
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--green-muted);
-  margin-bottom: 48px;
-  display: flex; align-items: center; gap: 16px;
-}
-.section-label::before {
-  content: '';
-  display: block; width: 32px; height: 1px; background: var(--green-muted);
-}
-
-/* CONCEPT */
-#concept { background: var(--ivory); }
-.concept-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-}
-.concept-headline {
-  font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 4vw, 4rem);
-  font-weight: 300;
-  line-height: 1.1;
-  color: var(--green);
-  margin-bottom: 36px;
-}
-.concept-text {
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  font-weight: 300;
-  line-height: 1.9;
-  color: var(--text-mid);
-  margin-bottom: 20px;
-}
-.concept-pillars {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 60px;
-}
-.pillar {
-  padding: 32px 28px;
-  border: 1px solid rgba(26,58,42,0.1);
-  transition: border-color 0.3s, transform 0.3s;
-}
-.pillar:hover { border-color: var(--green-muted); transform: translateY(-4px); }
-.pillar-num {
-  font-family: var(--font-serif);
-  font-size: 2.5rem;
-  font-weight: 300;
-  color: rgba(26,58,42,0.15);
-  display: block; margin-bottom: 12px;
-}
-.pillar-title {
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  color: var(--green);
-  display: block; margin-bottom: 10px;
-}
-.pillar-desc {
-  font-size: 0.8rem;
-  font-weight: 300;
-  color: var(--text-light);
-  line-height: 1.7;
-}
-
-/* ESPACES */
-#espaces { background: var(--green); }
-#espaces .section-label { color: rgba(245,241,233,0.5); }
-#espaces .section-label::before { background: rgba(245,241,233,0.3); }
-.espaces-header {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.5vw, 3.5rem);
-  font-weight: 300;
-  color: var(--ivory);
-  margin-bottom: 80px;
-  max-width: 600px;
-  line-height: 1.15;
-}
-.espaces-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
-}
-.espace-card {
-  position: relative; overflow: hidden;
-  aspect-ratio: 3/4;
-  cursor: pointer;
-}
-.espace-bg {
-  position: absolute; inset: 0;
-  transition: transform 0.6s ease;
-}
-.espace-card:hover .espace-bg { transform: scale(1.05); }
-.espace-card:nth-child(1) .espace-bg { background: linear-gradient(160deg, #2D5A3D, #1A3A2A); }
-.espace-card:nth-child(2) .espace-bg { background: linear-gradient(160deg, #1A3A2A, #0F2218); }
-.espace-card:nth-child(3) .espace-bg { background: linear-gradient(160deg, #3D6B4F, #2D5A3D); }
-.espace-card:nth-child(4) .espace-bg { background: linear-gradient(160deg, #0F2218, #1A3A2A); }
-.espace-icon {
-  position: absolute; top: 32px; left: 32px;
-  width: 44px; height: 44px;
-  border: 1px solid rgba(245,241,233,0.3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem;
-}
-.espace-content {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 32px;
-  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
-}
-.espace-title {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: var(--ivory);
-  display: block; margin-bottom: 8px;
-  letter-spacing: 0.03em;
-}
-.espace-desc {
-  font-size: 0.75rem;
-  font-weight: 300;
-  color: rgba(245,241,233,0.7);
-  line-height: 1.6;
-}
-
-/* CLUB */
-#club { background: #EDEAE2; }
-.club-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-.club-headline {
-  font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 3.5vw, 3.5rem);
-  font-weight: 300;
-  color: var(--green);
-  line-height: 1.1;
-  margin-bottom: 40px;
-}
-.club-stats {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 48px;
-}
-.stat-item { border-left: 2px solid var(--green-muted); padding-left: 20px; }
-.stat-num {
-  font-family: var(--font-serif);
-  font-size: 2.8rem;
-  font-weight: 300;
-  color: var(--green);
-  display: block; line-height: 1;
-  margin-bottom: 6px;
-}
-.stat-label { font-size: 0.72rem; font-weight: 300; letter-spacing: 0.1em; color: var(--text-light); text-transform: uppercase; }
-.club-text { font-size: 0.88rem; font-weight: 300; color: var(--text-mid); line-height: 1.9; margin-bottom: 16px; }
-.club-visual {
-  position: relative;
-  aspect-ratio: 4/5;
-  background: linear-gradient(135deg, #2D5A3D 0%, #1A3A2A 60%, #0F2218 100%);
-  display: flex; align-items: center; justify-content: center;
-}
-.club-visual-text {
-  font-family: var(--font-serif);
-  font-size: 5rem;
-  font-weight: 300;
-  color: rgba(245,241,233,0.08);
-  text-align: center;
-  letter-spacing: 0.1em;
-  line-height: 1;
-}
-.club-visual-badge {
-  position: absolute; bottom: 40px; right: -20px;
-  background: var(--gold);
-  color: var(--green);
-  padding: 20px 28px;
-  font-family: var(--font-serif);
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-align: center;
-}
-
-/* HISTOIRE */
-#histoire { background: var(--ivory); }
-.histoire-content { max-width: 780px; margin: 0 auto; text-align: center; }
-.histoire-headline {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.5vw, 3.2rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--green);
-  line-height: 1.2;
-  margin-bottom: 48px;
-}
-.histoire-text {
-  font-size: 0.9rem;
-  font-weight: 300;
-  color: var(--text-mid);
-  line-height: 2;
-  margin-bottom: 20px;
-}
-.histoire-divider {
-  width: 60px; height: 1px;
-  background: var(--green-muted);
-  margin: 48px auto;
-}
-
-/* TARIFS */
-#tarifs { background: var(--green); }
-#tarifs .section-label { color: rgba(245,241,233,0.5); }
-#tarifs .section-label::before { background: rgba(245,241,233,0.3); }
-.tarifs-header {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.5vw, 3.2rem);
-  font-weight: 300;
-  color: var(--ivory);
-  margin-bottom: 80px;
-  text-align: center;
-}
-.tarifs-main { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
-.tarif-card {
-  background: rgba(255,255,255,0.04);
-  padding: 56px 48px;
-  border: 1px solid rgba(245,241,233,0.08);
-  transition: background 0.3s, transform 0.3s;
-  position: relative;
-}
-.tarif-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-4px); }
-.tarif-card.featured {
-  background: rgba(200,169,110,0.1);
-  border-color: rgba(200,169,110,0.3);
-}
-.tarif-badge {
-  position: absolute; top: -1px; right: 32px;
-  background: var(--gold);
-  color: var(--green);
-  font-size: 0.6rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-}
-.tarif-category {
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(245,241,233,0.4);
-  margin-bottom: 20px;
-}
-.tarif-name {
-  font-family: var(--font-serif);
-  font-size: 1.6rem;
-  font-weight: 400;
-  color: var(--ivory);
-  margin-bottom: 8px;
-}
-.tarif-price {
-  font-family: var(--font-serif);
-  font-size: 3.5rem;
-  font-weight: 300;
-  color: var(--ivory);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.tarif-price sup { font-size: 1.5rem; vertical-align: super; }
-.tarif-price span { font-size: 1rem; color: rgba(245,241,233,0.5); }
-.tarif-note { font-size: 0.75rem; color: rgba(245,241,233,0.4); margin-bottom: 32px; }
-.tarif-divider { height: 1px; background: rgba(245,241,233,0.1); margin-bottom: 32px; }
-.tarif-line {
-  display: flex; justify-content: space-between; align-items: baseline;
-  margin-bottom: 16px;
-}
-.tarif-line-name { font-size: 0.8rem; font-weight: 300; color: rgba(245,241,233,0.7); }
-.tarif-line-price { font-family: var(--font-serif); font-size: 1rem; color: var(--ivory); }
-.tarifs-courses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-
-/* CTA FINAL */
-#cta-final {
-  background: var(--ivory);
-  text-align: center;
-  padding: 160px 60px;
-}
-.cta-headline {
-  font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  font-weight: 300;
-  color: var(--green);
-  line-height: 1.1;
-  margin-bottom: 24px;
-}
-.cta-sub {
-  font-size: 0.85rem;
-  font-weight: 300;
-  letter-spacing: 0.08em;
-  color: var(--text-light);
-  margin-bottom: 56px;
-}
-
-/* FOOTER */
-footer {
-  background: var(--green);
-  padding: 60px;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.footer-logo {
-  font-family: var(--font-serif);
-  font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ivory);
-}
-.footer-text { font-size: 0.72rem; font-weight: 300; color: rgba(245,241,233,0.4); letter-spacing: 0.08em; }
-
-/* ANIMATIONS */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes scrollPulse {
-  0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
-}
-.reveal {
-  opacity: 0; transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:32px 60px;transition:all .5s}
+nav.light .nav-logo{color:var(--green)}
+nav.light .nav-link{color:rgba(26,58,42,.6)}
+nav.light .nav-link:hover{color:var(--green)}
+nav.light .lang-btn{color:rgba(26,58,42,.4)}
+nav.light .lang-btn.active{color:var(--green);border-bottom-color:var(--green)}
+nav.dark .nav-logo{color:var(--ivory)}
+nav.dark .nav-link{color:rgba(245,241,233,.5)}
+nav.dark .nav-link:hover{color:var(--ivory)}
+nav.dark .lang-btn{color:rgba(245,241,233,.4)}
+nav.dark .lang-btn.active{color:var(--ivory);border-bottom-color:var(--ivory)}
+.nav-logo{font-family:var(--serif);font-size:1.3rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;transition:color .5s}
+.nav-links{display:flex;gap:40px;list-style:none}
+.nav-link{font-size:.68rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:color .4s;cursor:pointer}
+.lang-switch{display:flex;gap:8px;align-items:center}
+.lang-btn{font-size:.65rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;background:none;border:none;cursor:pointer;padding:3px 2px;transition:all .4s;border-bottom:1px solid transparent}
+.lang-sep{font-size:.65rem;opacity:.3}
+/* CONTENT LAYERS */
+.content-layer{position:absolute;width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:0 60px;opacity:0;transition:opacity .8s ease,transform .8s ease;pointer-events:none;transform:translateY(20px)}
+.content-layer.active{opacity:1;transform:translateY(0);pointer-events:auto}
+.content-center{text-align:center;max-width:900px}
+.content-left{text-align:left;max-width:700px;margin-right:auto;margin-left:10%}
+.content-right{text-align:right;max-width:600px;margin-left:auto;margin-right:10%}
+/* TYPOGRAPHY */
+.headline-xl{font-family:var(--serif);font-size:clamp(5rem,10vw,10rem);font-weight:300;line-height:.92;letter-spacing:-.02em;color:var(--ivory)}
+.headline-xl.dark{color:var(--green)}
+.headline-lg{font-family:var(--serif);font-size:clamp(3rem,6vw,6rem);font-weight:300;line-height:1;letter-spacing:-.01em;color:var(--ivory)}
+.headline-lg.dark{color:var(--green)}
+.headline-md{font-family:var(--serif);font-size:clamp(2rem,4vw,4rem);font-weight:300;line-height:1.1;color:var(--ivory)}
+.headline-md.dark{color:var(--green)}
+.tagline{font-family:var(--serif);font-size:clamp(1.2rem,2.5vw,2.2rem);font-weight:300;font-style:italic;color:rgba(245,241,233,.75);margin:16px 0}
+.tagline.dark{color:rgba(26,58,42,.7)}
+.eyebrow{font-size:.65rem;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:block}
+.eyebrow.dark{color:var(--green2)}
+.body-text{font-size:.9rem;font-weight:300;line-height:1.9;color:rgba(245,241,233,.65);max-width:520px;margin:24px auto}
+.body-text.dark{color:rgba(26,58,42,.65)}
+.body-text.left{margin:24px 0}
+/* BUTTONS */
+.btn{display:inline-block;font-size:.68rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;padding:16px 44px;border:1px solid;transition:all .4s;cursor:pointer;background:none;margin-top:32px}
+.btn-light{color:var(--ivory);border-color:rgba(245,241,233,.5)}
+.btn-light:hover{background:var(--ivory);color:var(--green)}
+.btn-dark{color:var(--green);border-color:rgba(26,58,42,.4)}
+.btn-dark:hover{background:var(--green);color:var(--ivory)}
+.btn-gold{color:var(--gold);border-color:rgba(200,169,110,.5)}
+.btn-gold:hover{background:var(--gold);color:var(--green)}
+/* SCROLL INDICATOR */
+#scroll-indicator{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:50;transition:opacity .5s}
+.scroll-text{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(245,241,233,.4)}
+.scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,rgba(200,169,110,.7),transparent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scaleY(1)}50%{opacity:.3;transform:scaleY(.7)}}
+/* PROGRESS */
+#progress-bar{position:fixed;top:0;left:0;height:1px;background:var(--gold);z-index:200;transition:width .1s linear;width:0%}
+/* IMAGE CARDS */
+.img-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;opacity:0;transition:opacity 1s ease}
+.img-overlay.active{opacity:1}
+.img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;width:90%;max-width:1200px;margin:0 auto}
+.img-cell{position:relative;overflow:hidden;aspect-ratio:3/4}
+.img-cell img{width:100%;height:100%;object-fit:cover;filter:brightness(.7) saturate(.9);transform:scale(1.05);transition:transform 8s ease}
+.img-cell:hover img{transform:scale(1)}
+.img-caption{position:absolute;bottom:0;left:0;right:0;padding:24px;background:linear-gradient(to top,rgba(13,34,24,.85),transparent);font-family:var(--serif);font-size:1.1rem;color:var(--ivory);letter-spacing:.05em}
+/* PRICING */
+.price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;width:90%;max-width:900px;margin:40px auto 0}
+.price-card{background:rgba(245,241,233,.04);border:1px solid rgba(245,241,233,.08);padding:48px 40px;transition:all .4s;position:relative}
+.price-card:hover{background:rgba(245,241,233,.08);transform:translateY(-4px)}
+.price-card.gold-card{border-color:rgba(200,169,110,.25);background:rgba(200,169,110,.06)}
+.price-cat{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(245,241,233,.35);margin-bottom:12px}
+.price-name{font-family:var(--serif);font-size:1.5rem;color:var(--ivory);margin-bottom:4px}
+.price-amount{font-family:var(--serif);font-size:3.5rem;font-weight:300;color:var(--ivory);line-height:1}
+.price-amount sup{font-size:1.4rem;vertical-align:super}
+.price-amount span{font-size:.9rem;color:rgba(245,241,233,.4)}
+.price-note{font-size:.72rem;color:rgba(245,241,233,.35);margin-top:4px;margin-bottom:28px}
+.price-sep{height:1px;background:rgba(245,241,233,.07);margin-bottom:24px}
+.price-row{display:flex;justify-content:space-between;margin-bottom:12px;font-size:.8rem;font-weight:300}
+.price-row-name{color:rgba(245,241,233,.55)}
+.price-row-val{font-family:var(--serif);color:var(--ivory)}
+.badge{position:absolute;top:-1px;right:28px;background:var(--gold);color:var(--green);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;padding:5px 12px;font-weight:500}
+/* COURSES */
+.courses-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;width:90%;max-width:1100px;margin:40px auto 0}
+/* STATS */
+.stats-row{display:flex;gap:80px;justify-content:center;margin-top:48px}
+.stat{text-align:center}
+.stat-n{font-family:var(--serif);font-size:3.5rem;font-weight:300;color:var(--ivory);display:block;line-height:1}
+.stat-l{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,241,233,.4);margin-top:6px}
+/* DIVIDER */
+.gold-line{width:40px;height:1px;background:var(--gold);margin:32px auto}
+.gold-line.left{margin:32px 0}
+/* SPACE CARDS */
+.spaces-row{display:flex;gap:3px;width:95%;max-width:1300px;margin-top:48px}
+.space-card{flex:1;position:relative;overflow:hidden;aspect-ratio:2/3;cursor:pointer}
+.space-card img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform .7s ease;filter:brightness(.55) saturate(.8)}
+.space-card:hover img{transform:scale(1)}
+.space-card-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px;background:linear-gradient(to top,rgba(13,34,24,.8) 30%,transparent)}
+.space-card-title{font-family:var(--serif);font-size:1.3rem;color:var(--ivory);letter-spacing:.05em;margin-bottom:6px}
+.space-card-desc{font-size:.72rem;font-weight:300;color:rgba(245,241,233,.6);line-height:1.5}
 /* RESPONSIVE */
-@media (max-width: 1024px) {
-  nav { padding: 24px 32px; }
-  nav.scrolled { padding: 16px 32px; }
-  .nav-links { display: none; }
-  .nav-links.open {
-    display: flex; flex-direction: column;
-    position: fixed; inset: 0;
-    background: var(--ivory);
-    align-items: center; justify-content: center;
-    gap: 32px; z-index: 999;
-  }
-  .nav-links.open a { font-size: 1.2rem; }
-  .nav-mobile-toggle { display: flex; z-index: 1001; }
-  section { padding: 100px 32px; }
-  .concept-grid, .club-grid { grid-template-columns: 1fr; gap: 48px; }
-  .espaces-grid { grid-template-columns: 1fr 1fr; }
-  .tarifs-main { grid-template-columns: 1fr; }
-  .tarifs-courses { grid-template-columns: 1fr; }
-  footer { flex-direction: column; gap: 16px; text-align: center; }
-  .club-visual-badge { right: 0; }
+@media(max-width:768px){
+  nav{padding:24px 28px}
+  .nav-links{display:none}
+  .content-layer{padding:0 28px}
+  .stats-row{gap:40px}
+  .price-grid{grid-template-columns:1fr}
+  .courses-grid{grid-template-columns:1fr}
+  .img-grid{grid-template-columns:1fr 1fr}
+  .spaces-row{flex-wrap:wrap}
+  .space-card{flex:0 0 calc(50% - 2px)}
+  .content-left,.content-right{margin:0;text-align:center;max-width:100%}
 }
-@media (max-width: 600px) {
-  .hero-title { font-size: 3.5rem; }
-  .espaces-grid { grid-template-columns: 1fr; }
-  .concept-pillars { grid-template-columns: 1fr; }
-  .club-stats { grid-template-columns: 1fr; }
-  section { padding: 80px 24px; }
-  nav { padding: 20px 24px; }
+@media(max-width:480px){
+  .img-grid{grid-template-columns:1fr}
+  .stats-row{flex-direction:column;gap:24px}
 }
 </style>
-</head><body>
+</head>
+<body>
+<div id="progress-bar"></div>
+<canvas id="canvas-bg"></canvas>
 
 <!-- NAV -->
-<nav id="main-nav">
-  <a href="#hero" class="nav-logo">Quantum Club</a>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="#concept" data-fr="Concept" data-en="Concept">Concept</a></li>
-    <li><a href="#espaces" data-fr="Espaces" data-en="Experience">Espaces</a></li>
-    <li><a href="#club" data-fr="Le Club" data-en="The Club">Le Club</a></li>
-    <li><a href="#histoire" data-fr="Histoire" data-en="Story">Histoire</a></li>
-    <li><a href="#tarifs" data-fr="Tarifs" data-en="Pricing">Tarifs</a></li>
+<nav id="nav" class="dark">
+  <a href="#" class="nav-logo">Quantum Club</a>
+  <ul class="nav-links">
+    <li><span class="nav-link" onclick="scrollToSection(1)" data-fr="Concept" data-en="Concept">Concept</span></li>
+    <li><span class="nav-link" onclick="scrollToSection(3)" data-fr="Espaces" data-en="Spaces">Espaces</span></li>
+    <li><span class="nav-link" onclick="scrollToSection(5)" data-fr="Le Club" data-en="The Club">Le Club</span></li>
+    <li><span class="nav-link" onclick="scrollToSection(7)" data-fr="Tarifs" data-en="Pricing">Tarifs</span></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:24px;">
+  <div style="display:flex;align-items:center;gap:20px">
     <div class="lang-switch">
       <button class="lang-btn active" id="btn-fr" onclick="setLang('fr')">FR</button>
       <span class="lang-sep">/</span>
       <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
     </div>
-    <button class="nav-mobile-toggle" id="mobile-toggle" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-accent"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow" data-fr="Paris · Depuis 2024" data-en="Paris · Since 2024">Paris · Depuis 2024</p>
-    <h1 class="hero-title">Quantum Club</h1>
-    <p class="hero-tagline" data-fr="Redéfinir la performance" data-en="Redefining Performance">Redéfinir la performance</p>
-    <p class="hero-sub" data-fr="L'expérience fitness la plus exclusive à Paris" data-en="The most exclusive fitness experience in Paris">L'expérience fitness la plus exclusive à Paris</p>
-    <a href="#concept" class="btn-primary" data-fr="Découvrir le club" data-en="Discover the club">Découvrir le club</a>
-  </div>
-  <div class="hero-scroll">
-    <span data-fr="Défiler" data-en="Scroll">Défiler</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
+<!-- SCROLL INDICATOR -->
+<div id="scroll-indicator">
+  <span class="scroll-text" data-fr="Défiler" data-en="Scroll">Défiler</span>
+  <div class="scroll-line"></div>
+</div>
 
-<!-- CONCEPT -->
-<section id="concept">
-  <div class="section-inner">
-    <div class="section-label" data-fr="Notre philosophie" data-en="Our philosophy">Notre philosophie</div>
-    <div class="concept-grid">
-      <div class="reveal">
-        <h2 class="concept-headline" data-fr="Un club conçu pour ceux qui refusent l'ordinaire." data-en="A club built for those who refuse the ordinary.">Un club conçu pour ceux qui refusent l'ordinaire.</h2>
-        <p class="concept-text" data-fr="Quantum Club n'est pas une salle de sport. C'est un espace où la performance rencontre le raffinement, où chaque détail a été pensé pour élever votre expérience au-delà du possible." data-en="Quantum Club is not a gym. It is a space where performance meets refinement, where every detail has been crafted to elevate your experience beyond the possible.">Quantum Club n'est pas une salle de sport. C'est un espace où la performance rencontre le raffinement, où chaque détail a été pensé pour élever votre expérience au-delà du possible.</p>
-        <p class="concept-text" data-fr="Accès restreint, équipements d'exception, coaching d'élite. Bienvenue dans un monde à part." data-en="Restricted access, exceptional equipment, elite coaching. Welcome to a world apart.">Accès restreint, équipements d'exception, coaching d'élite. Bienvenue dans un monde à part.</p>
-      </div>
-      <div class="concept-pillars reveal">
-        <div class="pillar">
-          <span class="pillar-num">01</span>
-          <span class="pillar-title" data-fr="Exclusivité" data-en="Exclusivity">Exclusivité</span>
-          <p class="pillar-desc" data-fr="Membership limité. Un espace qui reste intime, calme et réservé à une communauté sélectionnée." data-en="Limited membership. A space that remains intimate, calm and reserved for a selected community.">Membership limité. Un espace qui reste intime, calme et réservé à une communauté sélectionnée.</p>
-        </div>
-        <div class="pillar">
-          <span class="pillar-num">02</span>
-          <span class="pillar-title" data-fr="Performance" data-en="Performance">Performance</span>
-          <p class="pillar-desc" data-fr="Des équipements haut de gamme, des protocoles d'entraînement avancés pour repousser vos limites." data-en="Premium equipment, advanced training protocols to push your limits further.">Des équipements haut de gamme, des protocoles d'entraînement avancés pour repousser vos limites.</p>
-        </div>
-        <div class="pillar">
-          <span class="pillar-num">03</span>
-          <span class="pillar-title" data-fr="Design" data-en="Design">Design</span>
-          <p class="pillar-desc" data-fr="Une architecture pensée dans les moindres détails, entre minimalisme luxueux et fonctionnalité absolue." data-en="An architecture designed down to the finest details, between luxurious minimalism and absolute functionality.">Une architecture pensée dans les moindres détails, entre minimalisme luxueux et fonctionnalité absolue.</p>
-        </div>
-        <div class="pillar">
-          <span class="pillar-num">04</span>
-          <span class="pillar-title" data-fr="Communauté" data-en="Community">Communauté</span>
-          <p class="pillar-desc" data-fr="Rejoignez une communauté d'individus d'exception, partageant la même vision de l'excellence." data-en="Join a community of exceptional individuals sharing the same vision of excellence.">Rejoignez une communauté d'individus d'exception, partageant la même vision de l'excellence.</p>
-        </div>
+<!-- SCROLL CONTAINER: 10 virtual pages -->
+<div id="scroll-container" style="height:1000vh">
+
+  <!-- PAGE 0: HERO -->
+  <div class="scroll-page" style="height:100vh">
+    <div class="content-layer active" id="layer-0">
+      <div class="content-center">
+        <span class="eyebrow" data-fr="Paris · Ouverture prévue courant 2027" data-en="Paris · Opening planned in 2027">Paris · Ouverture prévue courant 2027</span>
+        <h1 class="headline-xl">Quantum<br>Club</h1>
+        <p class="tagline" data-fr="Redéfinir la performance" data-en="Redefining Performance">Redéfinir la performance</p>
+        <p class="body-text" data-fr="L'expérience fitness la plus exclusive à Paris." data-en="The most exclusive fitness experience in Paris.">L'expérience fitness la plus exclusive à Paris.</p>
+        <span class="btn btn-gold" onclick="window.scrollBy({top:window.innerHeight,behavior:'smooth'})" data-fr="Découvrir" data-en="Discover">Découvrir</span>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ESPACES -->
-<section id="espaces">
-  <div class="section-inner">
-    <div class="section-label" data-fr="Nos espaces" data-en="Our spaces">Nos espaces</div>
-    <h2 class="espaces-header reveal" data-fr="Quatre disciplines. Une seule exigence&nbsp;: l'excellence." data-en="Four disciplines. One standard&nbsp;: excellence.">Quatre disciplines. Une seule exigence&nbsp;: l'excellence.</h2>
-    <div class="espaces-grid">
-      <div class="espace-card reveal">
-        <div class="espace-bg"></div>
-        <div class="espace-icon">⬡</div>
-        <div class="espace-content">
-          <span class="espace-title">HYROX</span>
-          <p class="espace-desc" data-fr="Zone dédiée aux compétitions HYROX. Équipements professionnels, protocoles officiels, coaching certifié." data-en="Dedicated HYROX competition zone. Professional equipment, official protocols, certified coaching.">Zone dédiée aux compétitions HYROX. Équipements professionnels, protocoles officiels, coaching certifié.</p>
-        </div>
-      </div>
-      <div class="espace-card reveal">
-        <div class="espace-bg"></div>
-        <div class="espace-icon">◈</div>
-        <div class="espace-content">
-          <span class="espace-title" data-fr="Callisthénie" data-en="Calisthenics">Callisthénie</span>
-          <p class="espace-desc" data-fr="Maîtrisez le poids de votre corps. Structures premium, progressions structurées, discipline pure." data-en="Master your bodyweight. Premium structures, structured progressions, pure discipline.">Maîtrisez le poids de votre corps. Structures premium, progressions structurées, discipline pure.</p>
-        </div>
-      </div>
-      <div class="espace-card reveal">
-        <div class="espace-bg"></div>
-        <div class="espace-icon">◇</div>
-        <div class="espace-content">
-          <span class="espace-title" data-fr="Musculation" data-en="Strength Training">Musculation</span>
-          <p class="espace-desc" data-fr="Machines sur mesure, poids libres d'exception. Chaque détail conçu pour la performance maximale." data-en="Custom machines, exceptional free weights. Every detail designed for maximum performance.">Machines sur mesure, poids libres d'exception. Chaque détail conçu pour la performance maximale.</p>
-        </div>
-      </div>
-      <div class="espace-card reveal">
-        <div class="espace-bg"></div>
-        <div class="espace-icon">✦</div>
-        <div class="espace-content">
-          <span class="espace-title" data-fr="Coaching Privé" data-en="Private Coaching">Coaching Privé</span>
-          <p class="espace-desc" data-fr="Espaces privatifs pour sessions individuelles. Coachs d'élite sélectionnés pour leur expertise et leur discrétion." data-en="Private spaces for individual sessions. Elite coaches selected for their expertise and discretion.">Espaces privatifs pour sessions individuelles. Coachs d'élite sélectionnés pour leur expertise et leur discrétion.</p>
-        </div>
+  <!-- PAGE 1: CONCEPT -->
+  <div class="scroll-page" style="height:100vh">
+    <div class="content-layer" id="layer-1">
+      <div class="content-left">
+        <span class="eyebrow" data-fr="Notre philosophie" data-en="Our philosophy">Notre philosophie</span>
+        <h2 class="headline-lg" data-fr="Un club conçu<br>pour l'élite." data-en="A club built<br>for the elite.">Un club conçu<br>pour l'élite.</h2>
+        <div class="gold-line left"></div>
+        <p class="body-text left" data-fr="Quantum Club n'est pas une salle de sport. C'est un sanctuaire de la performance où chaque détail a été pensé pour élever l'expérience au-delà du possible. Accès restreint, équipements d'exception, coaching d'élite." data-en="Quantum Club is not a gym. It is a sanctuary of performance where every detail has been crafted to elevate the experience beyond the possible. Restricted access, exceptional equipment, elite coaching.">Quantum Club n'est pas une salle de sport. C'est un sanctuaire de la performance où chaque détail a été pensé pour élever l'expérience au-delà du possible. Accès restreint, équipements d'exception, coaching d'élite.</p>
       </div>
     </div>
   </div>
-</section>
 
-<!-- LE CLUB -->
-<section id="club">
-  <div class="section-inner">
-    <div class="section-label" data-fr="L'espace" data-en="The space">L'espace</div>
-    <div class="club-grid">
-      <div class="reveal">
-        <h2 class="club-headline" data-fr="800 m² dédiés à votre excellence." data-en="800 m² dedicated to your excellence.">800 m² dédiés à votre excellence.</h2>
-        <div class="club-stats">
-          <div class="stat-item">
-            <span class="stat-num">800</span>
-            <span class="stat-label" data-fr="Mètres carrés" data-en="Square metres">Mètres carrés</span>
+  <!-- PAGE 2: PILLARS -->
+  <div class="scroll-page" style="height:100vh">
+    <div class="content-layer" id="layer-2">
+      <div class="content-center" style="max-width:1000px">
+        <span class="eyebrow" data-fr="Les quatre piliers" data-en="The four pillars">Les quatre piliers</span>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:48px" id="pillars-grid">
+          <div style="padding:36px 24px;border:1px solid rgba(245,241,233,.08);transition:all .4s" class="pillar-item">
+            <div style="font-family:var(--serif);font-size:2.5rem;font-weight:300;color:rgba(200,169,110,.2);margin-bottom:12px">01</div>
+            <div style="font-family:var(--serif);font-size:1.1rem;color:var(--ivory);margin-bottom:10px" data-fr="Exclusivité" data-en="Exclusivity">Exclusivité</div>
+            <div style="font-size:.75rem;font-weight:300;color:rgba(245,241,233,.45);line-height:1.7" data-fr="Membership limité. Un espace intime réservé à une communauté sélectionnée." data-en="Limited membership. An intimate space reserved for a selected community.">Membership limité. Un espace intime réservé à une communauté sélectionnée.</div>
           </div>
-          <div class="stat-item">
-            <span class="stat-num">4</span>
-            <span class="stat-label" data-fr="Espaces distincts" data-en="Distinct spaces">Espaces distincts</span>
+          <div style="padding:36px 24px;border:1px solid rgba(245,241,233,.08);transition:all .4s" class="pillar-item">
+            <div style="font-family:var(--serif);font-size:2.5rem;font-weight:300;color:rgba(200,169,110,.2);margin-bottom:12px">02</div>
+            <div style="font-family:var(--serif);font-size:1.1rem;color:var(--ivory);margin-bottom:10px" data-fr="Performance" data-en="Performance">Performance</div>
+            <div style="font-size:.75rem;font-weight:300;color:rgba(245,241,233,.45);line-height:1.7" data-fr="Équipements haut de gamme, protocoles avancés pour repousser vos limites." data-en="Premium equipment, advanced protocols to push your limits.">Équipements haut de gamme, protocoles avancés pour repousser vos limites.</div>
           </div>
-          <div class="stat-item">
-            <span class="stat-num">∞</span>
-            <span class="stat-label" data-fr="Équipements premium" data-en="Premium equipment">Équipements premium</span>
+          <div style="padding:36px 24px;border:1px solid rgba(245,241,233,.08);transition:all .4s" class="pillar-item">
+            <div style="font-family:var(--serif);font-size:2.5rem;font-weight:300;color:rgba(200,169,110,.2);margin-bottom:12px">03</div>
+            <div style="font-family:var(--serif);font-size:1.1rem;color:var(--ivory);margin-bottom:10px" data-fr="Design" data-en="Design">Design</div>
+            <div style="font-size:.75rem;font-weight:300;color:rgba(245,241,233,.45);line-height:1.7" data-fr="Architecture pensée dans les moindres détails, minimalisme luxueux." data-en="Architecture designed down to the finest details, luxurious minimalism.">Architecture pensée dans les moindres détails, minimalisme luxueux.</div>
           </div>
-          <div class="stat-item">
-            <span class="stat-num">1</span>
-            <span class="stat-label" data-fr="Seul club à Paris" data-en="Unique club in Paris">Seul club à Paris</span>
+          <div style="padding:36px 24px;border:1px solid rgba(245,241,233,.08);transition:all .4s" class="pillar-item">
+            <div style="font-family:var(--serif);font-size:2.5rem;font-weight:300;color:rgba(200,169,110,.2);margin-bottom:12px">04</div>
+            <div style="font-family:var(--serif);font-size:1.1rem;color:var(--ivory);margin-bottom:10px" data-fr="Communauté" data-en="Community">Communauté</div>
+            <div style="font-size:.75rem;font-weight:300;color:rgba(245,241,233,.45);line-height:1.7" data-fr="Une communauté d'individus d'exception partageant la vision de l'excellence." data-en="A community of exceptional individuals sharing the vision of excellence.">Une communauté d'individus d'exception partageant la vision de l'excellence.</div>
           </div>
         </div>
-        <p class="club-text" data-fr="Chaque machine, chaque surface, chaque source lumineuse a été sélectionnée avec soin. Quantum Club est une déclaration architecturale autant qu'un espace de performance." data-en="Every machine, every surface, every light source has been carefully selected. Quantum Club is an architectural statement as much as a performance space.">Chaque machine, chaque surface, chaque source lumineuse a été sélectionnée avec soin. Quantum Club est une déclaration architecturale autant qu'un espace de performance.</p>
-        <p class="club-text" data-fr="L'accès est volontairement limité pour préserver l'intimité et la qualité de l'expérience de chaque membre." data-en="Access is deliberately limited to preserve the intimacy and quality of each member's experience.">L'accès est volontairement limité pour préserver l'intimité et la qualité de l'expérience de chaque membre.</p>
-      </div>
-      <div class="reveal">
-        <div class="club-visual">
-          <div class="club-visual-text">Q</div>
-          <div class="club-visual-badge" data-fr="Paris · 8ème" data-en="Paris · 8th arr.">Paris · 8ème</div>
-        </div>
       </div>
     </div>
   </div>
-</section>
-<!-- NOTRE HISTOIRE -->
-<section id="histoire">
-  <div class="section-inner">
-    <div class="section-label" data-fr="Notre histoire" data-en="Our story">Notre histoire</div>
-    <div class="histoire-content">
-      <h2 class="histoire-headline reveal" data-fr="Né d'une obsession pour l'excellence, construit pour une élite." data-en="Born from an obsession with excellence, built for an elite.">Né d'une obsession pour l'excellence, construit pour une élite.</h2>
-      <div class="histoire-divider"></div>
-      <p class="histoire-text reveal" data-fr="Quantum Club est né d'un constat simple : les meilleurs sportifs de Paris méritaient un espace à la hauteur de leurs ambitions. Pas une salle de sport comme les autres, mais un sanctuaire de la performance où chaque élément — des équipements à l'architecture, des coachs à la communauté — est pensé pour l'excellence absolue." data-en="Quantum Club was born from a simple observation: Paris's top performers deserved a space worthy of their ambitions. Not just another gym, but a sanctuary of performance where every element — from equipment to architecture, from coaches to community — is designed for absolute excellence.">Quantum Club est né d'un constat simple : les meilleurs sportifs de Paris méritaient un espace à la hauteur de leurs ambitions. Pas une salle de sport comme les autres, mais un sanctuaire de la performance où chaque élément — des équipements à l'architecture, des coachs à la communauté — est pensé pour l'excellence absolue.</p>
-      <p class="histoire-text reveal" data-fr="Nous avons passé deux ans à concevoir cet espace. Chaque décision, chaque détail a été guidé par une seule question : est-ce que cela élève l'expérience ? Quantum Club est la réponse." data-en="We spent two years designing this space. Every decision, every detail was guided by a single question: does this elevate the experience? Quantum Club is the answer.">Nous avons passé deux ans à concevoir cet espace. Chaque décision, chaque détail a été guidé par une seule question : est-ce que cela élève l'expérience ? Quantum Club est la réponse.</p>
-    </div>
-  </div>
-</section>
 
-<!-- TARIFS -->
-<section id="tarifs">
-  <div class="section-inner">
-    <div class="section-label" data-fr="Membership" data-en="Membership">Membership</div>
-    <h2 class="tarifs-header reveal" data-fr="Un investissement dans l'excellence." data-en="An investment in excellence.">Un investissement dans l'excellence.</h2>
-    <div class="tarifs-main reveal">
-      <div class="tarif-card featured">
-        <div class="tarif-badge" data-fr="Recommandé" data-en="Recommended">Recommandé</div>
-        <div class="tarif-category" data-fr="Abonnement" data-en="Membership">Abonnement</div>
-        <div class="tarif-name" data-fr="Mensuel Premium" data-en="Monthly Premium">Mensuel Premium</div>
-        <div class="tarif-price"><sup>€</sup>220<span data-fr="/mois" data-en="/month">/mois</span></div>
-        <div class="tarif-note" data-fr="Engagement 12 mois" data-en="12-month commitment">Engagement 12 mois</div>
-        <div class="tarif-divider"></div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="Accès illimité au club" data-en="Unlimited club access">Accès illimité au club</span>
-          <span class="tarif-line-price">✓</span>
+  <!-- PAGE 3: ESPACES HEADER -->
+  <div class="scroll-page" style="height:100vh">
+    <div class="content-layer" id="layer-3">
+      <div class="content-center">
+        <span class="eyebrow" data-fr="Nos espaces" data-en="Our spaces">Nos espaces</span>
+        <h2 class="headline-lg" data-fr="Quatre disciplines.<br>Une seule exigence." data-en="Four disciplines.<br>One standard.">Quatre disciplines.<br>Une seule exigence.</h2>
+        <div class="gold-line"></div>
+        <div class="spaces-row">
+          <div class="space-card">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80" alt="HYROX" loading="lazy">
+            <div class="space-card-content">
+              <div class="space-card-title">HYROX</div>
+              <div class="space-card-desc" data-fr="Zone compétition officielle" data-en="Official competition zone">Zone compétition officielle</div>
+            </div>
+          </div>
+          <div class="space-card">
+            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80" alt="Callisthénie" loading="lazy">
+            <div class="space-card-content">
+              <div class="space-card-title" data-fr="Callisthénie" data-en="Calisthenics">Callisthénie</div>
+              <div class="space-card-desc" data-fr="Maîtrise du poids de corps" data-en="Bodyweight mastery">Maîtrise du poids de corps</div>
+            </div>
+          </div>
+          <div class="space-card">
+            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80" alt="Musculation" loading="lazy">
+            <div class="space-card-content">
+              <div class="space-card-title" data-fr="Musculation" data-en="Strength">Musculation</div>
+              <div class="space-card-desc" data-fr="Équipements sur mesure" data-en="Custom equipment">Équipements sur mesure</div>
+            </div>
+          </div>
+          <div class="space-card">
+            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80" alt="Coaching" loading="lazy">
+            <div class="space-card-content">
+              <div class="space-card-title" data-fr="Coaching Privé" data-en="Private Coaching">Coaching Privé</div>
+              <div class="space-card-desc" data-fr="Coachs d'élite certifiés" data-en="Certified elite coaches">Coachs d'élite certifiés</div>
+            </div>
+          </div>
         </div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="Tous les espaces" data-en="All spaces">Tous les espaces</span>
-          <span class="tarif-line-price">✓</span>
-        </div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="Application membre" data-en="Member app">Application membre</span>
-          <span class="tarif-line-price">✓</span>
-        </div>
-      </div>
-      <div class="tarif-card">
-        <div class="tarif-category" data-fr="Abonnement" data-en="Membership">Abonnement</div>
-        <div class="tarif-name" data-fr="Annuel" data-en="Annual">Annuel</div>
-        <div class="tarif-price"><sup>€</sup>2300</div>
-        <div class="tarif-note" data-fr="Paiement unique · Économisez 340€" data-en="One-time payment · Save €340">Paiement unique · Économisez 340€</div>
-        <div class="tarif-divider"></div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="Accès illimité au club" data-en="Unlimited club access">Accès illimité au club</span>
-          <span class="tarif-line-price">✓</span>
-        </div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="Priorité sur les créneaux" data-en="Priority booking">Priorité sur les créneaux</span>
-          <span class="tarif-line-price">✓</span>
-        </div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="1 session coaching offerte" data-en="1 free coaching session">1 session coaching offerte</span>
-          <span class="tarif-line-price">✓</span>
-        </div>
-      </div>
-    </div>
-    <div class="tarifs-courses reveal">
-      <div class="tarif-card">
-        <div class="tarif-category">HYROX</div>
-        <div class="tarif-name" data-fr="Cours collectifs" data-en="Group classes">Cours collectifs</div>
-        <div class="tarif-divider"></div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="À l'unité" data-en="Single session">À l'unité</span>
-          <span class="tarif-line-price">€45</span>
-        </div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="Pack 8 séances" data-en="8-session pack">Pack 8 séances</span>
-          <span class="tarif-line-price">€320</span>
-        </div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="Pack 12 séances" data-en="12-session pack">Pack 12 séances</span>
-          <span class="tarif-line-price">€420</span>
-        </div>
-      </div>
-      <div class="tarif-card">
-        <div class="tarif-category" data-fr="Callisthénie" data-en="Calisthenics">Callisthénie</div>
-        <div class="tarif-name" data-fr="Cours collectifs" data-en="Group classes">Cours collectifs</div>
-        <div class="tarif-divider"></div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="À l'unité" data-en="Single session">À l'unité</span>
-          <span class="tarif-line-price">€45</span>
-        </div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="Pack 8 séances" data-en="8-session pack">Pack 8 séances</span>
-          <span class="tarif-line-price">€320</span>
-        </div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="Pack 12 séances" data-en="12-session pack">Pack 12 séances</span>
-          <span class="tarif-line-price">€420</span>
-        </div>
-      </div>
-      <div class="tarif-card">
-        <div class="tarif-category">SGT</div>
-        <div class="tarif-name" data-fr="Small Group Training" data-en="Small Group Training">Small Group Training</div>
-        <div class="tarif-divider"></div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="À l'unité" data-en="Single session">À l'unité</span>
-          <span class="tarif-line-price">€60</span>
-        </div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="Pack 8 séances" data-en="8-session pack">Pack 8 séances</span>
-          <span class="tarif-line-price">€360</span>
-        </div>
-        <div class="tarif-line">
-          <span class="tarif-line-name" data-fr="Pack 12 séances" data-en="12-session pack">Pack 12 séances</span>
-          <span class="tarif-line-price">€480</span>
-        </div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:16px;">
-      <div class="tarif-card" style="display:inline-block;padding:40px 60px;margin-top:0;">
-        <div class="tarif-category" data-fr="Coaching individuel" data-en="Personal training">Coaching individuel</div>
-        <div class="tarif-name" data-fr="Cours particuliers" data-en="Personal Training">Cours particuliers</div>
-        <div class="tarif-price"><sup>€</sup>120<span data-fr="/séance" data-en="/session">/séance</span></div>
-        <div class="tarif-note" data-fr="Avec un coach certifié Quantum" data-en="With a Quantum certified coach">Avec un coach certifié Quantum</div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- CTA FINAL -->
-<section id="cta-final">
-  <div class="section-inner">
-    <h2 class="cta-headline reveal" data-fr="Rejoignez<br>Quantum Club." data-en="Join<br>Quantum Club.">Rejoignez<br>Quantum Club.</h2>
-    <p class="cta-sub reveal" data-fr="Les places sont limitées. L'excellence ne l'est pas." data-en="Places are limited. Excellence is not.">Les places sont limitées. L'excellence ne l'est pas.</p>
-    <a href="mailto:contact@quantumclub.fr" class="btn-outline reveal" data-fr="Candidater" data-en="Apply for Membership">Candidater</a>
+  <!-- PAGE 4: GALLERY -->
+  <div class="scroll-page" style="height:100vh">
+    <div class="content-layer" id="layer-4">
+      <div style="width:100%;text-align:center">
+        <span class="eyebrow" data-fr="L'univers Quantum" data-en="The Quantum universe">L'univers Quantum</span>
+        <div class="img-grid">
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=700&q=80" alt="Salle premium" loading="lazy">
+            <div class="img-caption" data-fr="Espace principal" data-en="Main floor">Espace principal</div>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Équipements" loading="lazy">
+            <div class="img-caption" data-fr="Équipements premium" data-en="Premium equipment">Équipements premium</div>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=700&q=80" alt="Architecture" loading="lazy">
+            <div class="img-caption" data-fr="Architecture exclusive" data-en="Exclusive architecture">Architecture exclusive</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</section>
+
+  <!-- PAGE 5: LE CLUB -->
+  <div class="scroll-page" style="height:100vh">
+    <div class="content-layer" id="layer-5">
+      <div class="content-center">
+        <span class="eyebrow" data-fr="L'espace" data-en="The space">L'espace</span>
+        <h2 class="headline-md" data-fr="800 m² dédiés à<br>votre excellence." data-en="800 m² dedicated to<br>your excellence.">800 m² dédiés à<br>votre excellence.</h2>
+        <div class="stats-row">
+          <div class="stat"><span class="stat-n">800</span><span class="stat-l" data-fr="m² exclusifs" data-en="exclusive m²">m² exclusifs</span></div>
+          <div class="stat"><span class="stat-n">4</span><span class="stat-l" data-fr="espaces distincts" data-en="distinct spaces">espaces distincts</span></div>
+          <div class="stat"><span class="stat-n">∞</span><span class="stat-l" data-fr="équipements premium" data-en="premium equipment">équipements premium</span></div>
+          <div class="stat"><span class="stat-n">1</span><span class="stat-l" data-fr="seul club à Paris" data-en="unique in Paris">seul club à Paris</span></div>
+        </div>
+        <div class="gold-line"></div>
+        <p class="body-text" data-fr="Chaque machine, chaque surface, chaque source lumineuse a été sélectionnée avec soin. Quantum Club est une déclaration architecturale autant qu'un espace de performance absolue." data-en="Every machine, every surface, every light source has been carefully selected. Quantum Club is an architectural statement as much as a space of absolute performance.">Chaque machine, chaque surface, chaque source lumineuse a été sélectionnée avec soin. Quantum Club est une déclaration architecturale autant qu'un espace de performance absolue.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 6: HISTOIRE -->
+  <div class="scroll-page" style="height:100vh">
+    <div class="content-layer" id="layer-6">
+      <div class="content-center" style="max-width:800px">
+        <span class="eyebrow" data-fr="Notre histoire" data-en="Our story">Notre histoire</span>
+        <h2 class="headline-md" style="font-style:italic" data-fr="Né d'une obsession<br>pour l'excellence." data-en="Born from an obsession<br>for excellence.">Né d'une obsession<br>pour l'excellence.</h2>
+        <div class="gold-line"></div>
+        <p class="body-text" data-fr="Quantum Club est né d'un constat simple : les meilleurs sportifs de Paris méritaient un espace à la hauteur de leurs ambitions. Deux ans de conception. Chaque décision guidée par une seule question : est-ce que cela élève l'expérience ?" data-en="Quantum Club was born from a simple observation: Paris's top performers deserved a space worthy of their ambitions. Two years of design. Every decision guided by a single question: does this elevate the experience?">Quantum Club est né d'un constat simple : les meilleurs sportifs de Paris méritaient un espace à la hauteur de leurs ambitions. Deux ans de conception. Chaque décision guidée par une seule question : est-ce que cela élève l'expérience ?</p>
+        <div style="margin-top:48px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=75" style="width:220px;height:280px;object-fit:cover;filter:brightness(.8) saturate(.7)" alt="Quantum story" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=75" style="width:220px;height:280px;object-fit:cover;filter:brightness(.8) saturate(.7)" alt="Quantum story 2" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- PAGE 7: TARIFS -->
+  <div class="scroll-page" style="height:100vh">
+    <div class="content-layer" id="layer-7">
+      <div class="content-center" style="max-width:1000px">
+        <span class="eyebrow" data-fr="Membership" data-en="Membership">Membership</span>
+        <h2 class="headline-md" data-fr="Un investissement<br>dans l'excellence." data-en="An investment<br>in excellence.">Un investissement<br>dans l'excellence.</h2>
+        <div class="price-grid">
+          <div class="price-card gold-card">
+            <div class="badge" data-fr="Recommandé" data-en="Recommended">Recommandé</div>
+            <div class="price-cat" data-fr="Abonnement" data-en="Membership">Abonnement</div>
+            <div class="price-name" data-fr="Mensuel Premium" data-en="Monthly Premium">Mensuel Premium</div>
+            <div class="price-amount"><sup>€</sup>220<span data-fr="/mois" data-en="/month">/mois</span></div>
+            <div class="price-note" data-fr="Engagement 12 mois" data-en="12-month commitment">Engagement 12 mois</div>
+            <div class="price-sep"></div>
+            <div class="price-row"><span class="price-row-name" data-fr="Accès illimité" data-en="Unlimited access">Accès illimité</span><span class="price-row-val">✓</span></div>
+            <div class="price-row"><span class="price-row-name" data-fr="Tous les espaces" data-en="All spaces">Tous les espaces</span><span class="price-row-val">✓</span></div>
+            <div class="price-row"><span class="price-row-name" data-fr="Application membre" data-en="Member app">Application membre</span><span class="price-row-val">✓</span></div>
+          </div>
+          <div class="price-card">
+            <div class="price-cat" data-fr="Abonnement" data-en="Membership">Abonnement</div>
+            <div class="price-name" data-fr="Annuel" data-en="Annual">Annuel</div>
+            <div class="price-amount"><sup>€</sup>2300</div>
+            <div class="price-note" data-fr="Paiement unique · Économisez 340€" data-en="One-time · Save €340">Paiement unique · Économisez 340€</div>
+            <div class="price-sep"></div>
+            <div class="price-row"><span class="price-row-name" data-fr="Accès illimité" data-en="Unlimited access">Accès illimité</span><span class="price-row-val">✓</span></div>
+            <div class="price-row"><span class="price-row-name" data-fr="Priorité créneaux" data-en="Priority booking">Priorité créneaux</span><span class="price-row-val">✓</span></div>
+            <div class="price-row"><span class="price-row-name" data-fr="1 session offerte" data-en="1 free session">1 session offerte</span><span class="price-row-val">✓</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 8: COURS -->
+  <div class="scroll-page" style="height:100vh">
+    <div class="content-layer" id="layer-8">
+      <div class="content-center" style="max-width:1100px">
+        <span class="eyebrow" data-fr="Cours & sessions" data-en="Classes & sessions">Cours & sessions</span>
+        <div class="courses-grid">
+          <div class="price-card">
+            <div class="price-cat">HYROX</div>
+            <div class="price-name" data-fr="Cours collectifs" data-en="Group classes">Cours collectifs</div>
+            <div class="price-sep" style="margin-top:20px"></div>
+            <div class="price-row"><span class="price-row-name" data-fr="À l'unité" data-en="Single">À l'unité</span><span class="price-row-val">€45</span></div>
+            <div class="price-row"><span class="price-row-name" data-fr="Pack 8 séances" data-en="8-pack">Pack 8 séances</span><span class="price-row-val">€320</span></div>
+            <div class="price-row"><span class="price-row-name" data-fr="Pack 12 séances" data-en="12-pack">Pack 12 séances</span><span class="price-row-val">€420</span></div>
+          </div>
+          <div class="price-card">
+            <div class="price-cat" data-fr="Callisthénie" data-en="Calisthenics">Callisthénie</div>
+            <div class="price-name" data-fr="Cours collectifs" data-en="Group classes">Cours collectifs</div>
+            <div class="price-sep" style="margin-top:20px"></div>
+            <div class="price-row"><span class="price-row-name" data-fr="À l'unité" data-en="Single">À l'unité</span><span class="price-row-val">€45</span></div>
+            <div class="price-row"><span class="price-row-name" data-fr="Pack 8 séances" data-en="8-pack">Pack 8 séances</span><span class="price-row-val">€320</span></div>
+            <div class="price-row"><span class="price-row-name" data-fr="Pack 12 séances" data-en="12-pack">Pack 12 séances</span><span class="price-row-val">€420</span></div>
+          </div>
+          <div class="price-card">
+            <div class="price-cat">SGT</div>
+            <div class="price-name" data-fr="Small Group Training" data-en="Small Group Training">Small Group Training</div>
+            <div class="price-sep" style="margin-top:20px"></div>
+            <div class="price-row"><span class="price-row-name" data-fr="À l'unité" data-en="Single">À l'unité</span><span class="price-row-val">€60</span></div>
+            <div class="price-row"><span class="price-row-name" data-fr="Pack 8 séances" data-en="8-pack">Pack 8 séances</span><span class="price-row-val">€360</span></div>
+            <div class="price-row"><span class="price-row-name" data-fr="Pack 12 séances" data-en="12-pack">Pack 12 séances</span><span class="price-row-val">€480</span></div>
+          </div>
+        </div>
+        <div style="margin-top:16px">
+          <div class="price-card" style="display:inline-block;padding:36px 56px">
+            <div class="price-cat" data-fr="Coaching individuel" data-en="Personal training">Coaching individuel</div>
+            <div class="price-name" data-fr="Cours particuliers" data-en="Personal Training">Cours particuliers</div>
+            <div class="price-amount"><sup>€</sup>120<span data-fr="/séance" data-en="/session">/séance</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 9: CTA FINAL -->
+  <div class="scroll-page" style="height:100vh" id="page-cta">
+    <div class="content-layer" id="layer-9">
+      <div class="content-center">
+        <span class="eyebrow" data-fr="Membership exclusif" data-en="Exclusive membership">Membership exclusif</span>
+        <h2 class="headline-lg" data-fr="Rejoignez<br>Quantum Club." data-en="Join<br>Quantum Club.">Rejoignez<br>Quantum Club.</h2>
+        <div class="gold-line"></div>
+        <p class="body-text" data-fr="Les places sont limitées. L'excellence ne l'est pas. Ouverture prévue courant 2027 à Paris." data-en="Places are limited. Excellence is not. Opening planned for 2027 in Paris.">Les places sont limitées. L'excellence ne l'est pas. Ouverture prévue courant 2027 à Paris.</p>
+        <a href="mailto:contact@quantumclub.fr" class="btn btn-gold" data-fr="Candidater" data-en="Apply for Membership">Candidater</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end scroll-container -->
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Quantum Club</div>
-  <div class="footer-text" data-fr="Paris · 2024 · Tous droits réservés" data-en="Paris · 2024 · All rights reserved">Paris · 2024 · Tous droits réservés</div>
+<footer style="position:relative;z-index:2;background:var(--green3);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(200,169,110,.1)">
+  <div style="font-family:var(--serif);font-size:1.1rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--ivory)">Quantum Club</div>
+  <div style="font-size:.68rem;font-weight:300;color:rgba(245,241,233,.35);letter-spacing:.1em" data-fr="Paris · Ouverture 2027 · Tous droits réservés" data-en="Paris · Opening 2027 · All rights reserved">Paris · Ouverture 2027 · Tous droits réservés</div>
 </footer>
 <script>
-// Language system
-let currentLang = 'fr';
+// ═══════════════════════════════════════════
+// CANVAS BACKGROUND — WebGL-style via Canvas2D
+// ═══════════════════════════════════════════
+const canvas = document.getElementById('canvas-bg');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [], scrollProgress = 0;
+let currentBg = {r:13,g:34,b:24};
+let targetBg = {r:13,g:34,b:24};
 
-function setLang(lang) {
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  document.querySelectorAll('[data-fr]').forEach(el => {
-    const text = el.getAttribute('data-' + lang);
-    if (text) {
-      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-        el.placeholder = text;
-      } else {
-        el.innerHTML = text;
-      }
-    }
-  });
+// Color palette per section
+const sectionColors = [
+  {r:13,g:34,b:24},    // 0 hero - deep green
+  {r:20,g:45,b:32},    // 1 concept - mid green
+  {r:10,g:28,b:20},    // 2 pillars - darker
+  {r:8,g:20,b:14},     // 3 spaces - near black green
+  {r:15,g:35,b:26},    // 4 gallery
+  {r:245,g:241,b:233}, // 5 club - ivory
+  {r:237,g:233,b:225}, // 6 histoire - light
+  {r:13,g:34,b:24},    // 7 pricing - dark
+  {r:10,g:28,b:20},    // 8 courses
+  {r:8,g:18,b:12},     // 9 cta
+];
+
+function resize(){
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  initParticles();
 }
 
-// Nav scroll effect
-const nav = document.getElementById('main-nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-});
-
-// Mobile menu
-function toggleMenu() {
-  const links = document.getElementById('nav-links');
-  links.classList.toggle('open');
-}
-document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', () => {
-    document.getElementById('nav-links').classList.remove('open');
-  });
-});
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
-
-// Reveal on scroll
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, i * 100);
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-// Parallax hero accent
-window.addEventListener('scroll', () => {
-  const accent = document.querySelector('.hero-accent');
-  if (accent) {
-    const y = window.scrollY * 0.3;
-    accent.style.transform = `translate(-50%, calc(-50% + ${y}px))`;
+class Particle {
+  constructor(){this.reset(true)}
+  reset(init){
+    this.x = Math.random()*W;
+    this.y = init ? Math.random()*H : H + 10;
+    this.size = Math.random()*2+0.3;
+    this.speed = Math.random()*0.4+0.1;
+    this.opacity = Math.random()*0.5+0.1;
+    this.drift = (Math.random()-0.5)*0.3;
   }
-});
+  update(){
+    this.y -= this.speed;
+    this.x += this.drift;
+    if(this.y < -10) this.reset(false);
+  }
+  draw(){
+    // Color depends on background lightness
+    const isLight = currentBg.r > 200;
+    const alpha = isLight ? this.opacity*0.3 : this.opacity;
+    const col = isLight ? `rgba(26,58,42,${alpha})` : `rgba(200,169,110,${alpha})`;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle = col;
+    ctx.fill();
+  }
+}
 
-// Initialize French by default
-document.addEventListener('DOMContentLoaded', () => setLang('fr'));
+function initParticles(){
+  particles = [];
+  const count = Math.min(Math.floor(W*H/8000), 120);
+  for(let i=0;i<count;i++) particles.push(new Particle());
+}
+
+// Orbs / blobs
+function drawOrbs(t, progress){
+  const sec = Math.floor(progress * 10);
+  const frac = (progress * 10) % 1;
+  const isLight = currentBg.r > 200;
+
+  // Primary orb
+  const cx = W*0.5 + Math.sin(t*0.0005)*W*0.12;
+  const cy = H*0.45 + Math.cos(t*0.0007)*H*0.08;
+  const r1 = Math.min(W,H)*0.45;
+  const grd1 = ctx.createRadialGradient(cx,cy,0,cx,cy,r1);
+  if(isLight){
+    grd1.addColorStop(0,`rgba(26,58,42,0.06)`);
+    grd1.addColorStop(1,'transparent');
+  } else {
+    const intensity = 0.04 + Math.sin(t*0.001)*0.02;
+    grd1.addColorStop(0,`rgba(45,90,61,${intensity+0.03})`);
+    grd1.addColorStop(0.5,`rgba(26,58,42,${intensity})`);
+    grd1.addColorStop(1,'transparent');
+  }
+  ctx.fillStyle = grd1;
+  ctx.fillRect(0,0,W,H);
+
+  // Secondary orb
+  const cx2 = W*0.2 + Math.cos(t*0.0006)*W*0.15;
+  const cy2 = H*0.7 + Math.sin(t*0.0004)*H*0.1;
+  const r2 = Math.min(W,H)*0.3;
+  const grd2 = ctx.createRadialGradient(cx2,cy2,0,cx2,cy2,r2);
+  if(isLight){
+    grd2.addColorStop(0,'rgba(200,169,110,0.04)');
+    grd2.addColorStop(1,'transparent');
+  } else {
+    grd2.addColorStop(0,'rgba(200,169,110,0.04)');
+    grd2.addColorStop(1,'transparent');
+  }
+  ctx.fillStyle = grd2;
+  ctx.fillRect(0,0,W,H);
+
+  // Accent lines
+  if(!isLight){
+    ctx.save();
+    ctx.strokeStyle = `rgba(200,169,110,${0.03 + Math.sin(t*0.002)*0.01})`;
+    ctx.lineWidth = 1;
+    for(let i=0;i<3;i++){
+      const lx = W*(0.2+i*0.3) + Math.sin(t*0.001+i)*30;
+      ctx.beginPath();
+      ctx.moveTo(lx, 0);
+      ctx.lineTo(lx + Math.sin(t*0.0008)*40, H);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+}
+
+function lerpColor(a, b, t){
+  return {
+    r: a.r + (b.r-a.r)*t,
+    g: a.g + (b.g-a.g)*t,
+    b: a.b + (b.b-a.b)*t
+  };
+}
+
+let lastTime = 0;
+function animate(ts){
+  if(!lastTime) lastTime = ts;
+  const dt = ts - lastTime; lastTime = ts;
+
+  // Lerp background color
+  currentBg.r += (targetBg.r - currentBg.r) * 0.03;
+  currentBg.g += (targetBg.g - currentBg.g) * 0.03;
+  currentBg.b += (targetBg.b - currentBg.b) * 0.03;
+
+  const bg = currentBg;
+  ctx.fillStyle = `rgb(${Math.round(bg.r)},${Math.round(bg.g)},${Math.round(bg.b)})`;
+  ctx.fillRect(0,0,W,H);
+
+  drawOrbs(ts, scrollProgress);
+  particles.forEach(p=>{p.update();p.draw()});
+
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener('resize', resize);
+resize();
+requestAnimationFrame(animate);
+
+// ═══════════════════════════════════════════
+// SCROLL ENGINE
+// ═══════════════════════════════════════════
+const totalSections = 10;
+let currentSection = 0;
+let ticking = false;
+
+function getSectionFromScroll(){
+  const scrollY = window.scrollY;
+  const maxScroll = document.body.scrollHeight - window.innerHeight;
+  const raw = scrollY / maxScroll;
+  scrollProgress = Math.max(0, Math.min(1, raw));
+  return Math.min(Math.floor(scrollProgress * totalSections), totalSections-1);
+}
+
+function updateLayers(section){
+  for(let i=0;i<totalSections;i++){
+    const layer = document.getElementById('layer-'+i);
+    if(!layer) continue;
+    if(i === section){
+      layer.classList.add('active');
+    } else {
+      layer.classList.remove('active');
+    }
+  }
+  // Update background target
+  if(section < sectionColors.length) targetBg = {...sectionColors[section]};
+
+  // Nav color
+  const nav = document.getElementById('nav');
+  const isLight = sectionColors[section]?.r > 200;
+  nav.className = isLight ? 'dark' : 'dark'; // always dark text on light, light text on dark
+  if(isLight){ nav.className='light'; } else { nav.className='dark'; }
+
+  // Scroll indicator
+  const si = document.getElementById('scroll-indicator');
+  if(section >= totalSections-1){ si.style.opacity='0'; } else { si.style.opacity='1'; }
+}
+
+function onScroll(){
+  const section = getSectionFromScroll();
+  // Progress bar
+  document.getElementById('progress-bar').style.width = (scrollProgress*100)+'%';
+  if(section !== currentSection){
+    currentSection = section;
+    updateLayers(section);
+  }
+  ticking = false;
+}
+
+window.addEventListener('scroll', ()=>{
+  if(!ticking){ requestAnimationFrame(onScroll); ticking=true; }
+}, {passive:true});
+
+// Init
+updateLayers(0);
+
+// ═══════════════════════════════════════════
+// LANGUAGE
+// ═══════════════════════════════════════════
+let lang = 'fr';
+function setLang(l){
+  lang = l;
+  document.getElementById('btn-fr').classList.toggle('active', l==='fr');
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const val = el.getAttribute('data-'+l);
+    if(val) el.innerHTML = val;
+  });
+}
 setLang('fr');
+
+// ═══════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════
+function scrollToSection(i){
+  const maxScroll = document.body.scrollHeight - window.innerHeight;
+  const target = (i / totalSections) * maxScroll;
+  window.scrollTo({top: target, behavior:'smooth'});
+}
+
+// Pillar hover
+document.querySelectorAll('.pillar-item').forEach(p=>{
+  p.addEventListener('mouseenter',()=>{ p.style.borderColor='rgba(200,169,110,.25)'; p.style.transform='translateY(-4px)'; });
+  p.addEventListener('mouseleave',()=>{ p.style.borderColor='rgba(245,241,233,.08)'; p.style.transform=''; });
+});
 </script>
 </body>
 </html>
