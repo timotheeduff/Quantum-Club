@@ -10,29 +10,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;overflow-x:hidden;font-family:'Inter',sans-serif;font-weight:300;background:#070F0A}
+html,body{width:100%;overflow-x:hidden;font-family:'Inter',sans-serif;font-weight:300;background:#060D08}
 
 /* ── BACKGROUND IMAGES ── */
-#bg-container{position:fixed;inset:0;z-index:0}
+#bg-container{position:fixed;inset:0;z-index:0;background:#060D08}
 .bg-slide{
   position:absolute;inset:0;
   background-size:cover;background-position:center;
-  opacity:0;transition:opacity 1.2s cubic-bezier(.4,0,.2,1);
-  transform:scale(1.04);transition:opacity 1.2s cubic-bezier(.4,0,.2,1),transform 8s linear;
+  opacity:0;
+  transition:opacity 1.4s cubic-bezier(.4,0,.2,1),transform 10s ease-out;
+  transform:scale(1.05);
 }
 .bg-slide.active{opacity:1;transform:scale(1)}
 .bg-slide::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(4,12,7,.82) 0%,rgba(4,12,7,.52) 60%,rgba(4,12,7,.78) 100%);
+  background:linear-gradient(135deg,rgba(4,10,6,.88) 0%,rgba(4,10,6,.58) 55%,rgba(4,10,6,.82) 100%);
 }
 
 /* ── OVERLAY GRAIN ── */
-#grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+#grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ── PROGRESS BAR ── */
-#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#1AFF7A,#00E564);z-index:200;width:0%;transition:width .08s linear;box-shadow:0 0 10px rgba(26,255,122,.6)}
+#progress{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,#3D7A52,#6BAF84);z-index:200;width:0%;transition:width .1s linear}
 
 /* ── NAV ── */
 nav{
@@ -43,31 +44,31 @@ nav{
 }
 nav.scrolled{
   padding:20px 64px;
-  background:rgba(4,10,6,.75);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(26,255,122,.08);
+  background:rgba(4,9,5,.8);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(107,175,132,.07);
 }
 .logo{
   font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;
   letter-spacing:.18em;text-transform:uppercase;color:#F5F1E9;text-decoration:none;
   transition:opacity .3s;
 }
-.logo:hover{opacity:.7}
+.logo:hover{opacity:.65}
 .nav-menu{display:flex;gap:44px;list-style:none}
 .nav-item{
   font-size:.65rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(245,241,233,.55);cursor:pointer;text-decoration:none;
+  color:rgba(245,241,233,.5);cursor:pointer;text-decoration:none;
   transition:color .3s;padding:4px 0;border-bottom:1px solid transparent;
 }
-.nav-item:hover{color:#F5F1E9;border-bottom-color:rgba(26,255,122,.4)}
+.nav-item:hover{color:#F5F1E9;border-bottom-color:rgba(107,175,132,.35)}
 .lang-wrap{display:flex;gap:6px;align-items:center}
 .lbtn{
   font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
-  background:none;border:none;cursor:pointer;color:rgba(245,241,233,.35);
+  background:none;border:none;cursor:pointer;color:rgba(245,241,233,.3);
   padding:4px 2px;border-bottom:1px solid transparent;transition:all .3s;
 }
-.lbtn.on{color:#1AFF7A;border-bottom-color:#1AFF7A}
-.lsep{color:rgba(245,241,233,.2);font-size:.6rem}
+.lbtn.on{color:#6BAF84;border-bottom-color:#6BAF84}
+.lsep{color:rgba(245,241,233,.18);font-size:.6rem}
 
 /* ── SCROLL CONTAINER ── */
 #story{position:relative;z-index:2}
@@ -77,7 +78,7 @@ nav.scrolled{
 }
 
 /* ── CONTENT BLOCKS ── */
-.block{opacity:0;transform:translateY(32px);transition:opacity .9s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.4,0,.2,1)}
+.block{opacity:0;transform:translateY(28px);transition:opacity 1s cubic-bezier(.4,0,.2,1),transform 1s cubic-bezier(.4,0,.2,1)}
 .block.show{opacity:1;transform:translateY(0)}
 .center{text-align:center;max-width:960px;margin:0 auto}
 .left-col{max-width:640px}
@@ -85,13 +86,13 @@ nav.scrolled{
 
 /* ── TYPOGRAPHY ── */
 .eyebrow{
-  display:block;font-size:.62rem;font-weight:400;letter-spacing:.35em;
-  text-transform:uppercase;color:#1AFF7A;margin-bottom:22px;
+  display:block;font-size:.6rem;font-weight:400;letter-spacing:.4em;
+  text-transform:uppercase;color:#6BAF84;margin-bottom:24px;
 }
 .h-mega{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(5.5rem,11vw,11rem);
-  font-weight:300;line-height:.9;letter-spacing:-.02em;color:#F5F1E9;
+  font-weight:300;line-height:.88;letter-spacing:-.02em;color:#F5F1E9;
 }
 .h-xl{
   font-family:'Cormorant Garamond',serif;
@@ -110,169 +111,159 @@ nav.scrolled{
 }
 .italic{font-style:italic}
 .body{
-  font-size:.88rem;font-weight:300;line-height:1.95;
-  color:rgba(245,241,233,.62);max-width:540px;
+  font-size:.87rem;font-weight:300;line-height:2;
+  color:rgba(245,241,233,.58);max-width:540px;
 }
 .body.center-t{margin:0 auto}
-.green-rule{width:48px;height:1px;background:#1AFF7A;margin:32px 0;box-shadow:0 0 8px rgba(26,255,122,.4)}
+.green-rule{width:44px;height:1px;background:rgba(107,175,132,.5);margin:32px 0}
 .green-rule.c{margin:32px auto}
 
 /* ── CTA BUTTONS ── */
 .cta{
   display:inline-block;margin-top:40px;
-  font-size:.65rem;font-weight:400;letter-spacing:.24em;text-transform:uppercase;
+  font-size:.63rem;font-weight:400;letter-spacing:.26em;text-transform:uppercase;
   text-decoration:none;cursor:pointer;padding:17px 48px;
-  border:1px solid rgba(26,255,122,.5);color:#1AFF7A;background:transparent;
-  transition:all .4s;
+  border:1px solid rgba(107,175,132,.45);color:#9DCBAF;background:transparent;
+  transition:all .45s;
 }
-.cta:hover{background:#1AFF7A;color:#070F0A;border-color:#1AFF7A;box-shadow:0 0 24px rgba(26,255,122,.3)}
+.cta:hover{background:rgba(107,175,132,.12);color:#F5F1E9;border-color:rgba(107,175,132,.7)}
 .cta-inv{
   display:inline-block;margin-top:40px;
-  font-size:.65rem;font-weight:400;letter-spacing:.24em;text-transform:uppercase;
+  font-size:.63rem;font-weight:400;letter-spacing:.26em;text-transform:uppercase;
   text-decoration:none;cursor:pointer;padding:17px 48px;
-  border:1px solid rgba(245,241,233,.3);color:#F5F1E9;background:transparent;
-  transition:all .4s;
+  border:1px solid rgba(245,241,233,.22);color:rgba(245,241,233,.6);background:transparent;
+  transition:all .45s;
 }
-.cta-inv:hover{background:rgba(245,241,233,.08);border-color:rgba(245,241,233,.6)}
+.cta-inv:hover{background:rgba(245,241,233,.06);border-color:rgba(245,241,233,.5);color:#F5F1E9}
 
 /* ── GRID LAYOUTS ── */
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:56px;width:100%;max-width:1100px}
-.pillar{padding:40px 28px;background:rgba(245,241,233,.02);border:1px solid rgba(245,241,233,.07);transition:all .4s}
-.pillar:hover{background:rgba(26,255,122,.04);border-color:rgba(26,255,122,.2);transform:translateY(-5px)}
-.p-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:rgba(26,255,122,.15);display:block;margin-bottom:14px}
+.pillar{padding:40px 28px;background:rgba(245,241,233,.015);border:1px solid rgba(245,241,233,.06);transition:all .45s}
+.pillar:hover{background:rgba(107,175,132,.04);border-color:rgba(107,175,132,.15);transform:translateY(-4px)}
+.p-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:rgba(107,175,132,.12);display:block;margin-bottom:14px}
 .p-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#F5F1E9;display:block;margin-bottom:10px;letter-spacing:.04em}
-.p-body{font-size:.74rem;font-weight:300;color:rgba(245,241,233,.42);line-height:1.7}
+.p-body{font-size:.74rem;font-weight:300;color:rgba(245,241,233,.4);line-height:1.75}
 
 /* ── METHOD STEPS ── */
-.method-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px;width:100%;max-width:1100px}
-.method-step{padding:44px 32px;background:rgba(245,241,233,.02);border:1px solid rgba(245,241,233,.06);transition:all .5s;position:relative;overflow:hidden}
-.method-step::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#1AFF7A,transparent);opacity:0;transition:opacity .4s}
+.method-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:56px;width:100%;max-width:1100px}
+.method-step{padding:44px 32px;background:rgba(245,241,233,.015);border:1px solid rgba(245,241,233,.06);transition:all .5s;position:relative;overflow:hidden}
+.method-step::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(107,175,132,.4),transparent);opacity:0;transition:opacity .4s}
 .method-step:hover::before{opacity:1}
-.method-step:hover{background:rgba(26,255,122,.03);border-color:rgba(26,255,122,.15);transform:translateY(-4px)}
-.ms-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(26,255,122,.1);display:block;margin-bottom:16px;line-height:1}
+.method-step:hover{background:rgba(107,175,132,.03);border-color:rgba(107,175,132,.12);transform:translateY(-4px)}
+.ms-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(107,175,132,.08);display:block;margin-bottom:16px;line-height:1}
 .ms-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#F5F1E9;display:block;margin-bottom:12px;letter-spacing:.04em}
-.ms-body{font-size:.75rem;font-weight:300;color:rgba(245,241,233,.45);line-height:1.75}
-
-/* ── PROBLEM SECTION ── */
-.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:52px;width:100%;max-width:960px}
-.prob-item{padding:36px 30px;background:rgba(245,241,233,.02);border:1px solid rgba(245,241,233,.06)}
-.prob-icon{font-size:1.4rem;margin-bottom:14px;opacity:.5}
-.prob-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(245,241,233,.7);margin-bottom:8px}
-.prob-body{font-size:.74rem;color:rgba(245,241,233,.35);line-height:1.65}
-.vs-divider{width:100%;max-width:960px;margin:40px auto 0;display:flex;align-items:center;gap:24px}
-.vs-line{flex:1;height:1px;background:rgba(26,255,122,.15)}
-.vs-text{font-family:'Cormorant Garamond',serif;font-size:1rem;color:#1AFF7A;letter-spacing:.2em;white-space:nowrap}
+.ms-body{font-size:.75rem;font-weight:300;color:rgba(245,241,233,.42);line-height:1.78}
 
 /* ── SPACE CARDS ── */
 .spaces{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:52px;width:100%;max-width:1200px}
 .sc{position:relative;overflow:hidden;aspect-ratio:9/16;cursor:pointer}
-.sc img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform .8s cubic-bezier(.4,0,.2,1),filter .8s;filter:brightness(.5) saturate(.8)}
-.sc:hover img{transform:scale(1);filter:brightness(.65) saturate(1)}
+.sc-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.08);transition:transform .9s cubic-bezier(.4,0,.2,1),filter .9s;filter:brightness(.48) saturate(.75)}
+.sc:hover .sc-bg{transform:scale(1);filter:brightness(.62) saturate(1)}
 .sc-overlay{
   position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(4,10,6,.92) 0%,rgba(4,10,6,.2) 50%,transparent 100%);
+  background:linear-gradient(to top,rgba(4,9,5,.95) 0%,rgba(4,9,5,.18) 55%,transparent 100%);
   display:flex;flex-direction:column;justify-content:flex-end;padding:28px 22px;
 }
-.sc-tag{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:#1AFF7A;margin-bottom:8px}
+.sc-tag{font-size:.57rem;letter-spacing:.28em;text-transform:uppercase;color:#6BAF84;margin-bottom:8px}
 .sc-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#F5F1E9;letter-spacing:.04em;margin-bottom:6px}
-.sc-desc{font-size:.72rem;font-weight:300;color:rgba(245,241,233,.55);line-height:1.5}
+.sc-desc{font-size:.72rem;font-weight:300;color:rgba(245,241,233,.5);line-height:1.55}
 
 /* ── GALLERY ── */
 .gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;margin-top:52px;width:100%;max-width:1200px;height:520px}
-.gimg{position:relative;overflow:hidden;cursor:pointer}
+.gimg{position:relative;overflow:hidden;cursor:pointer;background:#0A1510}
 .gimg:first-child{grid-row:1/3}
-.gimg img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform .7s ease,filter .7s;filter:brightness(.6) saturate(.85)}
-.gimg:hover img{transform:scale(1);filter:brightness(.75) saturate(1)}
-.gcap{position:absolute;bottom:0;left:0;right:0;padding:20px 18px;background:linear-gradient(to top,rgba(4,10,6,.8),transparent);font-family:'Cormorant Garamond',serif;font-size:1rem;color:#F5F1E9;letter-spacing:.04em}
+.gimg-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.05);transition:transform .7s ease,filter .7s;filter:brightness(.58) saturate(.82)}
+.gimg:hover .gimg-bg{transform:scale(1);filter:brightness(.72) saturate(1)}
+.gcap{position:absolute;bottom:0;left:0;right:0;padding:20px 18px;background:linear-gradient(to top,rgba(4,9,5,.85),transparent);font-family:'Cormorant Garamond',serif;font-size:1rem;color:#F5F1E9;letter-spacing:.04em}
 
 /* ── STATS ── */
 .stats{display:flex;gap:72px;justify-content:center;margin-top:48px;flex-wrap:wrap}
 .stat-n{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:#F5F1E9;display:block;line-height:1}
-.stat-l{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,241,233,.38);margin-top:6px;display:block}
+.stat-l{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,241,233,.35);margin-top:6px;display:block}
 
 /* ── METRICS ── */
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:52px;width:100%;max-width:960px}
-.metric{padding:36px 24px;text-align:center;background:rgba(245,241,233,.02);border:1px solid rgba(245,241,233,.06);transition:all .4s}
-.metric:hover{border-color:rgba(26,255,122,.2);background:rgba(26,255,122,.03)}
-.metric-n{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:300;color:#1AFF7A;display:block;line-height:1;text-shadow:0 0 20px rgba(26,255,122,.3)}
-.metric-l{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,241,233,.4);margin-top:8px;display:block}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:52px;width:100%;max-width:960px}
+.metric{padding:36px 24px;text-align:center;background:rgba(245,241,233,.015);border:1px solid rgba(245,241,233,.05);transition:all .4s}
+.metric:hover{border-color:rgba(107,175,132,.15);background:rgba(107,175,132,.025)}
+.metric-n{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:300;color:#D4E8DC;display:block;line-height:1}
+.metric-l{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,241,233,.35);margin-top:8px;display:block}
 
 /* ── PRICING ── */
 .price-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:52px;width:100%;max-width:900px}
-.pcard{background:rgba(245,241,233,.03);border:1px solid rgba(245,241,233,.07);padding:52px 44px;transition:all .4s;position:relative}
-.pcard:hover{background:rgba(245,241,233,.06);transform:translateY(-4px)}
-.pcard.featured{background:rgba(26,255,122,.05);border-color:rgba(26,255,122,.2)}
-.pbadge{position:absolute;top:-1px;right:28px;background:#1AFF7A;color:#070F0A;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;padding:5px 12px;font-weight:500}
-.pcat{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(245,241,233,.32);margin-bottom:12px}
+.pcard{background:rgba(245,241,233,.025);border:1px solid rgba(245,241,233,.06);padding:52px 44px;transition:all .4s;position:relative}
+.pcard:hover{background:rgba(245,241,233,.05);transform:translateY(-3px)}
+.pcard.featured{background:rgba(107,175,132,.04);border-color:rgba(107,175,132,.18)}
+.pbadge{position:absolute;top:-1px;right:28px;background:#4A8C62;color:#F5F1E9;font-size:.53rem;letter-spacing:.15em;text-transform:uppercase;padding:5px 12px;font-weight:400}
+.pcat{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(245,241,233,.28);margin-bottom:12px}
 .pname{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#F5F1E9;margin-bottom:6px}
 .pamount{font-family:'Cormorant Garamond',serif;font-size:3.8rem;font-weight:300;color:#F5F1E9;line-height:1}
 .pamount sup{font-size:1.5rem;vertical-align:super}
-.pamount span{font-size:.9rem;color:rgba(245,241,233,.35)}
-.pnote{font-size:.7rem;color:rgba(245,241,233,.3);margin-top:4px;margin-bottom:28px}
-.psep{height:1px;background:rgba(245,241,233,.06);margin-bottom:22px}
+.pamount span{font-size:.9rem;color:rgba(245,241,233,.32)}
+.pnote{font-size:.7rem;color:rgba(245,241,233,.28);margin-top:4px;margin-bottom:28px}
+.psep{height:1px;background:rgba(245,241,233,.05);margin-bottom:22px}
 .prow{display:flex;justify-content:space-between;margin-bottom:12px;font-size:.78rem;font-weight:300}
-.prow-n{color:rgba(245,241,233,.5)}
+.prow-n{color:rgba(245,241,233,.48)}
 .prow-v{font-family:'Cormorant Garamond',serif;color:#F5F1E9}
 
 /* ── COURSES ── */
-.courses-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:16px;width:100%;max-width:900px}
+.courses-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:16px;width:100%;max-width:960px}
 .personal-card{display:inline-block;padding:40px 52px;margin-top:16px}
 
 /* ── VISION ── */
-.vision-stages{display:flex;gap:0;margin-top:52px;width:100%;max-width:800px;position:relative}
-.vision-stages::before{content:'';position:absolute;top:24px;left:24px;right:24px;height:1px;background:linear-gradient(90deg,rgba(26,255,122,.4),rgba(26,255,122,.1));z-index:0}
+.vision-stages{display:flex;gap:0;margin-top:56px;width:100%;max-width:720px;position:relative}
+.vision-stages::before{content:'';position:absolute;top:5px;left:6px;right:6px;height:1px;background:linear-gradient(90deg,rgba(107,175,132,.5),rgba(107,175,132,.1));z-index:0}
 .vs-stage{flex:1;text-align:center;position:relative;z-index:1}
-.vs-dot{width:12px;height:12px;border-radius:50%;background:#1AFF7A;margin:0 auto 20px;box-shadow:0 0 16px rgba(26,255,122,.6)}
-.vs-stage:first-child .vs-dot{box-shadow:0 0 24px rgba(26,255,122,.9),0 0 40px rgba(26,255,122,.4)}
+.vs-dot{width:12px;height:12px;border-radius:50%;background:#4A8C62;margin:0 auto 20px;box-shadow:0 0 18px rgba(74,140,98,.5)}
+.vs-stage:first-child .vs-dot{box-shadow:0 0 24px rgba(74,140,98,.8),0 0 48px rgba(74,140,98,.25)}
 .vs-city{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#F5F1E9;display:block;margin-bottom:6px}
-.vs-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,241,233,.35)}
-.vs-stage:first-child .vs-city{color:#1AFF7A}
-.vs-stage:first-child .vs-label{color:rgba(26,255,122,.6)}
+.vs-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,241,233,.3)}
+.vs-stage:first-child .vs-city{color:#9DCBAF}
+.vs-stage:first-child .vs-label{color:rgba(157,203,175,.5)}
 
 /* ── CONTACT FORM ── */
-.contact-form{width:100%;max-width:640px;margin:48px auto 0}
-.form-field{margin-bottom:24px;position:relative}
+.contact-form{width:100%;max-width:600px;margin:48px auto 0}
+.form-field{margin-bottom:26px;position:relative}
 .form-field input,.form-field select,.form-field textarea{
-  width:100%;background:transparent;border:none;border-bottom:1px solid rgba(245,241,233,.15);
+  width:100%;background:transparent;border:none;border-bottom:1px solid rgba(245,241,233,.12);
   padding:14px 0;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:300;
   color:#F5F1E9;outline:none;transition:border-color .3s;
   -webkit-appearance:none;appearance:none;border-radius:0;
 }
-.form-field input::placeholder,.form-field textarea::placeholder{color:rgba(245,241,233,.28);font-size:.78rem;letter-spacing:.08em}
-.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-bottom-color:#1AFF7A}
+.form-field input::placeholder,.form-field textarea::placeholder{color:rgba(245,241,233,.25);font-size:.78rem;letter-spacing:.06em}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-bottom-color:rgba(107,175,132,.5)}
 .form-field select option{background:#070F0A;color:#F5F1E9}
 .form-field textarea{resize:none;height:80px}
-.form-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,241,233,.3);margin-bottom:8px;display:block}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 
 /* ── HISTORY IMAGES ── */
 .hist-imgs{display:flex;gap:4px;margin-top:48px;justify-content:center}
-.hist-img{width:200px;height:260px;object-fit:cover;filter:brightness(.65) saturate(.8);transition:all .5s}
-.hist-img:hover{filter:brightness(.8) saturate(1);transform:scale(1.02)}
+.hist-img-wrap{width:200px;height:260px;overflow:hidden;flex-shrink:0}
+.hist-img-bg{width:100%;height:100%;background-size:cover;background-position:center;filter:brightness(.62) saturate(.78);transition:all .6s}
+.hist-img-wrap:hover .hist-img-bg{filter:brightness(.78) saturate(.95);transform:scale(1.04)}
 
 /* ── SCROLL HINT ── */
-#scroll-hint{position:fixed;bottom:44px;left:50%;transform:translateX(-50%);z-index:50;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;transition:opacity .5s}
-.sh-text{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(245,241,233,.35)}
-.sh-line{width:1px;height:44px;background:linear-gradient(to bottom,#1AFF7A,transparent);animation:shpulse 2s infinite}
-@keyframes shpulse{0%,100%{opacity:.8;transform:scaleY(1)}50%{opacity:.2;transform:scaleY(.6)}}
+#scroll-hint{position:fixed;bottom:44px;left:50%;transform:translateX(-50%);z-index:50;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;transition:opacity .6s}
+.sh-text{font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,241,233,.3)}
+.sh-line{width:1px;height:44px;background:linear-gradient(to bottom,rgba(107,175,132,.6),transparent);animation:shpulse 2.2s infinite}
+@keyframes shpulse{0%,100%{opacity:.7;transform:scaleY(1)}50%{opacity:.15;transform:scaleY(.55)}}
 
 /* ── FOOTER ── */
 footer{
   position:relative;z-index:2;
-  background:rgba(2,8,4,.97);
-  border-top:1px solid rgba(26,255,122,.08);
+  background:rgba(2,6,3,.98);
+  border-top:1px solid rgba(107,175,132,.06);
   padding:44px 64px;
   display:flex;justify-content:space-between;align-items:center;
 }
 .f-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#F5F1E9}
-.f-text{font-size:.65rem;font-weight:300;color:rgba(245,241,233,.3);letter-spacing:.1em}
+.f-text{font-size:.63rem;font-weight:300;color:rgba(245,241,233,.27);letter-spacing:.1em}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
   nav{padding:24px 32px}
   nav.scrolled{padding:16px 32px}
   .chapter{padding:100px 32px 60px}
-  .nav-menu{gap:24px}
+  .nav-menu{gap:22px}
   .pillars{grid-template-columns:repeat(2,1fr)}
   .method-steps{grid-template-columns:repeat(2,1fr)}
   .spaces{grid-template-columns:repeat(2,1fr)}
@@ -282,7 +273,6 @@ footer{
   .price-wrap{grid-template-columns:1fr}
   .courses-wrap{grid-template-columns:1fr}
   .metrics{grid-template-columns:repeat(2,1fr)}
-  .problem-grid{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
   footer{flex-direction:column;gap:16px;text-align:center;padding:32px}
 }
@@ -301,23 +291,22 @@ footer{
 }
 </style>
 </head>
-
 <body>
 
 <!-- PROGRESS -->
 <div id="progress"></div>
 
-<!-- BG IMAGES: crossfade au scroll -->
+<!-- BG IMAGES -->
 <div id="bg-container">
-  <div class="bg-slide active" id="bg0" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80')"></div>
-  <div class="bg-slide" id="bg1" style="background-image:url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1920&q=80')"></div>
-  <div class="bg-slide" id="bg2" style="background-image:url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=1920&q=80')"></div>
-  <div class="bg-slide" id="bg3" style="background-image:url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1920&q=80')"></div>
-  <div class="bg-slide" id="bg4" style="background-image:url('https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=1920&q=80')"></div>
-  <div class="bg-slide" id="bg5" style="background-image:url('https://images.unsplash.com/photo-1623874514711-0f321325f318?w=1920&q=80')"></div>
-  <div class="bg-slide" id="bg6" style="background-image:url('https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=1920&q=80')"></div>
-  <div class="bg-slide" id="bg7" style="background-image:url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=1920&q=80')"></div>
-  <div class="bg-slide" id="bg8" style="background-image:url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=1920&q=80')"></div>
+  <div class="bg-slide active" id="bg0" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=85&auto=format&fit=crop')"></div>
+  <div class="bg-slide" id="bg1" style="background-image:url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1920&q=85&auto=format&fit=crop')"></div>
+  <div class="bg-slide" id="bg2" style="background-image:url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=1920&q=85&auto=format&fit=crop')"></div>
+  <div class="bg-slide" id="bg3" style="background-image:url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1920&q=85&auto=format&fit=crop')"></div>
+  <div class="bg-slide" id="bg4" style="background-image:url('https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=1920&q=85&auto=format&fit=crop')"></div>
+  <div class="bg-slide" id="bg5" style="background-image:url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=1920&q=85&auto=format&fit=crop')"></div>
+  <div class="bg-slide" id="bg6" style="background-image:url('https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=1920&q=85&auto=format&fit=crop')"></div>
+  <div class="bg-slide" id="bg7" style="background-image:url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=1920&q=85&auto=format&fit=crop')"></div>
+  <div class="bg-slide" id="bg8" style="background-image:url('https://images.unsplash.com/photo-1623874514711-0f321325f318?w=1920&q=85&auto=format&fit=crop')"></div>
 </div>
 <div id="grain"></div>
 
@@ -344,7 +333,6 @@ footer{
   <div class="sh-line"></div>
 </div>
 
-<!-- STORY -->
 <div id="story">
 
 <!-- HERO -->
@@ -352,8 +340,8 @@ footer{
   <div class="block center">
     <span class="eyebrow" data-fr="Paris · Ouverture prévue courant 2027" data-en="Paris · Opening planned 2027">Paris · Ouverture prévue courant 2027</span>
     <h1 class="h-mega">Quantum<br>Club</h1>
-    <p class="body center-t" style="margin-top:24px;font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2vw,1.6rem);font-style:italic;color:rgba(245,241,233,.75)" data-fr="Plus qu'un entraînement. Une transformation." data-en="More than training. Transformation.">Plus qu'un entraînement. Une transformation.</p>
-    <p class="body center-t" style="margin-top:14px" data-fr="Le système de performance physique haut de gamme. Diagnostic. Programme. Résultats." data-en="The premium physical performance system. Diagnostic. Program. Results.">Le système de performance physique haut de gamme. Diagnostic. Programme. Résultats.</p>
+    <p class="body center-t" style="margin-top:26px;font-family:'Cormorant Garamond',serif;font-size:clamp(1.15rem,2.2vw,1.65rem);font-style:italic;color:rgba(245,241,233,.72)" data-fr="Plus qu'un entraînement. Une transformation." data-en="More than training. Transformation.">Plus qu'un entraînement. Une transformation.</p>
+    <p class="body center-t" style="margin-top:16px" data-fr="Le système de performance physique haut de gamme. Diagnostic. Programme. Résultats." data-en="The premium physical performance system. Diagnostic. Program. Results.">Le système de performance physique haut de gamme. Diagnostic. Programme. Résultats.</p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
       <a href="#methode" class="cta" data-fr="Découvrir la méthode" data-en="Discover the method">Découvrir la méthode</a>
       <a href="#contact" class="cta-inv" data-fr="Réserver un diagnostic" data-en="Book a diagnostic">Réserver un diagnostic</a>
@@ -367,45 +355,8 @@ footer{
     <span class="eyebrow" data-fr="Notre philosophie" data-en="Our philosophy">Notre philosophie</span>
     <h2 class="h-xl" data-fr="Un système conçu<br>pour la transformation." data-en="A system built<br>for transformation.">Un système conçu<br>pour la transformation.</h2>
     <div class="green-rule"></div>
-    <p class="body" data-fr="Les salles traditionnelles vendent un accès. Quantum Club vend une transformation. Ce n'est pas une question d'équipements — c'est une question de structure, de suivi et de résultats mesurables." data-en="Traditional gyms sell access. Quantum Club sells transformation. It's not about equipment — it's about structure, support, and measurable results.">Les salles traditionnelles vendent un accès. Quantum Club vend une transformation. Ce n'est pas une question d'équipements — c'est une question de structure, de suivi et de résultats mesurables.</p>
+    <p class="body" data-fr="Quantum Club n'est pas une salle de sport. C'est un système de transformation physique structuré — avec un diagnostic, un programme personnalisé, un coaching humain et un suivi de progression. Chaque membre entre dans un parcours conçu pour produire des résultats réels et mesurables." data-en="Quantum Club is not a gym. It is a structured physical transformation system — with a diagnostic, a personalised program, human coaching, and progress tracking. Each member enters a journey designed to produce real, measurable results.">Quantum Club n'est pas une salle de sport. C'est un système de transformation physique structuré — avec un diagnostic, un programme personnalisé, un coaching humain et un suivi de progression. Chaque membre entre dans un parcours conçu pour produire des résultats réels et mesurables.</p>
     <a href="#methode" class="cta" data-fr="La méthode Quantum" data-en="The Quantum method">La méthode Quantum</a>
-  </div>
-</section>
-
-<!-- PROBLÈME -->
-<section id="probleme" class="chapter">
-  <div class="block center" style="width:100%">
-    <span class="eyebrow" data-fr="Le constat" data-en="The reality">Le constat</span>
-    <h2 class="h-lg" data-fr="80% abandonnent.<br>Pourquoi ?" data-en="80% quit.<br>Why?">80% abandonnent.<br>Pourquoi ?</h2>
-    <div class="green-rule c"></div>
-    <p class="body center-t" data-fr="Les salles classiques offrent des machines et un badge d'accès. Mais sans structure, sans suivi, sans accompagnement — la majorité des membres disparaît en moins de 3 mois." data-en="Traditional gyms offer machines and an access card. But without structure, follow-up, and guidance — the majority of members disappear within 3 months.">Les salles classiques offrent des machines et un badge d'accès. Mais sans structure, sans suivi, sans accompagnement — la majorité des membres disparaît en moins de 3 mois.</p>
-    <div class="problem-grid">
-      <div class="prob-item">
-        <div class="prob-icon">—</div>
-        <div class="prob-title" data-fr="Livré à soi-même" data-en="Left to yourself">Livré à soi-même</div>
-        <p class="prob-body" data-fr="Aucun programme structuré. Aucune direction. Le membre erre entre les machines sans savoir vers quoi progresser." data-en="No structured program. No direction. The member wanders between machines with no sense of progression.">Aucun programme structuré. Aucune direction. Le membre erre entre les machines sans savoir vers quoi progresser.</p>
-      </div>
-      <div class="prob-item">
-        <div class="prob-icon">—</div>
-        <div class="prob-title" data-fr="Aucun suivi de résultats" data-en="No results tracking">Aucun suivi de résultats</div>
-        <p class="prob-body" data-fr="Sans mesure, pas de progression visible. Sans progression visible, la motivation s'effondre. C'est le cycle de l'abandon." data-en="Without measurement, no visible progress. Without visible progress, motivation collapses. That's the cycle of abandonment.">Sans mesure, pas de progression visible. Sans progression visible, la motivation s'effondre. C'est le cycle de l'abandon.</p>
-      </div>
-      <div class="prob-item">
-        <div class="prob-icon">—</div>
-        <div class="prob-title" data-fr="Absence de coaching humain" data-en="No human coaching">Absence de coaching humain</div>
-        <p class="prob-body" data-fr="Les coachs sont disponibles en option. L'accompagnement est un supplément. Pas un fondement." data-en="Coaches are available as an option. Guidance is an add-on. Not a foundation.">Les coachs sont disponibles en option. L'accompagnement est un supplément. Pas un fondement.</p>
-      </div>
-      <div class="prob-item">
-        <div class="prob-icon">—</div>
-        <div class="prob-title" data-fr="Environnement sans ambition" data-en="Ambitionless environment">Environnement sans ambition</div>
-        <p class="prob-body" data-fr="L'atmosphère ne pousse pas. Elle n'inspire pas. Elle n'élève pas. Elle existe simplement." data-en="The atmosphere doesn't push. It doesn't inspire. It doesn't elevate. It simply exists.">L'atmosphère ne pousse pas. Elle n'inspire pas. Elle n'élève pas. Elle existe simplement.</p>
-      </div>
-    </div>
-    <div class="vs-divider">
-      <div class="vs-line"></div>
-      <div class="vs-text">QUANTUM RÉPOND</div>
-      <div class="vs-line"></div>
-    </div>
   </div>
 </section>
 
@@ -416,12 +367,12 @@ footer{
     <h2 class="h-xl" data-fr="Un protocole.<br>Six étapes. Zéro hasard." data-en="One protocol.<br>Six steps. No chance.">Un protocole.<br>Six étapes. Zéro hasard.</h2>
     <div class="green-rule c"></div>
     <div class="method-steps">
-      <div class="method-step"><span class="ms-num">01</span><span class="ms-title" data-fr="Diagnostic physique" data-en="Physical diagnostic">Diagnostic physique</span><p class="ms-body" data-fr="Bilan complet de votre condition physique, de votre composition corporelle et de vos antécédents. Le point de départ objectif." data-en="Complete assessment of your physical condition, body composition, and history. The objective starting point.">Bilan complet de votre condition physique, de votre composition corporelle et de vos antécédents. Le point de départ objectif.</p></div>
+      <div class="method-step"><span class="ms-num">01</span><span class="ms-title" data-fr="Diagnostic physique" data-en="Physical diagnostic">Diagnostic physique</span><p class="ms-body" data-fr="Bilan complet de votre condition physique, de votre composition corporelle et de vos antécédents. Le point de départ objectif de votre transformation." data-en="Complete assessment of your physical condition, body composition, and history. The objective starting point of your transformation.">Bilan complet de votre condition physique, de votre composition corporelle et de vos antécédents. Le point de départ objectif de votre transformation.</p></div>
       <div class="method-step"><span class="ms-num">02</span><span class="ms-title" data-fr="Analyse des objectifs" data-en="Goal analysis">Analyse des objectifs</span><p class="ms-body" data-fr="Définition précise de vos objectifs — visuels, fonctionnels, temporels. Alignement total entre vos ambitions et votre programme." data-en="Precise definition of your goals — visual, functional, temporal. Total alignment between your ambitions and your program.">Définition précise de vos objectifs — visuels, fonctionnels, temporels. Alignement total entre vos ambitions et votre programme.</p></div>
       <div class="method-step"><span class="ms-num">03</span><span class="ms-title" data-fr="Programme structuré" data-en="Structured program">Programme structuré</span><p class="ms-body" data-fr="Chaque séance a un sens. Chaque semaine s'inscrit dans un cycle. Votre programme évolue avec vous, pas sans vous." data-en="Every session has a purpose. Every week fits into a cycle. Your program evolves with you, not without you.">Chaque séance a un sens. Chaque semaine s'inscrit dans un cycle. Votre programme évolue avec vous, pas sans vous.</p></div>
       <div class="method-step"><span class="ms-num">04</span><span class="ms-title" data-fr="Coaching humain" data-en="Human coaching">Coaching humain</span><p class="ms-body" data-fr="Un coach dédié. Pas un prestataire. Un partenaire de performance qui connaît votre corps, votre historique et vos limites à dépasser." data-en="A dedicated coach. Not a service provider. A performance partner who knows your body, your history, and the limits to overcome.">Un coach dédié. Pas un prestataire. Un partenaire de performance qui connaît votre corps, votre historique et vos limites à dépasser.</p></div>
       <div class="method-step"><span class="ms-num">05</span><span class="ms-title" data-fr="Suivi de progression" data-en="Progress tracking">Suivi de progression</span><p class="ms-body" data-fr="Mesures régulières. Données objectives. Ajustements constants. Ce que vous ne mesurez pas, vous ne pouvez pas l'améliorer." data-en="Regular measurements. Objective data. Constant adjustments. What you don't measure, you can't improve.">Mesures régulières. Données objectives. Ajustements constants. Ce que vous ne mesurez pas, vous ne pouvez pas l'améliorer.</p></div>
-      <div class="method-step"><span class="ms-num">06</span><span class="ms-title" data-fr="Transformation" data-en="Transformation">Transformation</span><p class="ms-body" data-fr="Le résultat final. Visible. Mesurable. Durable. Une transformation physique réelle, portée par une discipline structurée." data-en="The final result. Visible. Measurable. Lasting. Real physical transformation, driven by structured discipline.">Le résultat final. Visible. Mesurable. Durable. Une transformation physique réelle, portée par une discipline structurée.</p></div>
+      <div class="method-step"><span class="ms-num">06</span><span class="ms-title" data-fr="Transformation" data-en="Transformation">Transformation</span><p class="ms-body" data-fr="Le résultat final. Visible. Mesurable. Durable. Une transformation physique réelle, portée par une discipline structurée et un environnement d'excellence." data-en="The final result. Visible. Measurable. Lasting. Real physical transformation driven by structured discipline and an environment of excellence.">Le résultat final. Visible. Mesurable. Durable. Une transformation physique réelle, portée par une discipline structurée et un environnement d'excellence.</p></div>
     </div>
   </div>
 </section>
@@ -433,9 +384,9 @@ footer{
     <h2 class="h-xl" data-fr="Construit sur<br>trois principes." data-en="Built on<br>three principles.">Construit sur<br>trois principes.</h2>
     <div class="green-rule c"></div>
     <div class="pillars">
-      <div class="pillar"><span class="p-num">01</span><span class="p-title" data-fr="Résultat au centre" data-en="Results first">Résultat au centre</span><p class="p-body" data-fr="Tout est pensé autour du résultat. L'équipement, l'accompagnement, le suivi — chaque élément sert un seul objectif : votre transformation." data-en="Everything is built around results. Equipment, support, tracking — every element serves one goal: your transformation.">Tout est pensé autour du résultat. L'équipement, l'accompagnement, le suivi — chaque élément sert un seul objectif : votre transformation.</p></div>
-      <div class="pillar"><span class="p-num">02</span><span class="p-title" data-fr="Performance mesurable" data-en="Measurable performance">Performance mesurable</span><p class="p-body" data-fr="La progression ne se ressent pas — elle se mesure. Des données objectives qui confirment que chaque effort compte et produit un effet réel." data-en="Progress isn't felt — it's measured. Objective data that confirms every effort counts and produces a real effect.">La progression ne se ressent pas — elle se mesure. Des données objectives qui confirment que chaque effort compte et produit un effet réel.</p></div>
-      <div class="pillar"><span class="p-num">03</span><span class="p-title" data-fr="Expérience premium" data-en="Premium experience">Expérience premium</span><p class="p-body" data-fr="Un environnement conçu pour l'ambition. Architecture, équipements, atmosphère — chaque détail transmet une seule chose : l'excellence." data-en="An environment designed for ambition. Architecture, equipment, atmosphere — every detail conveys one thing: excellence.">Un environnement conçu pour l'ambition. Architecture, équipements, atmosphère — chaque détail transmet une seule chose : l'excellence.</p></div>
+      <div class="pillar"><span class="p-num">01</span><span class="p-title" data-fr="Résultat au centre" data-en="Results first">Résultat au centre</span><p class="p-body" data-fr="Tout est pensé autour du résultat. L'équipement, l'accompagnement, le suivi — chaque élément sert un seul objectif : votre transformation visible et mesurable." data-en="Everything is built around results. Equipment, support, tracking — every element serves one goal: your visible, measurable transformation.">Tout est pensé autour du résultat. L'équipement, l'accompagnement, le suivi — chaque élément sert un seul objectif : votre transformation visible et mesurable.</p></div>
+      <div class="pillar"><span class="p-num">02</span><span class="p-title" data-fr="Performance mesurable" data-en="Measurable performance">Performance mesurable</span><p class="p-body" data-fr="La progression ne se ressent pas — elle se mesure. Des données objectives qui confirment que chaque effort structuré produit un effet réel et durable." data-en="Progress isn't felt — it's measured. Objective data that confirms every structured effort produces a real, lasting effect.">La progression ne se ressent pas — elle se mesure. Des données objectives qui confirment que chaque effort structuré produit un effet réel et durable.</p></div>
+      <div class="pillar"><span class="p-num">03</span><span class="p-title" data-fr="Expérience premium" data-en="Premium experience">Expérience premium</span><p class="p-body" data-fr="Un environnement conçu pour l'ambition. Architecture, équipements, atmosphère — chaque détail transmet une seule chose : l'excellence au service de votre progression." data-en="An environment designed for ambition. Architecture, equipment, atmosphere — every detail conveys one thing: excellence in service of your progression.">Un environnement conçu pour l'ambition. Architecture, équipements, atmosphère — chaque détail transmet une seule chose : l'excellence au service de votre progression.</p></div>
     </div>
   </div>
 </section>
@@ -448,19 +399,19 @@ footer{
     <div class="green-rule c"></div>
     <div class="spaces">
       <div class="sc">
-        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80" alt="HYROX">
+        <div class="sc-bg" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80&auto=format&fit=crop')"></div>
         <div class="sc-overlay"><span class="sc-tag">Performance</span><div class="sc-title">HYROX</div><div class="sc-desc" data-fr="Zone compétition officielle · Protocoles certifiés" data-en="Official competition zone · Certified protocols">Zone compétition officielle · Protocoles certifiés</div></div>
       </div>
       <div class="sc">
-        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80" alt="Callisthénie">
+        <div class="sc-bg" style="background-image:url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80&auto=format&fit=crop')"></div>
         <div class="sc-overlay"><span class="sc-tag" data-fr="Maîtrise" data-en="Mastery">Maîtrise</span><div class="sc-title" data-fr="Callisthénie" data-en="Calisthenics">Callisthénie</div><div class="sc-desc" data-fr="Maîtrise du poids de corps · Progressions structurées" data-en="Bodyweight mastery · Structured progressions">Maîtrise du poids de corps · Progressions structurées</div></div>
       </div>
       <div class="sc">
-        <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80" alt="Musculation">
+        <div class="sc-bg" style="background-image:url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80&auto=format&fit=crop')"></div>
         <div class="sc-overlay"><span class="sc-tag" data-fr="Force" data-en="Strength">Force</span><div class="sc-title" data-fr="Musculation" data-en="Strength Training">Musculation</div><div class="sc-desc" data-fr="Équipements sur mesure · Poids libres d'exception" data-en="Custom equipment · Exceptional free weights">Équipements sur mesure · Poids libres d'exception</div></div>
       </div>
       <div class="sc">
-        <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80" alt="Coaching Privé">
+        <div class="sc-bg" style="background-image:url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80&auto=format&fit=crop')"></div>
         <div class="sc-overlay"><span class="sc-tag" data-fr="Excellence" data-en="Excellence">Excellence</span><div class="sc-title" data-fr="Coaching Privé" data-en="Private Coaching">Coaching Privé</div><div class="sc-desc" data-fr="Coachs d'élite · Sessions individuelles privatives" data-en="Elite coaches · Private individual sessions">Coachs d'élite · Sessions individuelles privatives</div></div>
       </div>
     </div>
@@ -472,11 +423,11 @@ footer{
   <div class="block center" style="width:100%">
     <span class="eyebrow" data-fr="L'univers Quantum" data-en="The Quantum universe">L'univers Quantum</span>
     <div class="gallery">
-      <div class="gimg"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80" alt="Salle principale"><div class="gcap" data-fr="Salle principale" data-en="Main floor">Salle principale</div></div>
-      <div class="gimg"><img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=80" alt="Zone cardio"><div class="gcap" data-fr="Zone cardio" data-en="Cardio zone">Zone cardio</div></div>
-      <div class="gimg"><img src="https://images.unsplash.com/photo-1623874514711-0f321325f318?w=600&q=80" alt="Coaching"><div class="gcap" data-fr="Coaching privé" data-en="Private coaching">Coaching privé</div></div>
-      <div class="gimg"><img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80" alt="Poids libres"><div class="gcap" data-fr="Poids libres" data-en="Free weights">Poids libres</div></div>
-      <div class="gimg"><img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&q=80" alt="Athlète"><div class="gcap" data-fr="Résultats" data-en="Results">Résultats</div></div>
+      <div class="gimg"><div class="gimg-bg" style="background-image:url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80&auto=format&fit=crop')"></div><div class="gcap" data-fr="Salle principale" data-en="Main floor">Salle principale</div></div>
+      <div class="gimg"><div class="gimg-bg" style="background-image:url('https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=80&auto=format&fit=crop')"></div><div class="gcap" data-fr="Zone cardio" data-en="Cardio zone">Zone cardio</div></div>
+      <div class="gimg"><div class="gimg-bg" style="background-image:url('https://images.unsplash.com/photo-1623874514711-0f321325f318?w=600&q=80&auto=format&fit=crop')"></div><div class="gcap" data-fr="Coaching privé" data-en="Private coaching">Coaching privé</div></div>
+      <div class="gimg"><div class="gimg-bg" style="background-image:url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80&auto=format&fit=crop')"></div><div class="gcap" data-fr="Poids libres" data-en="Free weights">Poids libres</div></div>
+      <div class="gimg"><div class="gimg-bg" style="background-image:url('https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&q=80&auto=format&fit=crop')"></div><div class="gcap" data-fr="Performance" data-en="Performance">Performance</div></div>
     </div>
   </div>
 </section>
@@ -489,15 +440,15 @@ footer{
     <div class="green-rule c"></div>
     <p class="body center-t" data-fr="Chaque transformation Quantum Club repose sur des données objectives. Ce que vous ne pouvez pas mesurer, vous ne pouvez pas améliorer." data-en="Every Quantum Club transformation is built on objective data. What you can't measure, you can't improve.">Chaque transformation Quantum Club repose sur des données objectives. Ce que vous ne pouvez pas mesurer, vous ne pouvez pas améliorer.</p>
     <div class="metrics">
-      <div class="metric"><span class="metric-n">94%</span><span class="metric-l" data-fr="taux de rétention membres" data-en="member retention rate">taux de rétention membres</span></div>
+      <div class="metric"><span class="metric-n" id="m1">94<span style="font-size:2rem">%</span></span><span class="metric-l" data-fr="taux de rétention membres" data-en="member retention rate">taux de rétention membres</span></div>
       <div class="metric"><span class="metric-n">12</span><span class="metric-l" data-fr="semaines · 1er bilan" data-en="weeks · first assessment">semaines · 1er bilan</span></div>
-      <div class="metric"><span class="metric-n">3×</span><span class="metric-l" data-fr="plus efficace qu'en solo" data-en="more effective than solo">plus efficace qu'en solo</span></div>
-      <div class="metric"><span class="metric-n">100%</span><span class="metric-l" data-fr="suivi personnalisé" data-en="personalised follow-up">suivi personnalisé</span></div>
+      <div class="metric"><span class="metric-n">3<span style="font-size:2rem">×</span></span><span class="metric-l" data-fr="plus efficace qu'en solo" data-en="more effective than solo">plus efficace qu'en solo</span></div>
+      <div class="metric"><span class="metric-n">100<span style="font-size:2rem">%</span></span><span class="metric-l" data-fr="suivi personnalisé" data-en="personalised follow-up">suivi personnalisé</span></div>
     </div>
   </div>
 </section>
 
-<!-- LE CLUB / EXPÉRIENCE -->
+<!-- LE CLUB -->
 <section id="club" class="chapter">
   <div class="block center">
     <span class="eyebrow" data-fr="L'expérience club" data-en="The club experience">L'expérience club</span>
@@ -519,11 +470,11 @@ footer{
     <span class="eyebrow" data-fr="Notre histoire" data-en="Our story">Notre histoire</span>
     <h2 class="h-lg italic" data-fr="Né d'une obsession<br>pour le résultat." data-en="Born from an obsession<br>for results.">Né d'une obsession<br>pour le résultat.</h2>
     <div class="green-rule c"></div>
-    <p class="body center-t" data-fr="Quantum Club est né d'un constat simple : les meilleurs sportifs de Paris méritaient mieux qu'un accès à des machines. Ils méritaient un système. Fondé par Timothée Duffort, Quantum Club est construit autour d'une seule idée : chaque effort structuré produit un résultat." data-en="Quantum Club was born from a simple observation: Paris's top performers deserved more than access to machines. They deserved a system. Founded by Timothée Duffort, Quantum Club is built around one idea: every structured effort produces a result.">Quantum Club est né d'un constat simple : les meilleurs sportifs de Paris méritaient mieux qu'un accès à des machines. Ils méritaient un système. Fondé par Timothée Duffort, Quantum Club est construit autour d'une seule idée : chaque effort structuré produit un résultat.</p>
+    <p class="body center-t" data-fr="Quantum Club est né d'un constat simple : les meilleurs sportifs de Paris méritaient mieux qu'un simple accès à des machines. Ils méritaient un système. Fondé par Timothée Duffort, Quantum Club est construit autour d'une seule idée : chaque effort structuré produit un résultat." data-en="Quantum Club was born from a simple observation: Paris's top performers deserved more than just access to machines. They deserved a system. Founded by Timothée Duffort, Quantum Club is built around one idea: every structured effort produces a result.">Quantum Club est né d'un constat simple : les meilleurs sportifs de Paris méritaient mieux qu'un simple accès à des machines. Ils méritaient un système. Fondé par Timothée Duffort, Quantum Club est construit autour d'une seule idée : chaque effort structuré produit un résultat.</p>
     <div class="hist-imgs">
-      <img class="hist-img" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=300&q=80" alt="">
-      <img class="hist-img" src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=300&q=80" alt="">
-      <img class="hist-img" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=300&q=80" alt="">
+      <div class="hist-img-wrap"><div class="hist-img-bg" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=300&q=80&auto=format&fit=crop')"></div></div>
+      <div class="hist-img-wrap"><div class="hist-img-bg" style="background-image:url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=300&q=80&auto=format&fit=crop')"></div></div>
+      <div class="hist-img-wrap"><div class="hist-img-bg" style="background-image:url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=300&q=80&auto=format&fit=crop')"></div></div>
     </div>
   </div>
 </section>
@@ -536,31 +487,30 @@ footer{
     <div class="green-rule c"></div>
     <div class="price-wrap">
       <div class="pcard">
-        <div class="pcat" data-fr="Accès libre" data-en="Open access">Accès libre</div>
-        <div class="pname">Essential</div>
-        <div class="pamount"><sup>€</sup>280<span data-fr="/mois" data-en="/month">/mois</span></div>
-        <div class="pnote" data-fr="Sans engagement · 3 mois minimum" data-en="No commitment · 3 months minimum">Sans engagement · 3 mois minimum</div>
+        <div class="pcat" data-fr="Engagement 12 mois" data-en="12-month commitment">Engagement 12 mois</div>
+        <div class="pname" data-fr="Membre Club Mensuel" data-en="Monthly Club Member">Membre Club Mensuel</div>
+        <div class="pamount"><sup>€</sup>185<span data-fr="/mois" data-en="/month">/mois</span></div>
+        <div class="pnote" data-fr="Droits d'entrée : 330 €" data-en="Entry fee: €330">Droits d'entrée : 330 €</div>
         <div class="psep"></div>
-        <div class="prow"><span class="prow-n" data-fr="Accès illimité" data-en="Unlimited access">Accès illimité</span><span class="prow-v">✓</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Diagnostic initial" data-en="Initial diagnostic">Diagnostic initial</span><span class="prow-v">✓</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Programme structuré" data-en="Structured program">Programme structuré</span><span class="prow-v">✓</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Coaching dédié" data-en="Dedicated coaching">Coaching dédié</span><span class="prow-v">—</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Suivi mensuel" data-en="Monthly tracking">Suivi mensuel</span><span class="prow-v">—</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Mensualité TTC" data-en="Monthly incl. VAT">Mensualité TTC</span><span class="prow-v">185 €</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Engagement" data-en="Commitment">Engagement</span><span class="prow-v" data-fr="12 mois" data-en="12 months">12 mois</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Droits d'entrée" data-en="Entry fee">Droits d'entrée</span><span class="prow-v">330 €</span></div>
+        <a href="#contact" class="cta" style="margin-top:28px;display:block;text-align:center" data-fr="Rejoindre" data-en="Join">Rejoindre</a>
       </div>
       <div class="pcard featured">
-        <div class="pbadge" data-fr="Recommandé" data-en="Recommended">Recommandé</div>
-        <div class="pcat" data-fr="Transformation complète" data-en="Full transformation">Transformation complète</div>
-        <div class="pname">Performance</div>
-        <div class="pamount"><sup>€</sup>490<span data-fr="/mois" data-en="/month">/mois</span></div>
-        <div class="pnote" data-fr="Sans engagement · Résultats garantis" data-en="No commitment · Results guaranteed">Sans engagement · Résultats garantis</div>
+        <div class="pbadge" data-fr="Meilleur tarif" data-en="Best value">Meilleur tarif</div>
+        <div class="pcat" data-fr="Engagement 12 mois" data-en="12-month commitment">Engagement 12 mois</div>
+        <div class="pname" data-fr="Membre Club Annuel" data-en="Annual Club Member">Membre Club Annuel</div>
+        <div class="pamount"><sup>€</sup>165<span data-fr="/mois" data-en="/month">/mois</span></div>
+        <div class="pnote" data-fr="1 980 € / an · Droits d'entrée : 330 €" data-en="€1,980 / year · Entry fee: €330">1 980 € / an · Droits d'entrée : 330 €</div>
         <div class="psep"></div>
-        <div class="prow"><span class="prow-n" data-fr="Accès illimité" data-en="Unlimited access">Accès illimité</span><span class="prow-v">✓</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Diagnostic complet" data-en="Full diagnostic">Diagnostic complet</span><span class="prow-v">✓</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Programme personnalisé" data-en="Personalised program">Programme personnalisé</span><span class="prow-v">✓</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Coaching dédié 4×/mois" data-en="Dedicated coaching 4×/month">Coaching dédié 4×/mois</span><span class="prow-v">✓</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Suivi & bilan mensuel" data-en="Monthly tracking & assessment">Suivi & bilan mensuel</span><span class="prow-v">✓</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Total annuel TTC" data-en="Annual total incl. VAT">Total annuel TTC</span><span class="prow-v">1 980 €</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Économie vs mensuel" data-en="Saving vs monthly">Économie vs mensuel</span><span class="prow-v" style="color:#9DCBAF">− 240 €</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Droits d'entrée" data-en="Entry fee">Droits d'entrée</span><span class="prow-v">330 €</span></div>
+        <a href="#contact" class="cta" style="margin-top:28px;display:block;text-align:center" data-fr="Rejoindre" data-en="Join">Rejoindre</a>
       </div>
     </div>
+    <p style="margin-top:28px;font-size:.65rem;letter-spacing:.12em;color:rgba(245,241,233,.25);text-align:center" data-fr="Cours particuliers disponibles — 80 € / séance (HT) · 80 € TTC" data-en="Private lessons available — €80 / session incl. VAT">Cours particuliers disponibles — 80 € / séance TTC</p>
   </div>
 </section>
 
@@ -569,38 +519,39 @@ footer{
   <div class="block center" style="width:100%">
     <span class="eyebrow" data-fr="Cours & Séances" data-en="Classes & Sessions">Cours & Séances</span>
     <h2 class="h-md" data-fr="Chaque séance compte." data-en="Every session counts.">Chaque séance compte.</h2>
+    <div class="green-rule c" style="margin-bottom:40px"></div>
     <div class="courses-wrap">
       <div class="pcard">
         <div class="pcat">HYROX</div>
         <div class="pname" data-fr="Cours collectifs" data-en="Group classes">Cours collectifs</div>
         <div class="psep" style="margin-top:20px"></div>
-        <div class="prow"><span class="prow-n" data-fr="À l'unité" data-en="Single session">À l'unité</span><span class="prow-v">€45</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Pack 8 séances" data-en="8-session pack">Pack 8 séances</span><span class="prow-v">€320</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Pack 12 séances" data-en="12-session pack">Pack 12 séances</span><span class="prow-v">€420</span></div>
+        <div class="prow"><span class="prow-n" data-fr="À l'unité" data-en="Single session">À l'unité</span><span class="prow-v">45 €</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Formule 8 séances" data-en="8-session pack">Formule 8 séances</span><span class="prow-v">320 €</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Formule 12 séances" data-en="12-session pack">Formule 12 séances</span><span class="prow-v">420 €</span></div>
       </div>
       <div class="pcard">
         <div class="pcat" data-fr="Callisthénie" data-en="Calisthenics">Callisthénie</div>
         <div class="pname" data-fr="Cours collectifs" data-en="Group classes">Cours collectifs</div>
         <div class="psep" style="margin-top:20px"></div>
-        <div class="prow"><span class="prow-n" data-fr="À l'unité" data-en="Single session">À l'unité</span><span class="prow-v">€45</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Pack 8 séances" data-en="8-session pack">Pack 8 séances</span><span class="prow-v">€320</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Pack 12 séances" data-en="12-session pack">Pack 12 séances</span><span class="prow-v">€420</span></div>
+        <div class="prow"><span class="prow-n" data-fr="À l'unité" data-en="Single session">À l'unité</span><span class="prow-v">45 €</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Formule 8 séances" data-en="8-session pack">Formule 8 séances</span><span class="prow-v">320 €</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Formule 12 séances" data-en="12-session pack">Formule 12 séances</span><span class="prow-v">420 €</span></div>
       </div>
       <div class="pcard">
         <div class="pcat">SGT</div>
         <div class="pname">Small Group Training</div>
         <div class="psep" style="margin-top:20px"></div>
-        <div class="prow"><span class="prow-n" data-fr="À l'unité" data-en="Single session">À l'unité</span><span class="prow-v">€60</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Pack 8 séances" data-en="8-session pack">Pack 8 séances</span><span class="prow-v">€360</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Pack 12 séances" data-en="12-session pack">Pack 12 séances</span><span class="prow-v">€480</span></div>
+        <div class="prow"><span class="prow-n" data-fr="À l'unité" data-en="Single session">À l'unité</span><span class="prow-v">60 €</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Formule 8 séances" data-en="8-session pack">Formule 8 séances</span><span class="prow-v">360 €</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Formule 12 séances" data-en="12-session pack">Formule 12 séances</span><span class="prow-v">480 €</span></div>
       </div>
     </div>
-    <div style="margin-top:2px;width:100%;max-width:900px">
-      <div class="pcard personal-card" style="display:inline-block">
+    <div style="margin-top:2px;width:100%;max-width:960px">
+      <div class="pcard personal-card">
         <div class="pcat" data-fr="Coaching individuel" data-en="Personal training">Coaching individuel</div>
         <div class="pname" data-fr="Cours particuliers" data-en="Personal Training">Cours particuliers</div>
-        <div class="pamount"><sup>€</sup>120<span data-fr="/séance" data-en="/session">/séance</span></div>
-        <div class="pnote" data-fr="Avec un coach certifié Quantum" data-en="With a Quantum certified coach">Avec un coach certifié Quantum</div>
+        <div class="pamount"><sup>€</sup>80<span data-fr="/séance" data-en="/session">/séance</span></div>
+        <div class="pnote" data-fr="Avec un coach certifié Quantum · Tarif TTC" data-en="With a Quantum certified coach · incl. VAT">Avec un coach certifié Quantum · Tarif TTC</div>
       </div>
     </div>
   </div>
@@ -612,7 +563,7 @@ footer{
     <span class="eyebrow" data-fr="Notre vision" data-en="Our vision">Notre vision</span>
     <h2 class="h-xl italic" data-fr="La référence<br>de la performance." data-en="The reference<br>of performance.">La référence<br>de la performance.</h2>
     <div class="green-rule c"></div>
-    <p class="body center-t" data-fr="Quantum Club ambitionne de redéfinir le standard du fitness premium. D'abord à Paris. Puis en France. Puis à l'international. Une nouvelle génération de clubs de performance, où le résultat n'est pas une option — c'est la promesse." data-en="Quantum Club aims to redefine the premium fitness standard. First in Paris. Then in France. Then internationally. A new generation of performance clubs, where results are not an option — they are the promise.">Quantum Club ambitionne de redéfinir le standard du fitness premium. D'abord à Paris. Puis en France. Puis à l'international. Une nouvelle génération de clubs de performance, où le résultat n'est pas une option — c'est la promesse.</p>
+    <p class="body center-t" data-fr="Quantum Club ambitionne de redéfinir le standard du fitness premium. D'abord à Paris. Puis en France. Puis à l'international. Une nouvelle génération de clubs de performance — où le résultat n'est pas une option. C'est la promesse." data-en="Quantum Club aims to redefine the premium fitness standard. First in Paris. Then in France. Then internationally. A new generation of performance clubs — where results are not an option. They are the promise.">Quantum Club ambitionne de redéfinir le standard du fitness premium. D'abord à Paris. Puis en France. Puis à l'international. Une nouvelle génération de clubs de performance — où le résultat n'est pas une option. C'est la promesse.</p>
     <div class="vision-stages">
       <div class="vs-stage">
         <div class="vs-dot"></div>
@@ -620,20 +571,20 @@ footer{
         <span class="vs-label" data-fr="Ouverture 2027" data-en="Opening 2027">Ouverture 2027</span>
       </div>
       <div class="vs-stage">
-        <div class="vs-dot" style="background:rgba(26,255,122,.3);box-shadow:none"></div>
-        <span class="vs-city" style="color:rgba(245,241,233,.5)" data-fr="France" data-en="France">France</span>
+        <div class="vs-dot" style="background:rgba(74,140,98,.25);box-shadow:none"></div>
+        <span class="vs-city" style="color:rgba(245,241,233,.45)">France</span>
         <span class="vs-label" data-fr="Phase 2" data-en="Phase 2">Phase 2</span>
       </div>
       <div class="vs-stage">
-        <div class="vs-dot" style="background:rgba(26,255,122,.15);box-shadow:none"></div>
-        <span class="vs-city" style="color:rgba(245,241,233,.35)" data-fr="International" data-en="International">International</span>
+        <div class="vs-dot" style="background:rgba(74,140,98,.1);box-shadow:none"></div>
+        <span class="vs-city" style="color:rgba(245,241,233,.28)" data-fr="International" data-en="International">International</span>
         <span class="vs-label" data-fr="Phase 3" data-en="Phase 3">Phase 3</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT / INSCRIPTION -->
+<!-- CONTACT -->
 <section id="contact" class="chapter" style="min-height:80vh">
   <div class="block center" style="width:100%">
     <span class="eyebrow" data-fr="Commencez votre transformation" data-en="Start your transformation">Commencez votre transformation</span>
@@ -642,22 +593,14 @@ footer{
     <p class="body center-t" data-fr="Les places sont limitées. L'excellence ne l'est pas.<br>Ouverture prévue courant 2027 à Paris." data-en="Places are limited. Excellence is not.<br>Opening planned for 2027 in Paris.">Les places sont limitées. L'excellence ne l'est pas.<br>Ouverture prévue courant 2027 à Paris.</p>
     <form class="contact-form" onsubmit="handleForm(event)">
       <div class="form-row">
-        <div class="form-field">
-          <input type="text" placeholder="Prénom" data-placeholder-fr="Prénom" data-placeholder-en="First name" required>
-        </div>
-        <div class="form-field">
-          <input type="text" placeholder="Nom" data-placeholder-fr="Nom" data-placeholder-en="Last name" required>
-        </div>
+        <div class="form-field"><input type="text" placeholder="Prénom" data-placeholder-fr="Prénom" data-placeholder-en="First name" required></div>
+        <div class="form-field"><input type="text" placeholder="Nom" data-placeholder-fr="Nom" data-placeholder-en="Last name" required></div>
       </div>
-      <div class="form-field">
-        <input type="email" placeholder="Email" required>
-      </div>
-      <div class="form-field">
-        <input type="tel" placeholder="Téléphone" data-placeholder-fr="Téléphone" data-placeholder-en="Phone">
-      </div>
+      <div class="form-field"><input type="email" placeholder="Email" required></div>
+      <div class="form-field"><input type="tel" placeholder="Téléphone" data-placeholder-fr="Téléphone" data-placeholder-en="Phone"></div>
       <div class="form-field">
         <select>
-          <option value="" disabled selected data-fr="Objectif principal" data-en="Main goal">Objectif principal</option>
+          <option value="" disabled selected>Objectif principal</option>
           <option data-fr="Transformation physique" data-en="Physical transformation">Transformation physique</option>
           <option data-fr="Performance sportive" data-en="Athletic performance">Performance sportive</option>
           <option data-fr="Prise de masse" data-en="Muscle gain">Prise de masse</option>
@@ -665,10 +608,8 @@ footer{
           <option data-fr="Remise en forme" data-en="Getting fit">Remise en forme</option>
         </select>
       </div>
-      <div class="form-field">
-        <textarea placeholder="Message (optionnel)" data-placeholder-fr="Message (optionnel)" data-placeholder-en="Message (optional)"></textarea>
-      </div>
-      <button type="submit" class="cta" style="width:100%;text-align:center;margin-top:8px" data-fr="Envoyer ma candidature" data-en="Submit my application">Envoyer ma candidature</button>
+      <div class="form-field"><textarea placeholder="Message (optionnel)" data-placeholder-fr="Message (optionnel)" data-placeholder-en="Message (optional)"></textarea></div>
+      <button type="submit" class="cta" style="width:100%;text-align:center;margin-top:8px;cursor:pointer;font-family:'Inter',sans-serif" data-fr="Envoyer ma candidature" data-en="Submit my application">Envoyer ma candidature</button>
     </form>
   </div>
 </section>
@@ -682,38 +623,26 @@ footer{
 </footer>
 
 <script>
-// ══════════════════════════════════════════════
-// BG CROSSFADE — synchronisé avec le scroll
-// ══════════════════════════════════════════════
+// ══ BG CROSSFADE ══
 let currentBg = 0;
-
+const bgCount = 9;
 const sectionBgMap = {
-  'hero':      0,
-  'concept':   1,
-  'probleme':  2,
-  'methode':   3,
-  'pillars':   4,
-  'espaces':   3,
-  'gallery':   4,
-  'resultats': 5,
-  'club':      5,
-  'histoire':  6,
-  'tarifs':    7,
-  'cours':     8,
-  'vision':    6,
-  'contact':   0,
+  'hero':0,'concept':1,'methode':2,'pillars':3,'espaces':3,
+  'gallery':4,'resultats':5,'club':5,'histoire':6,
+  'tarifs':7,'cours':8,'vision':6,'contact':0
 };
 
 function activateBg(idx) {
   if (idx === currentBg) return;
-  document.getElementById('bg' + currentBg).classList.remove('active');
-  document.getElementById('bg' + idx).classList.add('active');
+  const prev = document.getElementById('bg' + currentBg);
+  const next = document.getElementById('bg' + idx);
+  if (!prev || !next) return;
+  prev.classList.remove('active');
+  next.classList.add('active');
   currentBg = idx;
 }
 
-// ══════════════════════════════════════════════
-// SCROLL ENGINE
-// ══════════════════════════════════════════════
+// ══ SCROLL ENGINE ══
 const chapters = document.querySelectorAll('.chapter');
 const blocks = document.querySelectorAll('.block');
 const nav = document.getElementById('nav');
@@ -728,97 +657,71 @@ const secObserver = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.3 });
-
 chapters.forEach(ch => secObserver.observe(ch));
 
 const blockObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add('show');
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 blocks.forEach(b => blockObserver.observe(b));
 
 window.addEventListener('scroll', () => {
   const scrolled = window.scrollY;
   const total = document.documentElement.scrollHeight - window.innerHeight;
-  progress.style.width = (scrolled / total * 100) + '%';
+  if (total > 0) progress.style.width = (scrolled / total * 100) + '%';
   nav.classList.toggle('scrolled', scrolled > 60);
-  if (scrollHint) scrollHint.style.opacity = scrolled > 120 ? '0' : '1';
+  if (scrollHint) scrollHint.style.opacity = scrolled > 100 ? '0' : '1';
 }, { passive: true });
 
-// ══════════════════════════════════════════════
-// LANGUE FR / EN
-// ══════════════════════════════════════════════
+// ══ LANGUE FR / EN ══
 let currentLang = 'fr';
-
 function setLang(lang) {
   currentLang = lang;
-  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
-    el.textContent = el.dataset[lang];
+  document.querySelectorAll('[data-fr],[data-en]').forEach(el => {
+    if (el.dataset[lang]) el.textContent = el.dataset[lang];
   });
-  document.querySelectorAll('[data-placeholder-' + lang + ']').forEach(el => {
-    el.placeholder = el.dataset['placeholder' + lang.charAt(0).toUpperCase() + lang.slice(1)];
+  document.querySelectorAll('[data-placeholder-fr],[data-placeholder-en]').forEach(el => {
+    const key = 'placeholder' + lang.charAt(0).toUpperCase() + lang.slice(1);
+    if (el.dataset[key]) el.placeholder = el.dataset[key];
   });
   document.getElementById('btn-fr').classList.toggle('on', lang === 'fr');
   document.getElementById('btn-en').classList.toggle('on', lang === 'en');
 }
 
-// ══════════════════════════════════════════════
-// FORM HANDLER
-// ══════════════════════════════════════════════
+// ══ FORM ══
 function handleForm(e) {
   e.preventDefault();
   const btn = e.target.querySelector('button[type="submit"]');
   const orig = btn.textContent;
   btn.textContent = currentLang === 'fr' ? 'Envoyé ✓' : 'Sent ✓';
-  btn.style.background = '#1AFF7A';
-  btn.style.color = '#070F0A';
+  btn.style.background = 'rgba(107,175,132,.2)';
+  btn.style.color = '#D4E8DC';
   setTimeout(() => {
     btn.textContent = orig;
     btn.style.background = '';
     btn.style.color = '';
     e.target.reset();
-  }, 3000);
+  }, 3500);
 }
 
-// ══════════════════════════════════════════════
-// METRICS COUNTER ANIMATION
-// ══════════════════════════════════════════════
-const metricsObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.querySelectorAll('.metric-n').forEach(el => {
-        const text = el.textContent;
-        const num = parseFloat(text);
-        if (!isNaN(num) && !el.dataset.animated) {
-          el.dataset.animated = '1';
-          const suffix = text.replace(String(num), '');
-          let start = 0;
-          const step = num / 40;
-          const timer = setInterval(() => {
-            start += step;
-            if (start >= num) { start = num; clearInterval(timer); }
-            el.textContent = (Number.isInteger(num) ? Math.floor(start) : start.toFixed(0)) + suffix;
-          }, 30);
-        }
-      });
-      metricsObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.5 });
-
-const metricsSection = document.getElementById('resultats');
-if (metricsSection) metricsObserver.observe(metricsSection);
-
-// ══════════════════════════════════════════════
-// SMOOTH ANCHOR SCROLL
-// ══════════════════════════════════════════════
+// ══ SMOOTH SCROLL ══
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
   });
+});
+
+// ══ PRELOAD BG IMAGES ══
+window.addEventListener('load', () => {
+  for (let i = 1; i < bgCount; i++) {
+    const el = document.getElementById('bg' + i);
+    if (el) {
+      const url = el.style.backgroundImage.replace(/url\(['"]/,'').replace(/['"]\)/,'');
+      if (url) { const img = new Image(); img.src = url; }
+    }
+  }
 });
 </script>
 </body>
