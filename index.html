@@ -33,7 +33,7 @@ html,body{width:100%;overflow-x:hidden;font-family:'Inter',sans-serif;font-weigh
 }
 
 /* ── PROGRESS BAR ── */
-#progress{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,#3D7A52,#6BAF84);z-index:200;width:0%;transition:width .1s linear}
+#progress{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,#8B6914,#C9A84C);z-index:200;width:0%;transition:width .1s linear}
 
 /* ── NAV ── */
 nav{
@@ -46,7 +46,7 @@ nav.scrolled{
   padding:20px 64px;
   background:rgba(4,9,5,.8);
   backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(107,175,132,.07);
+  border-bottom:1px solid rgba(201,168,76,.07);
 }
 .logo{
   font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;
@@ -60,14 +60,14 @@ nav.scrolled{
   color:rgba(245,241,233,.5);cursor:pointer;text-decoration:none;
   transition:color .3s;padding:4px 0;border-bottom:1px solid transparent;
 }
-.nav-item:hover{color:#F5F1E9;border-bottom-color:rgba(107,175,132,.35)}
+.nav-item:hover{color:#F5F1E9;border-bottom-color:rgba(201,168,76,.35)}
 .lang-wrap{display:flex;gap:6px;align-items:center}
 .lbtn{
   font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
   background:none;border:none;cursor:pointer;color:rgba(245,241,233,.3);
   padding:4px 2px;border-bottom:1px solid transparent;transition:all .3s;
 }
-.lbtn.on{color:#6BAF84;border-bottom-color:#6BAF84}
+.lbtn.on{color:#C9A84C;border-bottom-color:#C9A84C}
 .lsep{color:rgba(245,241,233,.18);font-size:.6rem}
 
 /* ── SCROLL CONTAINER ── */
@@ -87,7 +87,7 @@ nav.scrolled{
 /* ── TYPOGRAPHY ── */
 .eyebrow{
   display:block;font-size:.6rem;font-weight:400;letter-spacing:.4em;
-  text-transform:uppercase;color:#6BAF84;margin-bottom:24px;
+  text-transform:uppercase;color:#C9A84C;margin-bottom:24px;
 }
 .h-mega{
   font-family:'Cormorant Garamond',serif;
@@ -115,7 +115,7 @@ nav.scrolled{
   color:rgba(245,241,233,.58);max-width:540px;
 }
 .body.center-t{margin:0 auto}
-.green-rule{width:44px;height:1px;background:rgba(107,175,132,.5);margin:32px 0}
+.green-rule{width:44px;height:1px;background:rgba(201,168,76,.5);margin:32px 0}
 .green-rule.c{margin:32px auto}
 
 /* ── CTA BUTTONS ── */
@@ -123,10 +123,10 @@ nav.scrolled{
   display:inline-block;margin-top:40px;
   font-size:.63rem;font-weight:400;letter-spacing:.26em;text-transform:uppercase;
   text-decoration:none;cursor:pointer;padding:17px 48px;
-  border:1px solid rgba(107,175,132,.45);color:#9DCBAF;background:transparent;
+  border:1px solid rgba(201,168,76,.45);color:#D4B865;background:transparent;
   transition:all .45s;
 }
-.cta:hover{background:rgba(107,175,132,.12);color:#F5F1E9;border-color:rgba(107,175,132,.7)}
+.cta:hover{background:rgba(201,168,76,.12);color:#F5F1E9;border-color:rgba(201,168,76,.7)}
 .cta-inv{
   display:inline-block;margin-top:40px;
   font-size:.63rem;font-weight:400;letter-spacing:.26em;text-transform:uppercase;
@@ -139,18 +139,18 @@ nav.scrolled{
 /* ── GRID LAYOUTS ── */
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:56px;width:100%;max-width:1100px}
 .pillar{padding:40px 28px;background:rgba(245,241,233,.015);border:1px solid rgba(245,241,233,.06);transition:all .45s}
-.pillar:hover{background:rgba(107,175,132,.04);border-color:rgba(107,175,132,.15);transform:translateY(-4px)}
-.p-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:rgba(107,175,132,.12);display:block;margin-bottom:14px}
+.pillar:hover{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.15);transform:translateY(-4px)}
+.p-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:rgba(201,168,76,.12);display:block;margin-bottom:14px}
 .p-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#F5F1E9;display:block;margin-bottom:10px;letter-spacing:.04em}
 .p-body{font-size:.74rem;font-weight:300;color:rgba(245,241,233,.4);line-height:1.75}
 
 /* ── METHOD STEPS ── */
 .method-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:56px;width:100%;max-width:1100px}
 .method-step{padding:44px 32px;background:rgba(245,241,233,.015);border:1px solid rgba(245,241,233,.06);transition:all .5s;position:relative;overflow:hidden}
-.method-step::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(107,175,132,.4),transparent);opacity:0;transition:opacity .4s}
+.method-step::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.4),transparent);opacity:0;transition:opacity .4s}
 .method-step:hover::before{opacity:1}
-.method-step:hover{background:rgba(107,175,132,.03);border-color:rgba(107,175,132,.12);transform:translateY(-4px)}
-.ms-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(107,175,132,.08);display:block;margin-bottom:16px;line-height:1}
+.method-step:hover{background:rgba(201,168,76,.03);border-color:rgba(201,168,76,.12);transform:translateY(-4px)}
+.ms-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(201,168,76,.08);display:block;margin-bottom:16px;line-height:1}
 .ms-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#F5F1E9;display:block;margin-bottom:12px;letter-spacing:.04em}
 .ms-body{font-size:.75rem;font-weight:300;color:rgba(245,241,233,.42);line-height:1.78}
 
@@ -164,7 +164,7 @@ nav.scrolled{
   background:linear-gradient(to top,rgba(4,9,5,.95) 0%,rgba(4,9,5,.18) 55%,transparent 100%);
   display:flex;flex-direction:column;justify-content:flex-end;padding:28px 22px;
 }
-.sc-tag{font-size:.57rem;letter-spacing:.28em;text-transform:uppercase;color:#6BAF84;margin-bottom:8px}
+.sc-tag{font-size:.57rem;letter-spacing:.28em;text-transform:uppercase;color:#C9A84C;margin-bottom:8px}
 .sc-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#F5F1E9;letter-spacing:.04em;margin-bottom:6px}
 .sc-desc{font-size:.72rem;font-weight:300;color:rgba(245,241,233,.5);line-height:1.55}
 
@@ -184,16 +184,16 @@ nav.scrolled{
 /* ── METRICS ── */
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:52px;width:100%;max-width:960px}
 .metric{padding:36px 24px;text-align:center;background:rgba(245,241,233,.015);border:1px solid rgba(245,241,233,.05);transition:all .4s}
-.metric:hover{border-color:rgba(107,175,132,.15);background:rgba(107,175,132,.025)}
-.metric-n{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:300;color:#D4E8DC;display:block;line-height:1}
+.metric:hover{border-color:rgba(201,168,76,.15);background:rgba(201,168,76,.025)}
+.metric-n{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:300;color:#F0E8CC;display:block;line-height:1}
 .metric-l{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,241,233,.35);margin-top:8px;display:block}
 
 /* ── PRICING ── */
 .price-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:52px;width:100%;max-width:900px}
 .pcard{background:rgba(245,241,233,.025);border:1px solid rgba(245,241,233,.06);padding:52px 44px;transition:all .4s;position:relative}
 .pcard:hover{background:rgba(245,241,233,.05);transform:translateY(-3px)}
-.pcard.featured{background:rgba(107,175,132,.04);border-color:rgba(107,175,132,.18)}
-.pbadge{position:absolute;top:-1px;right:28px;background:#4A8C62;color:#F5F1E9;font-size:.53rem;letter-spacing:.15em;text-transform:uppercase;padding:5px 12px;font-weight:400}
+.pcard.featured{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.18)}
+.pbadge{position:absolute;top:-1px;right:28px;background:#A67C1E;color:#F5F1E9;font-size:.53rem;letter-spacing:.15em;text-transform:uppercase;padding:5px 12px;font-weight:400}
 .pcat{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(245,241,233,.28);margin-bottom:12px}
 .pname{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#F5F1E9;margin-bottom:6px}
 .pamount{font-family:'Cormorant Garamond',serif;font-size:3.8rem;font-weight:300;color:#F5F1E9;line-height:1}
@@ -211,13 +211,13 @@ nav.scrolled{
 
 /* ── VISION ── */
 .vision-stages{display:flex;gap:0;margin-top:56px;width:100%;max-width:720px;position:relative}
-.vision-stages::before{content:'';position:absolute;top:5px;left:6px;right:6px;height:1px;background:linear-gradient(90deg,rgba(107,175,132,.5),rgba(107,175,132,.1));z-index:0}
+.vision-stages::before{content:'';position:absolute;top:5px;left:6px;right:6px;height:1px;background:linear-gradient(90deg,rgba(201,168,76,.5),rgba(201,168,76,.1));z-index:0}
 .vs-stage{flex:1;text-align:center;position:relative;z-index:1}
-.vs-dot{width:12px;height:12px;border-radius:50%;background:#4A8C62;margin:0 auto 20px;box-shadow:0 0 18px rgba(74,140,98,.5)}
+.vs-dot{width:12px;height:12px;border-radius:50%;background:#A67C1E;margin:0 auto 20px;box-shadow:0 0 18px rgba(74,140,98,.5)}
 .vs-stage:first-child .vs-dot{box-shadow:0 0 24px rgba(74,140,98,.8),0 0 48px rgba(74,140,98,.25)}
 .vs-city{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#F5F1E9;display:block;margin-bottom:6px}
 .vs-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,241,233,.3)}
-.vs-stage:first-child .vs-city{color:#9DCBAF}
+.vs-stage:first-child .vs-city{color:#D4B865}
 .vs-stage:first-child .vs-label{color:rgba(157,203,175,.5)}
 
 /* ── CONTACT FORM ── */
@@ -230,7 +230,7 @@ nav.scrolled{
   -webkit-appearance:none;appearance:none;border-radius:0;
 }
 .form-field input::placeholder,.form-field textarea::placeholder{color:rgba(245,241,233,.25);font-size:.78rem;letter-spacing:.06em}
-.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-bottom-color:rgba(107,175,132,.5)}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-bottom-color:rgba(201,168,76,.5)}
 .form-field select option{background:#070F0A;color:#F5F1E9}
 .form-field textarea{resize:none;height:80px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
@@ -244,14 +244,14 @@ nav.scrolled{
 /* ── SCROLL HINT ── */
 #scroll-hint{position:fixed;bottom:44px;left:50%;transform:translateX(-50%);z-index:50;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;transition:opacity .6s}
 .sh-text{font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,241,233,.3)}
-.sh-line{width:1px;height:44px;background:linear-gradient(to bottom,rgba(107,175,132,.6),transparent);animation:shpulse 2.2s infinite}
+.sh-line{width:1px;height:44px;background:linear-gradient(to bottom,rgba(201,168,76,.6),transparent);animation:shpulse 2.2s infinite}
 @keyframes shpulse{0%,100%{opacity:.7;transform:scaleY(1)}50%{opacity:.15;transform:scaleY(.55)}}
 
 /* ── FOOTER ── */
 footer{
   position:relative;z-index:2;
   background:rgba(2,6,3,.98);
-  border-top:1px solid rgba(107,175,132,.06);
+  border-top:1px solid rgba(201,168,76,.06);
   padding:44px 64px;
   display:flex;justify-content:space-between;align-items:center;
 }
@@ -353,7 +353,7 @@ footer{
 <section id="concept" class="chapter">
   <div class="block left-col">
     <span class="eyebrow" data-fr="Notre philosophie" data-en="Our philosophy">Notre philosophie</span>
-    <h2 class="h-xl" data-fr="Un système conçu pour la transformation." data-en="A system built for transformation.">Un système conçu<br>pour la transformation.</h2>
+    <h2 class="h-xl" data-fr="Un système conçu pour la transformation." data-en="A system built for transformation.">Un système conçu pour la transformation.</h2>
     <div class="green-rule"></div>
     <p class="body" data-fr="Quantum Club n'est pas une salle de sport. C'est un système de transformation physique structuré — avec un diagnostic, un programme personnalisé, un coaching humain et un suivi de progression. Chaque membre entre dans un parcours conçu pour produire des résultats réels et mesurables." data-en="Quantum Club is not a gym. It is a structured physical transformation system — with a diagnostic, a personalised program, human coaching, and progress tracking. Each member enters a journey designed to produce real, measurable results.">Quantum Club n'est pas une salle de sport. C'est un système de transformation physique structuré — avec un diagnostic, un programme personnalisé, un coaching humain et un suivi de progression. Chaque membre entre dans un parcours conçu pour produire des résultats réels et mesurables.</p>
     <a href="#methode" class="cta" data-fr="La méthode Quantum" data-en="The Quantum method">La méthode Quantum</a>
@@ -505,7 +505,7 @@ footer{
         <div class="pnote" data-fr="1 980 € / an · Droits d'entrée : 330 €" data-en="€1,980 / year · Entry fee: €330">1 980 € / an · Droits d'entrée : 330 €</div>
         <div class="psep"></div>
         <div class="prow"><span class="prow-n" data-fr="Total annuel TTC" data-en="Annual total incl. VAT">Total annuel TTC</span><span class="prow-v">1 980 €</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Économie vs mensuel" data-en="Saving vs monthly">Économie vs mensuel</span><span class="prow-v" style="color:#9DCBAF">− 240 €</span></div>
+        <div class="prow"><span class="prow-n" data-fr="Économie vs mensuel" data-en="Saving vs monthly">Économie vs mensuel</span><span class="prow-v" style="color:#D4B865">− 240 €</span></div>
         <div class="prow"><span class="prow-n" data-fr="Droits d'entrée" data-en="Entry fee">Droits d'entrée</span><span class="prow-v">330 €</span></div>
         <a href="#contact" class="cta" style="margin-top:28px;display:block;text-align:center" data-fr="Rejoindre" data-en="Join">Rejoindre</a>
       </div>
@@ -517,41 +517,41 @@ footer{
 <!-- TARIFS COURS -->
 <section id="cours" class="chapter">
   <div class="block center" style="width:100%">
-    <span class="eyebrow" data-fr="Cours & Séances" data-en="Classes & Sessions">Cours & Séances</span>
+    <span class="eyebrow" data-fr="Cours &amp; Séances" data-en="Classes &amp; Sessions">Cours &amp; Séances</span>
     <h2 class="h-md" data-fr="Chaque séance compte." data-en="Every session counts.">Chaque séance compte.</h2>
-    <div class="green-rule c" style="margin-bottom:40px"></div>
+    <div class="green-rule c"></div>
     <div class="courses-wrap">
-      <div class="pcard">
+      <div class="pcard sport-card" data-sport="hyrox" style="cursor:pointer" onclick="openSportModal('hyrox')">
         <div class="pcat">HYROX</div>
         <div class="pname" data-fr="Cours collectifs" data-en="Group classes">Cours collectifs</div>
         <div class="psep" style="margin-top:20px"></div>
         <div class="prow"><span class="prow-n" data-fr="À l'unité" data-en="Single session">À l'unité</span><span class="prow-v">45 €</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Formule 8 séances" data-en="8-session pack">Formule 8 séances</span><span class="prow-v">320 €</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Formule 12 séances" data-en="12-session pack">Formule 12 séances</span><span class="prow-v">420 €</span></div>
+        <div class="prow sport-formula" onclick="event.stopPropagation();openFormulaModal('HYROX','Formule 8 séances','320 €')" style="cursor:pointer"><span class="prow-n">Formule 8 séances</span><span class="prow-v">320 €</span></div>
+        <div class="prow sport-formula" onclick="event.stopPropagation();openFormulaModal('HYROX','Formule 12 séances','420 €')" style="cursor:pointer"><span class="prow-n">Formule 12 séances</span><span class="prow-v">420 €</span></div>
       </div>
-      <div class="pcard">
+      <div class="pcard sport-card" data-sport="calisthenics" style="cursor:pointer" onclick="openSportModal('calisthenics')">
         <div class="pcat" data-fr="Callisthénie" data-en="Calisthenics">Callisthénie</div>
         <div class="pname" data-fr="Cours collectifs" data-en="Group classes">Cours collectifs</div>
         <div class="psep" style="margin-top:20px"></div>
         <div class="prow"><span class="prow-n" data-fr="À l'unité" data-en="Single session">À l'unité</span><span class="prow-v">45 €</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Formule 8 séances" data-en="8-session pack">Formule 8 séances</span><span class="prow-v">320 €</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Formule 12 séances" data-en="12-session pack">Formule 12 séances</span><span class="prow-v">420 €</span></div>
+        <div class="prow sport-formula" onclick="event.stopPropagation();openFormulaModal('Callisthénie','Formule 8 séances','320 €')" style="cursor:pointer"><span class="prow-n">Formule 8 séances</span><span class="prow-v">320 €</span></div>
+        <div class="prow sport-formula" onclick="event.stopPropagation();openFormulaModal('Callisthénie','Formule 12 séances','420 €')" style="cursor:pointer"><span class="prow-n">Formule 12 séances</span><span class="prow-v">420 €</span></div>
       </div>
-      <div class="pcard">
+      <div class="pcard sport-card" data-sport="sgt" style="cursor:pointer" onclick="openSportModal('sgt')">
         <div class="pcat">SGT</div>
         <div class="pname">Small Group Training</div>
         <div class="psep" style="margin-top:20px"></div>
         <div class="prow"><span class="prow-n" data-fr="À l'unité" data-en="Single session">À l'unité</span><span class="prow-v">60 €</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Formule 8 séances" data-en="8-session pack">Formule 8 séances</span><span class="prow-v">360 €</span></div>
-        <div class="prow"><span class="prow-n" data-fr="Formule 12 séances" data-en="12-session pack">Formule 12 séances</span><span class="prow-v">480 €</span></div>
+        <div class="prow sport-formula" onclick="event.stopPropagation();openFormulaModal('SGT','Formule 8 séances','360 €')" style="cursor:pointer"><span class="prow-n">Formule 8 séances</span><span class="prow-v">360 €</span></div>
+        <div class="prow sport-formula" onclick="event.stopPropagation();openFormulaModal('SGT','Formule 12 séances','480 €')" style="cursor:pointer"><span class="prow-n">Formule 12 séances</span><span class="prow-v">480 €</span></div>
       </div>
     </div>
     <div style="margin-top:2px;width:100%;max-width:960px">
       <div class="pcard personal-card">
         <div class="pcat" data-fr="Coaching individuel" data-en="Personal training">Coaching individuel</div>
         <div class="pname" data-fr="Cours particuliers" data-en="Personal Training">Cours particuliers</div>
-        <div class="pamount"><sup>€</sup>80<span data-fr="/séance" data-en="/session">/séance</span></div>
-        <div class="pnote" data-fr="Avec un coach certifié Quantum · Tarif TTC" data-en="With a Quantum certified coach · incl. VAT">Avec un coach certifié Quantum · Tarif TTC</div>
+        <div class="pamount"><sup>€</sup><span>80</span></div>
+        <div class="pnote">Avec un coach certifié Quantum &middot; Tarif TTC</div>
       </div>
     </div>
   </div>
@@ -601,11 +601,10 @@ footer{
       <div class="form-field">
         <select>
           <option value="" disabled selected>Objectif principal</option>
-          <option data-fr="Transformation physique" data-en="Physical transformation">Transformation physique</option>
-          <option data-fr="Performance sportive" data-en="Athletic performance">Performance sportive</option>
-          <option data-fr="Prise de masse" data-en="Muscle gain">Prise de masse</option>
           <option data-fr="Perte de poids" data-en="Weight loss">Perte de poids</option>
-          <option data-fr="Remise en forme" data-en="Getting fit">Remise en forme</option>
+          <option data-fr="Prise de masse" data-en="Muscle gain">Prise de masse</option>
+          <option data-fr="Performance sportive" data-en="Athletic performance">Performance sportive</option>
+          <option data-fr="Plaisir quotidien" data-en="Daily enjoyment">Plaisir quotidien</option>
         </select>
       </div>
       <div class="form-field"><textarea placeholder="Message (optionnel)" data-placeholder-fr="Message (optionnel)" data-placeholder-en="Message (optional)"></textarea></div>
@@ -695,8 +694,8 @@ function handleForm(e) {
   const btn = e.target.querySelector('button[type="submit"]');
   const orig = btn.textContent;
   btn.textContent = currentLang === 'fr' ? 'Envoyé ✓' : 'Sent ✓';
-  btn.style.background = 'rgba(107,175,132,.2)';
-  btn.style.color = '#D4E8DC';
+  btn.style.background = 'rgba(201,168,76,.2)';
+  btn.style.color = '#F0E8CC';
   setTimeout(() => {
     btn.textContent = orig;
     btn.style.background = '';
@@ -722,6 +721,60 @@ window.addEventListener('load', () => {
       if (url) { const img = new Image(); img.src = url; }
     }
   }
+});
+</script>
+
+<!-- SPORT & FORMULA MODALS -->
+<div id="sport-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(6,13,8,.85);backdrop-filter:blur(6px);align-items:center;justify-content:center">
+  <div style="background:#0A1510;border:1px solid rgba(201,168,76,.25);max-width:520px;width:90%;padding:48px;position:relative;max-height:90vh;overflow-y:auto">
+    <button onclick="closeSportModal()" style="position:absolute;top:20px;right:24px;background:none;border:none;color:rgba(245,241,233,.5);font-size:1.4rem;cursor:pointer;line-height:1">&times;</button>
+    <div id="sport-modal-content"></div>
+  </div>
+</div>
+<div id="formula-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(6,13,8,.85);backdrop-filter:blur(6px);align-items:center;justify-content:center">
+  <div style="background:#0A1510;border:1px solid rgba(201,168,76,.25);max-width:480px;width:90%;padding:48px;position:relative">
+    <button onclick="closeFormulaModal()" style="position:absolute;top:20px;right:24px;background:none;border:none;color:rgba(245,241,233,.5);font-size:1.4rem;cursor:pointer;line-height:1">&times;</button>
+    <div id="formula-modal-content"></div>
+  </div>
+</div>
+<style>
+.sport-card:hover{border-color:rgba(201,168,76,.4)!important;transform:translateY(-2px);transition:all .2s ease}
+.sport-formula:hover .prow-n,.sport-formula:hover .prow-v{color:#C9A84C!important}
+.qm-btn{display:inline-block;font-size:.63rem;font-weight:400;letter-spacing:.26em;text-transform:uppercase;text-decoration:none;cursor:pointer;padding:14px 28px;border:1px solid rgba(201,168,76,.5);color:#F5F1E9;background:none;transition:all .3s;width:100%;box-sizing:border-box}
+.qm-btn:hover{background:rgba(201,168,76,.1);border-color:#C9A84C}
+.qm-btn.primary{background:rgba(201,168,76,.15);border-color:#C9A84C}
+.qm-btn.primary:hover{background:rgba(201,168,76,.3)}
+.modal-sport-title{font-size:1.4rem;font-weight:200;letter-spacing:.08em;color:#F5F1E9;text-transform:uppercase;margin-bottom:8px}
+.modal-coach{display:flex;align-items:flex-start;gap:16px;margin:10px 0;padding:16px;border:1px solid rgba(201,168,76,.15);background:rgba(201,168,76,.04)}
+.modal-coach-avatar{width:48px;height:48px;border-radius:50%;background:rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:500;color:#C9A84C;flex-shrink:0;letter-spacing:.05em}
+.modal-coach-name{font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#C9A84C;margin-bottom:4px}
+.modal-coach-role{font-size:.7rem;font-weight:300;color:rgba(245,241,233,.55);letter-spacing:.05em}
+.modal-desc{font-size:.8rem;font-weight:300;line-height:1.9;color:rgba(245,241,233,.68);margin:16px 0 22px}
+.modal-gold-rule{width:32px;height:1px;background:rgba(201,168,76,.5);margin:12px 0 18px}
+</style>
+<script>
+const sportData={
+  hyrox:{name:'HYROX',type:'Cours collectifs',description:'HYROX est une discipline de fitness race qui combine course à pied et exercices fonctionnels. Chaque séance simule les 8 stations officielles : SkiErg, sled push, sled pull, burpees, rowing, rameur, farmer carry et wall balls. Un entraînement complet qui développe l’endurance, la force et la résistance mentale.',coaches:[{name:'Lucas Moreau',role:'Coach HYROX • Certifié Quantum',initials:'LM'},{name:'Sarah Dupont',role:'Coach HYROX • Athlète compétitive',initials:'SD'}]},
+  calisthenics:{name:'Callisthénie',type:'Cours collectifs',description:'La callisthénie est l’art de maîtriser son propre poids. Tractions, dips, muscle-up, handstand : chaque mouvement construit une force fonctionnelle, une mobilité exceptionnelle et une discipline corporelle rare. Des niveaux débutant à avancé, nos coachs vous accompagnent avec méthode.',coaches:[{name:'Antoine Bernard',role:'Coach Callisthénie • Expert Street Workout',initials:'AB'},{name:'Clara Vidal',role:'Coach Callisthénie • Spécialiste Mobilité',initials:'CV'}]},
+  sgt:{name:'SGT',type:'Small Group Training',description:'Le Small Group Training Quantum réunit 4 à 6 membres autour d’un coach dédié. L’intensité du coaching privé, l’énergie du collectif. Chaque séance est conçue pour votre profil, vos objectifs et votre niveau. Suivi personnalisé, ajustements en temps réel.',coaches:[{name:'Romain Lefebvre',role:'Head Coach SGT • Expert Performance',initials:'RL'},{name:'Camille Martin',role:'Coach SGT • Spécialiste Transformation',initials:'CM'}]}
+};
+function openSportModal(sport){
+  const d=sportData[sport];if(!d)return;
+  const coaches=d.coaches.map(co=>'<div class="modal-coach"><div class="modal-coach-avatar">'+co.initials+'</div><div><div class="modal-coach-name">'+co.name+'</div><div class="modal-coach-role">'+co.role+'</div></div></div>').join('');
+  document.getElementById('sport-modal-content').innerHTML='<div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#C9A84C;margin-bottom:14px">'+d.type+'</div><div class="modal-sport-title">'+d.name+'</div><div class="modal-gold-rule"></div><div class="modal-desc">'+d.description+'</div><div style="font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(245,241,233,.4);margin-bottom:12px">Vos coachs</div>'+coaches;
+  document.getElementById('sport-modal').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeSportModal(){document.getElementById('sport-modal').style.display='none';document.body.style.overflow='';}
+function openFormulaModal(sport,formula,price){
+  document.getElementById('formula-modal-content').innerHTML='<div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#C9A84C;margin-bottom:14px">'+sport+'</div><div class="modal-sport-title">'+formula+'</div><div class="modal-gold-rule"></div><div style="font-size:1.8rem;font-weight:200;color:#F5F1E9;letter-spacing:.05em;margin-bottom:28px">'+price+'</div><div style="font-size:.75rem;font-weight:300;color:rgba(245,241,233,.6);margin-bottom:28px;line-height:1.7">Choisissez la suite souhaitée :</div><div style="display:flex;flex-direction:column;gap:14px"><button class="qm-btn primary" onclick="closeFormulaModal();document.getElementById('contact').scrollIntoView({behavior:'smooth'})">S’inscrire maintenant</button><button class="qm-btn" onclick="closeFormulaModal();document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Demande d’information</button></div>';
+  document.getElementById('formula-modal').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeFormulaModal(){document.getElementById('formula-modal').style.display='none';document.body.style.overflow='';}
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('sport-modal').addEventListener('click',function(e){if(e.target===this)closeSportModal();});
+  document.getElementById('formula-modal').addEventListener('click',function(e){if(e.target===this)closeFormulaModal();});
 });
 </script>
 </body>
