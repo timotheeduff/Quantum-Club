@@ -767,10 +767,20 @@ function openSportModal(sport){
 }
 function closeSportModal(){document.getElementById('sport-modal').style.display='none';document.body.style.overflow='';}
 function openFormulaModal(sport,formula,price){
-  document.getElementById('formula-modal-content').innerHTML='<div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#C9A84C;margin-bottom:14px">'+sport+'</div><div class="modal-sport-title">'+formula+'</div><div class="modal-gold-rule"></div><div style="font-size:1.8rem;font-weight:200;color:#F5F1E9;letter-spacing:.05em;margin-bottom:28px">'+price+'</div><div style="font-size:.75rem;font-weight:300;color:rgba(245,241,233,.6);margin-bottom:28px;line-height:1.7">Choisissez la suite souhaitée :</div><div style="display:flex;flex-direction:column;gap:14px"><button class="qm-btn primary" onclick="closeFormulaModal();document.getElementById('contact').scrollIntoView({behavior:'smooth'})">S’inscrire maintenant</button><button class="qm-btn" onclick="closeFormulaModal();document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Demande d’information</button></div>';
+  var h='<div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#C9A84C;margin-bottom:14px">'+sport+'</div>';
+  h+='<div class="modal-sport-title">'+formula+'</div>';
+  h+='<div class="modal-gold-rule"></div>';
+  h+='<div style="font-size:1.8rem;font-weight:200;color:#F5F1E9;letter-spacing:.05em;margin-bottom:28px">'+price+'</div>';
+  h+='<div style="font-size:.75rem;font-weight:300;color:rgba(245,241,233,.6);margin-bottom:28px;line-height:1.7">Choisissez la suite souhaitée :</div>';
+  h+='<div style="display:flex;flex-direction:column;gap:14px">';
+  h+='<button class="qm-btn primary" onclick="closeFormulaModal();document.getElementById(this.dataset.t).scrollIntoView({behavior:this.dataset.b})" data-t="contact" data-b="smooth">S’inscrire maintenant</button>';
+  h+='<button class="qm-btn" onclick="closeFormulaModal();document.getElementById(this.dataset.t).scrollIntoView({behavior:this.dataset.b})" data-t="contact" data-b="smooth">Demande d’information</button>';
+  h+='</div>';
+  document.getElementById('formula-modal-content').innerHTML=h;
   document.getElementById('formula-modal').style.display='flex';
   document.body.style.overflow='hidden';
 }
+
 function closeFormulaModal(){document.getElementById('formula-modal').style.display='none';document.body.style.overflow='';}
 document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('sport-modal').addEventListener('click',function(e){if(e.target===this)closeSportModal();});
