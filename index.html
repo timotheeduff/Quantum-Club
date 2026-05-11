@@ -54,7 +54,7 @@ nav.scrolled{
   transition:opacity .3s;
 }
 .logo:hover{opacity:.65}
-.nav-menu{display:flex;gap:44px;list-style:none}
+.nav-menu{display:flex;gap:28px;list-style:none}
 .nav-item{
   font-size:.65rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;
   color:rgba(245,241,233,.5);cursor:pointer;text-decoration:none;
@@ -316,7 +316,7 @@ footer{
 .cal-slot.sgt:hover:not(.full){background:rgba(180,130,80,.12);border-color:rgba(180,130,80,.3)}
 .slot-time{font-size:.55rem;letter-spacing:.15em;color:rgba(245,241,233,.35);margin-bottom:3px}
 .slot-name{font-size:.68rem;font-weight:400;color:#F5F1E9;margin-bottom:4px}
-.slot-places{font-size:.52rem;color:rgba(245,241,233,.3);letter-spacing:.1em}
+.slot-coach{font-size:.55rem;color:rgba(245,241,233,.28);letter-spacing:.08em;margin-bottom:4px;font-style:italic}.slot-places{font-size:.52rem;color:rgba(245,241,233,.3);letter-spacing:.1em}
 .slot-places.low{color:#C9A84C}
 .slot-places.full-tag{color:rgba(245,241,233,.2)}
 .slot-book{font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:#C9A84C;margin-top:5px;display:block}
@@ -389,7 +389,7 @@ footer{
 <!-- NAV -->
 <nav id="nav">
   <a href="#hero" class="logo">Quantum Club</a>
-<button class="cta" style="margin-left:16px;margin-top:40px" onclick="openDiagModal()">Diagnostic gratuit</button>
+
   <ul class="nav-menu">
     <li><a class="nav-item" href="#concept" data-fr="Concept" data-en="Concept">Concept</a></li>
     <li><a class="nav-item" href="#methode" data-fr="Méthode" data-en="Method">Méthode</a></li>
@@ -589,7 +589,7 @@ footer{
     </div>
     <p style="margin-top:28px;font-size:.65rem;letter-spacing:.12em;color:rgba(245,241,233,.25);text-align:center" data-fr="Cours particuliers disponibles — 80 € / séance (HT) · 80 € TTC" data-en="Private lessons available — €80 / session incl. VAT">Cours particuliers disponibles — 80 € / séance TTC</p>
   </div>
-    <p style="text-align:center;margin-top:18px"><button onclick="openDiagModal()" style="background:transparent;border:none;cursor:pointer;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.6);font-family:'Inter',sans-serif;text-decoration:underline;text-underline-offset:4px">Réserver mon diagnostic gratuit &#8594;</button></p>
+    
 </section>
 
 <!-- TARIFS COURS -->
@@ -639,8 +639,8 @@ footer{
 
 <section id="planning" class="chapter">
   <div class="block" style="width:100%;max-width:1220px;margin:0 auto">
-    <span class="eyebrow">Programme hebdomadaire</span>
-    <h2 class="h-md" style="margin-bottom:12px">Planifiez<br><em>votre semaine.</em></h2>
+    <span class="eyebrow">Planning des cours</span>
+    <h2 class="h-md" style="margin-bottom:12px">Programme<br><em>de la semaine.</em></h2>
     <div class="green-rule" style="margin:28px 0 48px"></div>
     <div class="week-nav">
       <button id="prev-week" onclick="changeWeek(-1)">&#8592; Semaine précédente</button>
@@ -1011,26 +1011,22 @@ document.addEventListener('DOMContentLoaded',function(){
 <script>(function(){
 var DAYS=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
 var DAYS_FULL=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
-var COACHES={hyrox:['Alex R.','Sophie M.','Thomas K.'],calisthenics:['Léa V.','Karim D.'],sgt:['Marie C.','Jordan F.','Nina B.']};
-var SLOTS=[
-  {disc:'hyrox',time:'07h00',name:'Hyrox Functional',places:12,ci:0},
-  {disc:'hyrox',time:'19h00',name:'Hyrox Power',places:12,ci:1},
-  {disc:'calisthenics',time:'08h00',name:'Callisthénie Bases',places:10,ci:0},
-  {disc:'calisthenics',time:'18h30',name:'Callisthénie Skills',places:10,ci:1},
-  {disc:'sgt',time:'09h30',name:'SGT Morning',places:6,ci:0},
-  {disc:'sgt',time:'17h00',name:'SGT Evening',places:6,ci:2}
+var SCHEDULE=[
+  [{disc:'hyrox',time:'07h00',name:'Hyrox Open',coach:'Thomas K.',places:10,taken:7},{disc:'calisthenics',time:'12h00',name:'Callisthénie Bases',coach:'Léa V.',places:8,taken:3},{disc:'sgt',time:'19h00',name:'SGT Performance',coach:'Marie C.',places:6,taken:5}],
+  [{disc:'hyrox',time:'08h00',name:'Hyrox Strength',coach:'Alex R.',places:10,taken:10},{disc:'calisthenics',time:'10h00',name:'Callisthénie Skills',coach:'Karim D.',places:8,taken:4},{disc:'sgt',time:'18h30',name:'SGT Conditioning',coach:'Jordan F.',places:6,taken:6}],
+  [{disc:'hyrox',time:'06h30',name:'Hyrox Endurance',coach:'Sophie M.',places:10,taken:6},{disc:'calisthenics',time:'13h00',name:'Callisthénie Avancé',coach:'Léa V.',places:8,taken:8},{disc:'sgt',time:'19h30',name:'SGT Power',coach:'Nina B.',places:6,taken:2}],
+  [{disc:'hyrox',time:'07h30',name:'Hyrox Race Prep',coach:'Thomas K.',places:10,taken:9},{disc:'calisthenics',time:'12h00',name:'Callisthénie Bases',coach:'Karim D.',places:8,taken:5},{disc:'sgt',time:'18h00',name:'SGT Performance',coach:'Marie C.',places:6,taken:3}],
+  [{disc:'hyrox',time:'07h00',name:'Hyrox Open',coach:'Alex R.',places:10,taken:8},{disc:'calisthenics',time:'11h30',name:'Callisthénie Skills',coach:'Léa V.',places:8,taken:2},{disc:'sgt',time:'19h00',name:'SGT Conditioning',coach:'Jordan F.',places:6,taken:6}],
+  [{disc:'hyrox',time:'09h00',name:'Hyrox Competition',coach:'Sophie M.',places:12,taken:11},{disc:'calisthenics',time:'10h30',name:'Callisthénie Circuit',coach:'Karim D.',places:10,taken:7},{disc:'sgt',time:'12h00',name:'SGT Weekend',coach:'Nina B.',places:8,taken:4}],
+  [{disc:'hyrox',time:'09h30',name:'Hyrox Recovery',coach:'Thomas K.',places:10,taken:3},{disc:'calisthenics',time:'11h00',name:'Callisthénie Mobilité',coach:'Léa V.',places:8,taken:5},{disc:'sgt',time:'13h00',name:'SGT Open',coach:'Marie C.',places:6,taken:1}]
 ];
-var TAKEN=[[8,5,7,4,5,3],[10,9,8,6,6,4],[6,4,5,3,3,2],[11,7,9,5,6,3],[12,10,8,7,5,5],[9,6,6,5,4,3],[4,3,3,2,2,1]];
-var weekOffset=0;
-var bData={},dData={};
-function getWeekStart(off){var d=new Date();var day=d.getDay();var diff=d.getDate()-day+(day===0?-6:1);d.setDate(diff+off*7);d.setHours(0,0,0,0);return d;}
+var weekOffset=0,bData={};
+function getWeekStart(off){var d=new Date(),day=d.getDay(),diff=d.getDate()-day+(day===0?-6:1);d.setDate(diff+off*7);d.setHours(0,0,0,0);return d;}
 function fmtDate(d){return d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});}
 function renderCalendar(){
-  var grid=document.getElementById('calendar-grid');
-  var lbl=document.getElementById('week-label');
+  var grid=document.getElementById('calendar-grid'),lbl=document.getElementById('week-label');
   if(!grid)return;
-  var ws=getWeekStart(weekOffset);
-  var we=new Date(ws);we.setDate(we.getDate()+6);
+  var ws=getWeekStart(weekOffset),we=new Date(ws);we.setDate(we.getDate()+6);
   lbl.textContent=fmtDate(ws)+' — '+fmtDate(we);
   grid.innerHTML='';
   for(var d=0;d<7;d++){
@@ -1038,40 +1034,36 @@ function renderCalendar(){
     var el=document.createElement('div');el.className='cal-day';
     var h='<div class="cal-day-header"><div class="cal-day-name">'+DAYS[d]+'</div><div class="cal-day-num">'+dd.getDate()+'</div></div>';
     var slots='';
-    for(var s=0;s<SLOTS.length;s++){
-      var sl=SLOTS[s];var tk=TAKEN[d][s];var rem=sl.places-tk;var full=rem<=0;var low=rem>0&&rem<=2;
-      var cn=COACHES[sl.disc][sl.ci%COACHES[sl.disc].length];
+    for(var s=0;s<SCHEDULE[d].length;s++){
+      var sl=SCHEDULE[d][s];
+      var rem=sl.places-sl.taken;
+      var full=(rem<=0);
+      var low=(!full&&rem<=2);
       var dayStr=DAYS_FULL[d]+' '+dd.getDate()+'/'+(dd.getMonth()+1);
       var plLbl=full?'Complet':(low?rem+' place'+(rem>1?'s':'')+' restante'+(rem>1?'s':''):rem+' places');
       var plCls=full?'full-tag':(low?'low':'');
-      slots+='<div class="cal-slot '+sl.disc+(full?' full':'')+'"'+(full?'':' onclick="openBookingModal(''+sl.disc+'',''+dayStr+'',''+sl.time+'',''+cn+'')"')+'>';
+      var cls='cal-slot '+sl.disc+(full?' full':'');
+      var onclick=full?'':' onclick="openBookingModal(''+sl.disc+'',''+dayStr+'',''+sl.time+'',''+sl.coach+'')"';
+      slots+='<div class="'+cls+'"'+onclick+'>';
       slots+='<div class="slot-time">'+sl.time+'</div>';
       slots+='<div class="slot-name">'+sl.name+'</div>';
+      slots+='<div class="slot-coach">Coach '+sl.coach+'</div>';
       slots+='<div class="slot-places '+plCls+'">'+plLbl+'</div>';
-      if(!full)slots+='<div class="slot-book">Réserver &#8594;</div>';
+      if(!full)slots+='<div class="slot-book">Réserver →</div>';
       slots+='</div>';
     }
     el.innerHTML=h+slots;grid.appendChild(el);
   }
 }
-window.changeWeek=function(dir){
-  var newOff=weekOffset+dir;
-  if(newOff<0)return;
-  weekOffset=newOff;
-  document.getElementById('prev-week').disabled=weekOffset<=0;
-  renderCalendar();
-};
-window.addEventListener('load',function(){renderCalendar();document.getElementById('prev-week').disabled=true;});
-/* BOOKING */
+window.changeWeek=function(dir){var n=weekOffset+dir;if(n<0)return;weekOffset=n;document.getElementById('prev-week').disabled=(weekOffset<=0);renderCalendar();};
+window.addEventListener('load',function(){renderCalendar();var pb=document.getElementById('prev-week');if(pb)pb.disabled=true;});
 window.openBookingModal=function(disc,day,time,coach){
   bData={disc:disc,day:day,time:time,coach:coach};
   var dn={hyrox:'Hyrox',calisthenics:'Callisthénie',sgt:'SGT'};
   document.getElementById('booking-disc-badge').textContent=dn[disc]||disc;
   document.getElementById('booking-meta').textContent=day+' · '+time+' · Coach '+coach;
   ['booking-s1','booking-s2','booking-s3'].forEach(function(id,i){document.getElementById(id).style.display=i===0?'block':'none';});
-  updateBSteps(0);
-  document.getElementById('booking-modal').classList.add('open');
-  document.body.style.overflow='hidden';
+  updateBSteps(0);document.getElementById('booking-modal').classList.add('open');document.body.style.overflow='hidden';
 };
 window.closeBookingModal=function(){document.getElementById('booking-modal').classList.remove('open');document.body.style.overflow='';};
 window.bookingNext=function(step){
@@ -1080,7 +1072,7 @@ window.bookingNext=function(step){
     var n=document.getElementById('b-nom').value.trim();
     var e=document.getElementById('b-email').value.trim();
     if(!p||!n||!e){alert('Merci de remplir les champs obligatoires.');return;}
-    bData.prenom=p;bData.nom=n;bData.email=e;
+    bData.prenom=p;bData.nom=n;
     var dn={hyrox:'Hyrox',calisthenics:'Callisthénie',sgt:'SGT'};
     document.getElementById('conf-disc').textContent=dn[bData.disc]||bData.disc;
     document.getElementById('conf-date').textContent=bData.day;
@@ -1099,32 +1091,24 @@ window.bookingNext=function(step){
     updateBSteps(2);
   }
 };
-window.bookingBack=function(step){
-  if(step===1){document.getElementById('booking-s2').style.display='none';document.getElementById('booking-s1').style.display='block';updateBSteps(0);}
-};
+window.bookingBack=function(step){if(step===1){document.getElementById('booking-s2').style.display='none';document.getElementById('booking-s1').style.display='block';updateBSteps(0);}};
 function updateBSteps(a){document.querySelectorAll('#booking-steps .booking-step').forEach(function(s,i){s.className='booking-step'+(i<a?' done':i===a?' active':'');});}
-/* DIAG */
 window.openDiagModal=function(){
-  dData={};
+  window._dData={};
   ['diag-s1','diag-s2','diag-s3','diag-s4','diag-s5'].forEach(function(id,i){document.getElementById(id).style.display=i===0?'block':'none';});
   document.querySelectorAll('.diag-choice').forEach(function(c){c.classList.remove('selected');});
-  updateDSteps(0);
-  document.getElementById('diag-modal').classList.add('open');
-  document.body.style.overflow='hidden';
+  updateDSteps(0);document.getElementById('diag-modal').classList.add('open');document.body.style.overflow='hidden';
 };
 window.closeDiagModal=function(){document.getElementById('diag-modal').classList.remove('open');document.body.style.overflow='';};
-window.selectDiagChoice=function(key,val,el){el.parentElement.querySelectorAll('.diag-choice').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');dData[key]=val;};
+window.selectDiagChoice=function(key,val,el){if(!window._dData)window._dData={};el.parentElement.querySelectorAll('.diag-choice').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');window._dData[key]=val;};
 window.diagNext=function(step){
-  if(step===1){if(!dData.objectif){alert('Veuillez sélectionner un objectif.');return;}document.getElementById('diag-s1').style.display='none';document.getElementById('diag-s2').style.display='block';updateDSteps(1);}
-  else if(step===2){if(!dData.dispo){alert('Veuillez indiquer votre disponibilité.');return;}document.getElementById('diag-s2').style.display='none';document.getElementById('diag-s3').style.display='block';updateDSteps(2);}
-  else if(step===3){if(!dData.discipline){alert('Veuillez choisir une discipline.');return;}document.getElementById('recap-objectif').textContent=dData.objectif;document.getElementById('recap-dispo').textContent=dData.dispo;document.getElementById('recap-discipline').textContent=dData.discipline;document.getElementById('diag-s3').style.display='none';document.getElementById('diag-s4').style.display='block';updateDSteps(3);}
+  if(!window._dData)window._dData={};
+  if(step===1){if(!window._dData.objectif){alert('Veuillez sélectionner un objectif.');return;}document.getElementById('diag-s1').style.display='none';document.getElementById('diag-s2').style.display='block';updateDSteps(1);}
+  else if(step===2){if(!window._dData.dispo){alert('Veuillez indiquer votre disponibilité.');return;}document.getElementById('diag-s2').style.display='none';document.getElementById('diag-s3').style.display='block';updateDSteps(2);}
+  else if(step===3){if(!window._dData.discipline){alert('Veuillez choisir une discipline.');return;}document.getElementById('recap-objectif').textContent=window._dData.objectif;document.getElementById('recap-dispo').textContent=window._dData.dispo;document.getElementById('recap-discipline').textContent=window._dData.discipline;document.getElementById('diag-s3').style.display='none';document.getElementById('diag-s4').style.display='block';updateDSteps(3);}
 };
 window.diagBack=function(step){var m={1:[2,1],2:[3,2],3:[4,3]};if(m[step]){document.getElementById('diag-s'+m[step][0]).style.display='none';document.getElementById('diag-s'+m[step][1]).style.display='block';updateDSteps(step-1);}};
-window.submitDiag=function(){
-  var p=document.getElementById('d-prenom').value.trim();var e=document.getElementById('d-email').value.trim();
-  if(!p||!e){alert('Merci de renseigner vos coordonnées.');return;}
-  document.getElementById('diag-s4').style.display='none';document.getElementById('diag-s5').style.display='block';updateDSteps(4);
-};
+window.submitDiag=function(){var p=document.getElementById('d-prenom').value.trim();var e=document.getElementById('d-email').value.trim();if(!p||!e){alert('Merci de renseigner vos coordonnées.');return;}document.getElementById('diag-s4').style.display='none';document.getElementById('diag-s5').style.display='block';updateDSteps(4);};
 function updateDSteps(a){document.querySelectorAll('#diag-steps-bar .diag-step-bar').forEach(function(s,i){s.className='diag-step-bar'+(i<a?' done':i===a?' active':'');});}
 document.addEventListener('click',function(e){if(e.target.id==='booking-modal')window.closeBookingModal();if(e.target.id==='diag-modal')window.closeDiagModal();});
 })();</script>
