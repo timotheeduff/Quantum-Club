@@ -289,6 +289,82 @@ footer{
   .vision-stages{flex-direction:column;gap:32px}
   .vision-stages::before{display:none}
 }
+
+/* ── CALENDAR & BOOKING ── */
+#planning{min-height:100vh}
+.week-nav{display:flex;align-items:center;justify-content:center;gap:32px;margin-bottom:56px}
+.week-nav button{background:transparent;border:1px solid rgba(245,241,233,.1);color:rgba(245,241,233,.4);padding:10px 22px;font-family:'Inter',sans-serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.week-nav button:hover{border-color:rgba(201,168,76,.4);color:#C9A84C}
+.week-label{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:#F5F1E9;min-width:280px;text-align:center}
+.filter-legend{display:flex;gap:24px;align-items:center;justify-content:center;margin-bottom:32px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(245,241,233,.35)}
+.legend-dot{width:8px;height:8px;border-radius:50%}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.cal-day{min-height:200px;background:rgba(245,241,233,.02);border:1px solid rgba(245,241,233,.05);padding:16px 12px;transition:all .3s}
+.cal-day-header{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(245,241,233,.05)}
+.cal-day-name{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,241,233,.25);margin-bottom:2px}
+.cal-day-num{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#F5F1E9;line-height:1}
+.cal-slot{padding:10px;margin-bottom:6px;cursor:pointer;transition:all .3s;position:relative;border:1px solid transparent}
+.cal-slot:hover{transform:translateY(-1px)}
+.cal-slot.full{cursor:not-allowed;opacity:.45}
+.cal-slot.full .slot-book{display:none}
+.cal-slot.hyrox{background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.12)}
+.cal-slot.hyrox:hover:not(.full){background:rgba(201,168,76,.14);border-color:rgba(201,168,76,.3)}
+.cal-slot.calisthenics{background:rgba(80,160,80,.05);border-color:rgba(80,160,80,.12)}
+.cal-slot.calisthenics:hover:not(.full){background:rgba(80,160,80,.12);border-color:rgba(80,160,80,.3)}
+.cal-slot.sgt{background:rgba(180,130,80,.05);border-color:rgba(180,130,80,.12)}
+.cal-slot.sgt:hover:not(.full){background:rgba(180,130,80,.12);border-color:rgba(180,130,80,.3)}
+.slot-time{font-size:.55rem;letter-spacing:.15em;color:rgba(245,241,233,.35);margin-bottom:3px}
+.slot-name{font-size:.68rem;font-weight:400;color:#F5F1E9;margin-bottom:4px}
+.slot-places{font-size:.52rem;color:rgba(245,241,233,.3);letter-spacing:.1em}
+.slot-places.low{color:#C9A84C}
+.slot-places.full-tag{color:rgba(245,241,233,.2)}
+.slot-book{font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:#C9A84C;margin-top:5px;display:block}
+/* BOOKING MODAL */
+#booking-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(6,13,8,.9);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+#booking-modal.open{display:flex}
+.booking-inner{background:#0A1510;border:1px solid rgba(201,168,76,.25);max-width:480px;width:90%;padding:48px;position:relative;max-height:90vh;overflow-y:auto}
+.booking-close,.diag-close{position:absolute;top:20px;right:20px;background:transparent;border:none;color:rgba(245,241,233,.3);font-size:1.3rem;cursor:pointer;transition:color .3s;line-height:1;padding:4px}
+.booking-close:hover,.diag-close:hover{color:#F5F1E9}
+.booking-disc-badge{display:inline-block;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 12px;margin-bottom:20px;border:1px solid rgba(201,168,76,.3);color:#C9A84C}
+.booking-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:#F5F1E9;margin-bottom:6px}
+.booking-meta{font-size:.65rem;color:rgba(245,241,233,.35);letter-spacing:.1em;margin-bottom:32px}
+.booking-steps{display:flex;gap:8px;margin-bottom:36px}
+.booking-step{flex:1;height:1px;background:rgba(245,241,233,.1);transition:background .4s}
+.booking-step.done{background:#C9A84C}
+.booking-step.active{background:rgba(201,168,76,.5)}
+.booking-form-section{animation:fadeSlide .35s ease}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.booking-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,241,233,.4);margin-bottom:10px;display:block}
+.booking-confirm-box{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);padding:24px;margin-bottom:28px}
+.booking-confirm-line{display:flex;justify-content:space-between;margin-bottom:10px;font-size:.72rem}
+.booking-confirm-line:last-child{margin-bottom:0}
+.booking-confirm-line span:first-child{color:rgba(245,241,233,.35);letter-spacing:.1em}
+.booking-confirm-line span:last-child{color:#F5F1E9}
+.booking-success{text-align:center;padding:20px 0}
+.booking-success-icon{font-size:2.5rem;margin-bottom:16px;display:block}
+.cta-booking{display:block;font-size:.58rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;padding:14px 40px;border:1px solid rgba(201,168,76,.45);color:#D4B865;background:rgba(201,168,76,.08);transition:all .45s;width:100%;margin-top:12px;text-align:center}
+.cta-booking:hover{background:rgba(201,168,76,.16);color:#F5F1E9;border-color:rgba(201,168,76,.7)}
+.cta-booking-ghost{display:block;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;padding:10px 0;color:rgba(245,241,233,.3);background:transparent;border:none;transition:color .3s;width:100%;text-align:center;margin-top:6px;font-family:'Inter',sans-serif}
+.cta-booking-ghost:hover{color:rgba(245,241,233,.6)}
+/* DIAGNOSTIC MODAL */
+#diag-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(6,13,8,.9);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+#diag-modal.open{display:flex}
+.diag-inner{background:#0A1510;border:1px solid rgba(201,168,76,.25);max-width:600px;width:92%;padding:52px;position:relative;max-height:90vh;overflow-y:auto}
+.diag-steps-bar{display:flex;gap:6px;margin-bottom:40px}
+.diag-step-bar{flex:1;height:1px;background:rgba(245,241,233,.08);transition:background .4s}
+.diag-step-bar.done{background:#C9A84C}
+.diag-step-bar.active{background:rgba(201,168,76,.45)}
+.diag-choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.diag-choice{background:rgba(245,241,233,.02);border:1px solid rgba(245,241,233,.08);padding:18px 16px;cursor:pointer;transition:all .3s;text-align:left}
+.diag-choice:hover{background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.2)}
+.diag-choice.selected{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.4)}
+.diag-choice-icon{font-size:1.3rem;margin-bottom:8px;display:block}
+.diag-choice-label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#F5F1E9}
+.diag-choice-desc{font-size:.6rem;color:rgba(245,241,233,.3);margin-top:4px}
+@media(max-width:1024px){.calendar-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:768px){.calendar-grid{grid-template-columns:repeat(2,1fr)}.diag-choices{grid-template-columns:1fr}.booking-inner,.diag-inner{padding:32px 24px}.week-nav{gap:16px}.week-label{font-size:1.1rem;min-width:180px}}
+
 </style>
 </head>
 <body>
@@ -313,10 +389,12 @@ footer{
 <!-- NAV -->
 <nav id="nav">
   <a href="#hero" class="logo">Quantum Club</a>
+<button class="cta" style="margin-left:16px;margin-top:40px" onclick="openDiagModal()">Diagnostic gratuit</button>
   <ul class="nav-menu">
     <li><a class="nav-item" href="#concept" data-fr="Concept" data-en="Concept">Concept</a></li>
     <li><a class="nav-item" href="#methode" data-fr="Méthode" data-en="Method">Méthode</a></li>
     <li><a class="nav-item" href="#espaces" data-fr="Espaces" data-en="Spaces">Espaces</a></li>
+    <li><a class="nav-item" href="#planning" data-fr="Planning" data-en="Schedule">Planning</a></li>
     <li><a class="nav-item" href="#tarifs" data-fr="Tarifs" data-en="Pricing">Tarifs</a></li>
     <li><a class="nav-item" href="#contact" data-fr="Contact" data-en="Contact">Contact</a></li>
   </ul>
@@ -511,6 +589,7 @@ footer{
     </div>
     <p style="margin-top:28px;font-size:.65rem;letter-spacing:.12em;color:rgba(245,241,233,.25);text-align:center" data-fr="Cours particuliers disponibles — 80 € / séance (HT) · 80 € TTC" data-en="Private lessons available — €80 / session incl. VAT">Cours particuliers disponibles — 80 € / séance TTC</p>
   </div>
+    <p style="text-align:center;margin-top:18px"><button onclick="openDiagModal()" style="background:transparent;border:none;cursor:pointer;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.6);font-family:'Inter',sans-serif;text-decoration:underline;text-underline-offset:4px">Réserver mon diagnostic gratuit &#8594;</button></p>
 </section>
 
 <!-- TARIFS COURS -->
@@ -557,6 +636,27 @@ footer{
 </section>
 
 <!-- VISION -->
+
+<section id="planning" class="chapter">
+  <div class="block" style="width:100%;max-width:1220px;margin:0 auto">
+    <span class="eyebrow">Programme hebdomadaire</span>
+    <h2 class="h-md" style="margin-bottom:12px">Planifiez<br><em>votre semaine.</em></h2>
+    <div class="green-rule" style="margin:28px 0 48px"></div>
+    <div class="week-nav">
+      <button id="prev-week" onclick="changeWeek(-1)">&#8592; Semaine précédente</button>
+      <div class="week-label" id="week-label"></div>
+      <button id="next-week" onclick="changeWeek(1)">Semaine suivante &#8594;</button>
+    </div>
+    <div class="filter-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#C9A84C"></div><span>Hyrox</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#5fa85f"></div><span>Callisthénie</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#c49a6c"></div><span>SGT</span></div>
+      <div class="legend-item" style="margin-left:16px"><div class="legend-dot" style="background:rgba(245,241,233,.15)"></div><span>Complet</span></div>
+    </div>
+    <div class="calendar-grid" id="calendar-grid"></div>
+  </div>
+</section>
+
 <section id="vision" class="chapter">
   <div class="block center" style="max-width:820px">
     <span class="eyebrow" data-fr="Notre vision" data-en="Our vision">Notre vision</span>
@@ -785,5 +885,248 @@ document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('formula-modal').addEventListener('click',function(e){if(e.target===this)closeFormulaModal();});
 });
 </script>
+
+<div id="booking-modal" role="dialog" aria-modal="true">
+  <div class="booking-inner">
+    <button class="booking-close" onclick="closeBookingModal()">&#215;</button>
+    <div id="booking-disc-badge" class="booking-disc-badge">Hyrox</div>
+    <h3 class="booking-title">Réserver cette séance</h3>
+    <p class="booking-meta" id="booking-meta">—</p>
+    <div class="booking-steps" id="booking-steps">
+      <div class="booking-step active"></div>
+      <div class="booking-step"></div>
+      <div class="booking-step"></div>
+    </div>
+    <div id="booking-s1" class="booking-form-section">
+      <span class="booking-label">Vos informations</span>
+      <div class="form-row"><div class="form-field"><input type="text" id="b-prenom" placeholder="Prénom" /></div><div class="form-field"><input type="text" id="b-nom" placeholder="Nom" /></div></div>
+      <div class="form-field"><input type="email" id="b-email" placeholder="Email" /></div>
+      <div class="form-field"><input type="tel" id="b-tel" placeholder="Téléphone" /></div>
+      <div class="form-field"><select id="b-membership" style="width:100%;background:transparent;border:none;border-bottom:1px solid rgba(245,241,233,.12);padding:14px 0;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:300;color:rgba(245,241,233,.6);outline:none;-webkit-appearance:none;cursor:pointer"><option value="" style="background:#070F0A">Statut membre</option><option value="mensuel" style="background:#070F0A">Membre Mensuel</option><option value="annuel" style="background:#070F0A">Membre Annuel</option><option value="forfait" style="background:#070F0A">Forfait séances</option><option value="unite" style="background:#070F0A">À l'unité</option></select></div>
+      <button class="cta-booking" onclick="bookingNext(1)">Continuer &#8594;</button>
+    </div>
+    <div id="booking-s2" class="booking-form-section" style="display:none">
+      <span class="booking-label">Confirmation</span>
+      <div class="booking-confirm-box">
+        <div class="booking-confirm-line"><span>Discipline</span><span id="conf-disc">—</span></div>
+        <div class="booking-confirm-line"><span>Date</span><span id="conf-date">—</span></div>
+        <div class="booking-confirm-line"><span>Horaire</span><span id="conf-time">—</span></div>
+        <div class="booking-confirm-line"><span>Coach</span><span id="conf-coach">—</span></div>
+        <div class="booking-confirm-line"><span>Durée</span><span>60 min</span></div>
+        <div class="booking-confirm-line"><span>Membre</span><span id="conf-name">—</span></div>
+      </div>
+      <button class="cta-booking" onclick="bookingNext(2)">Confirmer ma réservation</button>
+      <button class="cta-booking-ghost" onclick="bookingBack(1)">&#8592; Modifier</button>
+    </div>
+    <div id="booking-s3" class="booking-form-section" style="display:none">
+      <div class="booking-success">
+        <span class="booking-success-icon">✦</span>
+        <h3 class="booking-title" style="font-size:1.5rem;margin-bottom:12px">Séance réservée</h3>
+        <p style="font-size:.72rem;color:rgba(245,241,233,.4);line-height:1.7;margin-bottom:28px">Réservation confirmée.<br>Un email vous a été envoyé.</p>
+        <div class="booking-confirm-box">
+          <div class="booking-confirm-line"><span>Séance</span><span id="succ-disc">—</span></div>
+          <div class="booking-confirm-line"><span>Date &amp; heure</span><span id="succ-datetime">—</span></div>
+        </div>
+        <button class="cta-booking" style="margin-top:24px" onclick="closeBookingModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="diag-modal" role="dialog" aria-modal="true">
+  <div class="diag-inner">
+    <button class="diag-close" onclick="closeDiagModal()">&#215;</button>
+    <div class="diag-steps-bar" id="diag-steps-bar">
+      <div class="diag-step-bar active"></div>
+      <div class="diag-step-bar"></div>
+      <div class="diag-step-bar"></div>
+      <div class="diag-step-bar"></div>
+    </div>
+    <div id="diag-s1" class="booking-form-section">
+      <span class="eyebrow" style="margin-bottom:8px">Étape 1 / 4</span>
+      <h3 class="booking-title">Votre objectif principal</h3>
+      <p style="font-size:.68rem;color:rgba(245,241,233,.3);margin-bottom:28px;letter-spacing:.05em">Choisissez ce qui vous correspond le mieux.</p>
+      <div class="diag-choices">
+        <div class="diag-choice" onclick="selectDiagChoice('objectif','Perte de poids & remodelage',this)"><span class="diag-choice-icon">◈</span><div class="diag-choice-label">Perte de poids</div><div class="diag-choice-desc">Remodelage corporel, sèche</div></div>
+        <div class="diag-choice" onclick="selectDiagChoice('objectif','Prise de masse musculaire',this)"><span class="diag-choice-icon">◇</span><div class="diag-choice-label">Prise de masse</div><div class="diag-choice-desc">Force, hypertrophie</div></div>
+        <div class="diag-choice" onclick="selectDiagChoice('objectif','Performance sportive',this)"><span class="diag-choice-icon">◆</span><div class="diag-choice-label">Performance</div><div class="diag-choice-desc">Hyrox, SGT, endurance</div></div>
+        <div class="diag-choice" onclick="selectDiagChoice('objectif','Forme & bien-être',this)"><span class="diag-choice-icon">○</span><div class="diag-choice-label">Bien-être</div><div class="diag-choice-desc">Santé, mobilité, plaisir</div></div>
+      </div>
+      <button class="cta-booking" onclick="diagNext(1)">Continuer &#8594;</button>
+    </div>
+    <div id="diag-s2" class="booking-form-section" style="display:none">
+      <span class="eyebrow" style="margin-bottom:8px">Étape 2 / 4</span>
+      <h3 class="booking-title">Votre disponibilité</h3>
+      <p style="font-size:.68rem;color:rgba(245,241,233,.3);margin-bottom:28px;letter-spacing:.05em">Combien de séances par semaine ?</p>
+      <div class="diag-choices">
+        <div class="diag-choice" onclick="selectDiagChoice('dispo','1 à 2 séances / semaine',this)"><span class="diag-choice-icon">—</span><div class="diag-choice-label">1 — 2 séances</div><div class="diag-choice-desc">Démarrage progressif</div></div>
+        <div class="diag-choice" onclick="selectDiagChoice('dispo','3 séances / semaine',this)"><span class="diag-choice-icon">◈</span><div class="diag-choice-label">3 séances</div><div class="diag-choice-desc">Rythme recommandé</div></div>
+        <div class="diag-choice" onclick="selectDiagChoice('dispo','4 à 5 séances / semaine',this)"><span class="diag-choice-icon">◆</span><div class="diag-choice-label">4 — 5 séances</div><div class="diag-choice-desc">Engagement total</div></div>
+        <div class="diag-choice" onclick="selectDiagChoice('dispo','6+ séances / semaine',this)"><span class="diag-choice-icon">✦</span><div class="diag-choice-label">6+ séances</div><div class="diag-choice-desc">Mode athlète</div></div>
+      </div>
+      <button class="cta-booking" onclick="diagNext(2)">Continuer &#8594;</button>
+      <button class="cta-booking-ghost" onclick="diagBack(1)">&#8592; Retour</button>
+    </div>
+    <div id="diag-s3" class="booking-form-section" style="display:none">
+      <span class="eyebrow" style="margin-bottom:8px">Étape 3 / 4</span>
+      <h3 class="booking-title">Votre discipline</h3>
+      <p style="font-size:.68rem;color:rgba(245,241,233,.3);margin-bottom:28px;letter-spacing:.05em">Quelle pratique vous attire le plus ?</p>
+      <div class="diag-choices">
+        <div class="diag-choice" onclick="selectDiagChoice('discipline','Hyrox',this)"><span class="diag-choice-icon" style="color:#C9A84C">◈</span><div class="diag-choice-label">Hyrox</div><div class="diag-choice-desc">Fonctionnel, cardio, force</div></div>
+        <div class="diag-choice" onclick="selectDiagChoice('discipline','Callisthénie',this)"><span class="diag-choice-icon" style="color:#5fa85f">◇</span><div class="diag-choice-label">Callisthénie</div><div class="diag-choice-desc">Poids du corps, contrôle</div></div>
+        <div class="diag-choice" onclick="selectDiagChoice('discipline','SGT — Small Group Training',this)"><span class="diag-choice-icon" style="color:#c49a6c">◆</span><div class="diag-choice-label">SGT</div><div class="diag-choice-desc">Encadrement premium</div></div>
+        <div class="diag-choice" onclick="selectDiagChoice('discipline','Les 3 disciplines',this)"><span class="diag-choice-icon">○</span><div class="diag-choice-label">Les 3 disciplines</div><div class="diag-choice-desc">Programme complet</div></div>
+      </div>
+      <button class="cta-booking" onclick="diagNext(3)">Continuer &#8594;</button>
+      <button class="cta-booking-ghost" onclick="diagBack(2)">&#8592; Retour</button>
+    </div>
+    <div id="diag-s4" class="booking-form-section" style="display:none">
+      <span class="eyebrow" style="margin-bottom:8px">Étape 4 / 4</span>
+      <h3 class="booking-title">Réservez votre diagnostic</h3>
+      <p style="font-size:.68rem;color:rgba(245,241,233,.3);margin-bottom:28px;letter-spacing:.05em">Séance offerte · 45 min · Coach certifié Quantum.</p>
+      <div class="form-row"><div class="form-field"><input type="text" id="d-prenom" placeholder="Prénom" /></div><div class="form-field"><input type="text" id="d-nom" placeholder="Nom" /></div></div>
+      <div class="form-field"><input type="email" id="d-email" placeholder="Email" /></div>
+      <div class="form-field"><input type="tel" id="d-tel" placeholder="Téléphone" /></div>
+      <div class="form-field"><select id="d-slot" style="width:100%;background:transparent;border:none;border-bottom:1px solid rgba(245,241,233,.12);padding:14px 0;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:300;color:rgba(245,241,233,.6);outline:none;-webkit-appearance:none;cursor:pointer"><option value="" style="background:#070F0A">Choisir un créneau diagnostic</option><option value="lun9" style="background:#070F0A">Lundi — 09h00</option><option value="mar11" style="background:#070F0A">Mardi — 11h00</option><option value="mer14" style="background:#070F0A">Mercredi — 14h00</option><option value="jeu9" style="background:#070F0A">Jeudi — 09h00</option><option value="ven16" style="background:#070F0A">Vendredi — 16h00</option><option value="sam10" style="background:#070F0A">Samedi — 10h00</option></select></div>
+      <div class="booking-confirm-box" style="margin-bottom:20px">
+        <div class="booking-confirm-line"><span>Objectif</span><span id="recap-objectif">—</span></div>
+        <div class="booking-confirm-line"><span>Disponibilité</span><span id="recap-dispo">—</span></div>
+        <div class="booking-confirm-line"><span>Discipline</span><span id="recap-discipline">—</span></div>
+      </div>
+      <button class="cta-booking" onclick="submitDiag()">Confirmer mon diagnostic gratuit</button>
+      <button class="cta-booking-ghost" onclick="diagBack(3)">&#8592; Retour</button>
+    </div>
+    <div id="diag-s5" class="booking-form-section" style="display:none">
+      <div class="booking-success">
+        <span class="booking-success-icon">✦</span>
+        <h3 class="booking-title" style="font-size:1.4rem;margin-bottom:12px">Diagnostic confirmé</h3>
+        <p style="font-size:.72rem;color:rgba(245,241,233,.4);line-height:1.8;margin-bottom:24px">Bienvenue dans l'univers Quantum.<br>Votre coach vous contactera sous 24h.</p>
+        <button class="cta-booking" onclick="closeDiagModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>(function(){
+var DAYS=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+var DAYS_FULL=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+var COACHES={hyrox:['Alex R.','Sophie M.','Thomas K.'],calisthenics:['Léa V.','Karim D.'],sgt:['Marie C.','Jordan F.','Nina B.']};
+var SLOTS=[
+  {disc:'hyrox',time:'07h00',name:'Hyrox Functional',places:12,ci:0},
+  {disc:'hyrox',time:'19h00',name:'Hyrox Power',places:12,ci:1},
+  {disc:'calisthenics',time:'08h00',name:'Callisthénie Bases',places:10,ci:0},
+  {disc:'calisthenics',time:'18h30',name:'Callisthénie Skills',places:10,ci:1},
+  {disc:'sgt',time:'09h30',name:'SGT Morning',places:6,ci:0},
+  {disc:'sgt',time:'17h00',name:'SGT Evening',places:6,ci:2}
+];
+var TAKEN=[[8,5,7,4,5,3],[10,9,8,6,6,4],[6,4,5,3,3,2],[11,7,9,5,6,3],[12,10,8,7,5,5],[9,6,6,5,4,3],[4,3,3,2,2,1]];
+var weekOffset=0;
+var bData={},dData={};
+function getWeekStart(off){var d=new Date();var day=d.getDay();var diff=d.getDate()-day+(day===0?-6:1);d.setDate(diff+off*7);d.setHours(0,0,0,0);return d;}
+function fmtDate(d){return d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});}
+function renderCalendar(){
+  var grid=document.getElementById('calendar-grid');
+  var lbl=document.getElementById('week-label');
+  if(!grid)return;
+  var ws=getWeekStart(weekOffset);
+  var we=new Date(ws);we.setDate(we.getDate()+6);
+  lbl.textContent=fmtDate(ws)+' — '+fmtDate(we);
+  grid.innerHTML='';
+  for(var d=0;d<7;d++){
+    var dd=new Date(ws);dd.setDate(dd.getDate()+d);
+    var el=document.createElement('div');el.className='cal-day';
+    var h='<div class="cal-day-header"><div class="cal-day-name">'+DAYS[d]+'</div><div class="cal-day-num">'+dd.getDate()+'</div></div>';
+    var slots='';
+    for(var s=0;s<SLOTS.length;s++){
+      var sl=SLOTS[s];var tk=TAKEN[d][s];var rem=sl.places-tk;var full=rem<=0;var low=rem>0&&rem<=2;
+      var cn=COACHES[sl.disc][sl.ci%COACHES[sl.disc].length];
+      var dayStr=DAYS_FULL[d]+' '+dd.getDate()+'/'+(dd.getMonth()+1);
+      var plLbl=full?'Complet':(low?rem+' place'+(rem>1?'s':'')+' restante'+(rem>1?'s':''):rem+' places');
+      var plCls=full?'full-tag':(low?'low':'');
+      slots+='<div class="cal-slot '+sl.disc+(full?' full':'')+'"'+(full?'':' onclick="openBookingModal(''+sl.disc+'',''+dayStr+'',''+sl.time+'',''+cn+'')"')+'>';
+      slots+='<div class="slot-time">'+sl.time+'</div>';
+      slots+='<div class="slot-name">'+sl.name+'</div>';
+      slots+='<div class="slot-places '+plCls+'">'+plLbl+'</div>';
+      if(!full)slots+='<div class="slot-book">Réserver &#8594;</div>';
+      slots+='</div>';
+    }
+    el.innerHTML=h+slots;grid.appendChild(el);
+  }
+}
+window.changeWeek=function(dir){
+  var newOff=weekOffset+dir;
+  if(newOff<0)return;
+  weekOffset=newOff;
+  document.getElementById('prev-week').disabled=weekOffset<=0;
+  renderCalendar();
+};
+window.addEventListener('load',function(){renderCalendar();document.getElementById('prev-week').disabled=true;});
+/* BOOKING */
+window.openBookingModal=function(disc,day,time,coach){
+  bData={disc:disc,day:day,time:time,coach:coach};
+  var dn={hyrox:'Hyrox',calisthenics:'Callisthénie',sgt:'SGT'};
+  document.getElementById('booking-disc-badge').textContent=dn[disc]||disc;
+  document.getElementById('booking-meta').textContent=day+' · '+time+' · Coach '+coach;
+  ['booking-s1','booking-s2','booking-s3'].forEach(function(id,i){document.getElementById(id).style.display=i===0?'block':'none';});
+  updateBSteps(0);
+  document.getElementById('booking-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+};
+window.closeBookingModal=function(){document.getElementById('booking-modal').classList.remove('open');document.body.style.overflow='';};
+window.bookingNext=function(step){
+  if(step===1){
+    var p=document.getElementById('b-prenom').value.trim();
+    var n=document.getElementById('b-nom').value.trim();
+    var e=document.getElementById('b-email').value.trim();
+    if(!p||!n||!e){alert('Merci de remplir les champs obligatoires.');return;}
+    bData.prenom=p;bData.nom=n;bData.email=e;
+    var dn={hyrox:'Hyrox',calisthenics:'Callisthénie',sgt:'SGT'};
+    document.getElementById('conf-disc').textContent=dn[bData.disc]||bData.disc;
+    document.getElementById('conf-date').textContent=bData.day;
+    document.getElementById('conf-time').textContent=bData.time;
+    document.getElementById('conf-coach').textContent='Coach '+bData.coach;
+    document.getElementById('conf-name').textContent=p+' '+n;
+    document.getElementById('booking-s1').style.display='none';
+    document.getElementById('booking-s2').style.display='block';
+    updateBSteps(1);
+  }else if(step===2){
+    var dn={hyrox:'Hyrox',calisthenics:'Callisthénie',sgt:'SGT'};
+    document.getElementById('succ-disc').textContent=dn[bData.disc];
+    document.getElementById('succ-datetime').textContent=bData.day+' · '+bData.time;
+    document.getElementById('booking-s2').style.display='none';
+    document.getElementById('booking-s3').style.display='block';
+    updateBSteps(2);
+  }
+};
+window.bookingBack=function(step){
+  if(step===1){document.getElementById('booking-s2').style.display='none';document.getElementById('booking-s1').style.display='block';updateBSteps(0);}
+};
+function updateBSteps(a){document.querySelectorAll('#booking-steps .booking-step').forEach(function(s,i){s.className='booking-step'+(i<a?' done':i===a?' active':'');});}
+/* DIAG */
+window.openDiagModal=function(){
+  dData={};
+  ['diag-s1','diag-s2','diag-s3','diag-s4','diag-s5'].forEach(function(id,i){document.getElementById(id).style.display=i===0?'block':'none';});
+  document.querySelectorAll('.diag-choice').forEach(function(c){c.classList.remove('selected');});
+  updateDSteps(0);
+  document.getElementById('diag-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+};
+window.closeDiagModal=function(){document.getElementById('diag-modal').classList.remove('open');document.body.style.overflow='';};
+window.selectDiagChoice=function(key,val,el){el.parentElement.querySelectorAll('.diag-choice').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');dData[key]=val;};
+window.diagNext=function(step){
+  if(step===1){if(!dData.objectif){alert('Veuillez sélectionner un objectif.');return;}document.getElementById('diag-s1').style.display='none';document.getElementById('diag-s2').style.display='block';updateDSteps(1);}
+  else if(step===2){if(!dData.dispo){alert('Veuillez indiquer votre disponibilité.');return;}document.getElementById('diag-s2').style.display='none';document.getElementById('diag-s3').style.display='block';updateDSteps(2);}
+  else if(step===3){if(!dData.discipline){alert('Veuillez choisir une discipline.');return;}document.getElementById('recap-objectif').textContent=dData.objectif;document.getElementById('recap-dispo').textContent=dData.dispo;document.getElementById('recap-discipline').textContent=dData.discipline;document.getElementById('diag-s3').style.display='none';document.getElementById('diag-s4').style.display='block';updateDSteps(3);}
+};
+window.diagBack=function(step){var m={1:[2,1],2:[3,2],3:[4,3]};if(m[step]){document.getElementById('diag-s'+m[step][0]).style.display='none';document.getElementById('diag-s'+m[step][1]).style.display='block';updateDSteps(step-1);}};
+window.submitDiag=function(){
+  var p=document.getElementById('d-prenom').value.trim();var e=document.getElementById('d-email').value.trim();
+  if(!p||!e){alert('Merci de renseigner vos coordonnées.');return;}
+  document.getElementById('diag-s4').style.display='none';document.getElementById('diag-s5').style.display='block';updateDSteps(4);
+};
+function updateDSteps(a){document.querySelectorAll('#diag-steps-bar .diag-step-bar').forEach(function(s,i){s.className='diag-step-bar'+(i<a?' done':i===a?' active':'');});}
+document.addEventListener('click',function(e){if(e.target.id==='booking-modal')window.closeBookingModal();if(e.target.id==='diag-modal')window.closeDiagModal();});
+})();</script>
 </body>
 </html>
