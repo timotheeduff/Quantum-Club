@@ -1031,9 +1031,10 @@ function renderCalendar(){
   grid.innerHTML='';
   for(var d=0;d<7;d++){
     var dd=new Date(ws);dd.setDate(dd.getDate()+d);
-    var el=document.createElement('div');el.className='cal-day';
-    var h='<div class="cal-day-header"><div class="cal-day-name">'+DAYS[d]+'</div><div class="cal-day-num">'+dd.getDate()+'</div></div>';
-    var slots='';
+    var dayEl=document.createElement('div');dayEl.className='cal-day';
+    var hdr=document.createElement('div');hdr.className='cal-day-header';
+    hdr.innerHTML='<div class="cal-day-name">'+DAYS[d]+'</div><div class="cal-day-num">'+dd.getDate()+'</div>';
+    dayEl.appendChild(hdr);
     for(var s=0;s<SCHEDULE[d].length;s++){
       var sl=SCHEDULE[d][s];
       var rem=sl.places-sl.taken;
@@ -1042,19 +1043,33 @@ function renderCalendar(){
       var dayStr=DAYS_FULL[d]+' '+dd.getDate()+'/'+(dd.getMonth()+1);
       var plLbl=full?'Complet':(low?rem+' place'+(rem>1?'s':'')+' restante'+(rem>1?'s':''):rem+' places');
       var plCls=full?'full-tag':(low?'low':'');
-      var cls='cal-slot '+sl.disc+(full?' full':'');
-      var onclick=full?'':' onclick="openBookingModal(''+sl.disc+'',''+dayStr+'',''+sl.time+'',''+sl.coach+'')"';
-      slots+='<div class="'+cls+'"'+onclick+'>';
-      slots+='<div class="slot-time">'+sl.time+'</div>';
-      slots+='<div class="slot-name">'+sl.name+'</div>';
-      slots+='<div class="slot-coach">Coach '+sl.coach+'</div>';
-      slots+='<div class="slot-places '+plCls+'">'+plLbl+'</div>';
-      if(!full)slots+='<div class="slot-book">Réserver →</div>';
-      slots+='</div>';
+      var slotEl=document.createElement('div');
+      slotEl.className='cal-slot '+sl.disc+(full?' full':'');
+      if(!full){
+        slotEl.setAttribute('data-disc',sl.disc);
+        slotEl.setAttribute('data-day',dayStr);
+        slotEl.setAttribute('data-time',sl.time);
+        slotEl.setAttribute('data-coach',sl.coach);
+        slotEl.style.cursor='pointer';
+      }
+      slotEl.innerHTML='<div class="slot-time">'+sl.time+'</div>'
+        +'<div class="slot-name">'+sl.name+'</div>'
+        +'<div class="slot-coach">Coach '+sl.coach+'</div>'
+        +'<div class="slot-places '+plCls+'">'+plLbl+'</div>'
+        +(full?'':'<div class="slot-book">Réserver →</div>');
+      dayEl.appendChild(slotEl);
     }
-    el.innerHTML=h+slots;grid.appendChild(el);
+    grid.appendChild(dayEl);
   }
 }
+document.addEventListener('click',function(e){
+  var slot=e.target.closest('[data-disc]');
+  if(slot&&slot.classList.contains('cal-slot')&&!slot.classList.contains('full')){
+    openBookingModal(slot.getAttribute('data-disc'),slot.getAttribute('data-day'),slot.getAttribute('data-time'),slot.getAttribute('data-coach'));
+  }
+  if(e.target.id==='booking-modal')closeBookingModal();
+  if(e.target.id==='diag-modal')closeDiagModal();
+});
 window.changeWeek=function(dir){var n=weekOffset+dir;if(n<0)return;weekOffset=n;document.getElementById('prev-week').disabled=(weekOffset<=0);renderCalendar();};
 window.addEventListener('load',function(){renderCalendar();var pb=document.getElementById('prev-week');if(pb)pb.disabled=true;});
 window.openBookingModal=function(disc,day,time,coach){
@@ -1068,9 +1083,7 @@ window.openBookingModal=function(disc,day,time,coach){
 window.closeBookingModal=function(){document.getElementById('booking-modal').classList.remove('open');document.body.style.overflow='';};
 window.bookingNext=function(step){
   if(step===1){
-    var p=document.getElementById('b-prenom').value.trim();
-    var n=document.getElementById('b-nom').value.trim();
-    var e=document.getElementById('b-email').value.trim();
+    var p=document.getElementById('b-prenom').value.trim(),n=document.getElementById('b-nom').value.trim(),e=document.getElementById('b-email').value.trim();
     if(!p||!n||!e){alert('Merci de remplir les champs obligatoires.');return;}
     bData.prenom=p;bData.nom=n;
     var dn={hyrox:'Hyrox',calisthenics:'Callisthénie',sgt:'SGT'};
@@ -1079,16 +1092,12 @@ window.bookingNext=function(step){
     document.getElementById('conf-time').textContent=bData.time;
     document.getElementById('conf-coach').textContent='Coach '+bData.coach;
     document.getElementById('conf-name').textContent=p+' '+n;
-    document.getElementById('booking-s1').style.display='none';
-    document.getElementById('booking-s2').style.display='block';
-    updateBSteps(1);
+    document.getElementById('booking-s1').style.display='none';document.getElementById('booking-s2').style.display='block';updateBSteps(1);
   }else if(step===2){
     var dn={hyrox:'Hyrox',calisthenics:'Callisthénie',sgt:'SGT'};
     document.getElementById('succ-disc').textContent=dn[bData.disc];
     document.getElementById('succ-datetime').textContent=bData.day+' · '+bData.time;
-    document.getElementById('booking-s2').style.display='none';
-    document.getElementById('booking-s3').style.display='block';
-    updateBSteps(2);
+    document.getElementById('booking-s2').style.display='none';document.getElementById('booking-s3').style.display='block';updateBSteps(2);
   }
 };
 window.bookingBack=function(step){if(step===1){document.getElementById('booking-s2').style.display='none';document.getElementById('booking-s1').style.display='block';updateBSteps(0);}};
@@ -1108,9 +1117,8 @@ window.diagNext=function(step){
   else if(step===3){if(!window._dData.discipline){alert('Veuillez choisir une discipline.');return;}document.getElementById('recap-objectif').textContent=window._dData.objectif;document.getElementById('recap-dispo').textContent=window._dData.dispo;document.getElementById('recap-discipline').textContent=window._dData.discipline;document.getElementById('diag-s3').style.display='none';document.getElementById('diag-s4').style.display='block';updateDSteps(3);}
 };
 window.diagBack=function(step){var m={1:[2,1],2:[3,2],3:[4,3]};if(m[step]){document.getElementById('diag-s'+m[step][0]).style.display='none';document.getElementById('diag-s'+m[step][1]).style.display='block';updateDSteps(step-1);}};
-window.submitDiag=function(){var p=document.getElementById('d-prenom').value.trim();var e=document.getElementById('d-email').value.trim();if(!p||!e){alert('Merci de renseigner vos coordonnées.');return;}document.getElementById('diag-s4').style.display='none';document.getElementById('diag-s5').style.display='block';updateDSteps(4);};
+window.submitDiag=function(){var p=document.getElementById('d-prenom').value.trim(),e=document.getElementById('d-email').value.trim();if(!p||!e){alert('Merci de renseigner vos coordonnées.');return;}document.getElementById('diag-s4').style.display='none';document.getElementById('diag-s5').style.display='block';updateDSteps(4);};
 function updateDSteps(a){document.querySelectorAll('#diag-steps-bar .diag-step-bar').forEach(function(s,i){s.className='diag-step-bar'+(i<a?' done':i===a?' active':'');});}
-document.addEventListener('click',function(e){if(e.target.id==='booking-modal')window.closeBookingModal();if(e.target.id==='diag-modal')window.closeDiagModal();});
 })();</script>
 </body>
 </html>
